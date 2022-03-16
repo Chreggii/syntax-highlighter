@@ -2,10 +2,10 @@
 
 ## How to start
 
-Use the magic of docker-compuse
+Use the magic of docker-compose
 
 ```
-docker-compuse up
+docker-compose up
 ```
 
 
