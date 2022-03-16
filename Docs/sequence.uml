@@ -1,0 +1,34 @@
+@startuml
+
+skinparam defaultFontName CMU Serif
+skinparam defaultTextAlignment center
+
+participant "Frontend" as front
+participant "Public API" as PAPI
+participant "Syntax Highlighter" as SH
+participant "ML classifier" as MLC
+participant "ML Storage" as MLS
+participant "ML trainer" as MLT
+database PostgreSQL as DB
+
+front -> PAPI: request with source code
+
+PAPI -> MLC: request with source code
+MLC -> MLS: retrieve model
+MLC <- MLS: model
+PAPI -> SH: request with source code
+MLC -> PAPI: response highlighted code
+SH -> PAPI: response highlighted code
+PAPI -> front: reponde requested highlighted code
+
+group training (async)
+SH -> MLT: request with highlighted source code
+MLT -> DB: store highlighted source code
+DB -> MLT: retrieve collection of higlighted source code
+MLT -> MLS: load previous model
+MLS -> MLT: previous model
+MLT -> MLT: refine model
+MLT -> MLS: Store refined model
+end
+
+@enduml
