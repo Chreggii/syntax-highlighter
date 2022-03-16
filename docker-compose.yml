@@ -1,14 +1,36 @@
-version: "3.9"  # optional since v1.27.0
+version: "3.9"
 services:
   publicapi:
     build: 
       context: ./publicAPI/
+    restart: always
     ports:
-      - "80:3000"
+      - 80:3000
     networks:
       - public
       - backend
 
+  database:
+    image: postgres:14
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: db
+    ports:
+      - "5432:5432"
+    networks:
+      - backend
+
+  #adminer to be able to access 
+  adminer: 
+    image: adminer:4
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - public
+      - backend
 
 networks:
   public:
