@@ -19,6 +19,13 @@ services:
     networks:
       - backend
 
+  formalsyntaxhighlighter:
+    build: 
+      context: ./formalSyntaxHighlighter/
+    restart: always
+    networks:
+      - backend
+
   database:
     image: postgres:14
     restart: always
@@ -29,7 +36,7 @@ services:
     networks:
       - backend
 
-  #adminer to be able to access 
+  #adminer to be able to access  database
   adminer: 
     image: adminer:4
     restart: always

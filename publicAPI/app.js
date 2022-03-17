@@ -28,4 +28,11 @@ app.get('/ml-endpoint', runAsync(async (req, res) => {
     res.send("The followind data was received from the ML classifier:\n\n" + reponse.data)
 }));
 
+// Another demo enpoint
+app.get('/fsh-endpoint', runAsync(async (req, res) => {
+    // Make request through internal network
+    const reponse = await axios.get('http://formalSyntaxHighlighter:8080/');
+    res.send("The followind data was received from the Formal Syntax Highlighter:\n\n" + reponse.data)
+}));
+
 module.exports = app;
