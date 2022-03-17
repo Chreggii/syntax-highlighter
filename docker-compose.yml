@@ -10,6 +10,15 @@ services:
       - public
       - backend
 
+  mlclassifier:
+    build: 
+      context: ./mlClassifier/
+    restart: always
+    environment:
+      PORT: 3000
+    networks:
+      - backend
+
   database:
     image: postgres:14
     restart: always
