@@ -33,7 +33,7 @@ Sometimes the source-text was too large, and therefore we can't give you a prope
 
 ### `POST /highlight-file`
 
-<!--This technically probably breaks the REST principles, but I would keep it that way for usability -->
+>  **Note**: This technically probably breaks the REST principles, but I would keep it that way for usability.
 
 #### Parameters
 
