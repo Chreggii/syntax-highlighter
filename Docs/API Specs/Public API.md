@@ -23,7 +23,7 @@ Returns the highlighted code
 
 Requests might be missing a required parameter or is badly encoded.
 
-**Examples response:**
+**Example response:**
 
 ```json
 {
@@ -39,7 +39,7 @@ Requests might be missing a required parameter or is badly encoded.
 
 Sometimes the source-text was too large, and therefore we can't give you a proper reply.
 
-**Examples response:**
+**Example response:**
 
 ```json
 {
@@ -76,7 +76,7 @@ Location: /highlight-text?language=<language>&source-text=<source-text>
 
 Requests might be missing a required parameter or is badly encoded.
 
-**Examples response:**
+**Example response:**
 
 ```json
 {
@@ -92,7 +92,7 @@ Requests might be missing a required parameter or is badly encoded.
 
 Sometimes the source-text was too large, and therefore we can't give you a proper reply.
 
-**Examples response:**
+**Example response:**
 
 ```json
 {
