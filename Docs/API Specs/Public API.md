@@ -6,12 +6,12 @@
 
 ### `GET /highlight-text`
 
-#### Paramaters
+#### Parameters
 
 | Parameter     | Required | Type                                  | default | Description                                                  |
 | ------------- | -------- | ------------------------------------- | ------- | ------------------------------------------------------------ |
-| `source-text` | ✅        | URL-endoced string                    | -       | The source code that is to be highlighted. This source-code must be URL-encoded. |
-| `language`    | ✅        | string:`["python", "kotlin", "java"]` | -       | The programming language that the code is writte in. If no programming language is defined an educated guess will be made and redirected to the enpoint with the guess. It is stronlgy recommended you set the language instead of letting it guess. |
+| `source-text` | ✅        | URL-encoded string                    | -       | The source code that is to be highlighted. This source-code must be URL-encoded. |
+| `language`    | ✅        | string:`["python", "kotlin", "java"]` | -       | The programming language that the code is written in. If no programming language is defined, an educated guess will be made and redirected to the endpoint with the guess. It is strongly recommended you set the language instead of letting it guess. |
 
 #### Responses
 
@@ -21,7 +21,7 @@ Returns the highlighted code
 
 ##### 302 Found
 
-If you don't provide the language (or the language is set to `auto`) you will be redirected to the endpoint with the lanauge given.
+If you don't provide the language (or the language is set to `auto`) you will be redirected to the endpoint with the language given.
 
 ##### 400 Bad Request
 
@@ -29,8 +29,8 @@ Requests might be missing a required parameter or is badly encoded.
 
 ##### 413 Payload Too Large
 
-Sometimey the source-text was too large and therefore we can't give you a proper reply.
+Sometimes the source-text was too large, and therefore we can't give you a proper reply.
 
 ### `POST /highlight-file`
 
-<!--This rechnically probably breaks the Rest priciple, but I would keep it that way for usability -->
+<!--This technically probably breaks the REST principles, but I would keep it that way for usability -->
