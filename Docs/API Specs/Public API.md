@@ -65,10 +65,42 @@ Parameters are the same as the get request.
 
 Given a valid file and language, you will be redirected to the proper `GET /highlight-text` endpoint.
 
+**Example response (Headers):**
+
+```bash
+HTTP/1.1 302 Found
+Location: /highlight-text?language=<language>&source-text=<source-text>
+```
+
 ##### 400 Bad Request
 
 Requests might be missing a required parameter or is badly encoded.
 
+**Examples response:**
+
+```json
+{
+  "error": {
+    "code": 400,
+    "type": "Bad Request",
+    "reasons": "The given reason that triggered the bad request."
+  }
+}
+```
+
 ##### 413 Payload Too Large
 
 Sometimes the source-text was too large, and therefore we can't give you a proper reply.
+
+**Examples response:**
+
+```json
+{
+  "error": {
+    "code": 413,
+    "type": "Payload Too Large",
+    "reasons": "Your provided file is too large, max allowed is xxx, request is xxx long."
+  }
+}
+```
+
