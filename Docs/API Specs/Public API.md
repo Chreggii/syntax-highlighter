@@ -57,7 +57,7 @@ Sometimes the source-text was too large, and therefore we can't give you a prope
 
 #### Parameters
 
-Parameters are the same as the get request. 
+Parameters are the same as the `GET` request. 
 
 #### Responses
 
