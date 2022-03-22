@@ -4,7 +4,7 @@
 
 ## Endpoints
 
-### `/highlight-text`
+### `GET /highlight-text`
 
 #### Paramaters
 
@@ -31,5 +31,6 @@ Requests might be missing a required parameter or is badly encoded.
 
 Sometimey the source-text was too large and therefore we can't give you a proper reply.
 
-### `/highlight-file`
+### `POST /highlight-file`
 
+<!--This rechnically probably breaks the Rest priciple, but I would keep it that way for usability -->
