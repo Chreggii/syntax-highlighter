@@ -19,13 +19,11 @@
 
 Returns the highlighted code
 
-##### 302 Found
-
-If you don't provide the language (or the language is set to `auto`) you will be redirected to the endpoint with the language given.
-
 ##### 400 Bad Request
 
 Requests might be missing a required parameter or is badly encoded.
+
+**Examples response:**
 
 ```json
 {
@@ -37,11 +35,11 @@ Requests might be missing a required parameter or is badly encoded.
 }
 ```
 
-
-
 ##### 414 URI Too Long
 
 Sometimes the source-text was too large, and therefore we can't give you a proper reply.
+
+**Examples response:**
 
 ```json
 {
@@ -52,8 +50,6 @@ Sometimes the source-text was too large, and therefore we can't give you a prope
   }
 }
 ```
-
-
 
 ### `POST /highlight-file`
 
