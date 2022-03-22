@@ -17,13 +17,19 @@
 
 ##### 200 OK
 
+Returns the highlighted code
+
 ##### 302 Found
+
+If you don't provide the language (or the language is set to `auto`) you will be redirected to the endpoint with the lanauge given.
 
 ##### 400 Bad Request
 
+Requests might be missing a required parameter or is badly encoded.
+
 ##### 413 Payload Too Large
 
-
+Sometimey the source-text was too large and therefore we can't give you a proper reply.
 
 ### `/highlight-file`
 
