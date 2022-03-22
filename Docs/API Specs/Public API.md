@@ -43,7 +43,7 @@ Parameters are the same as the get request.
 
 ##### 302 Found
 
-Given a valid file and language you will be redirected to the proper `GET /highlight-text` endpoint.
+Given a valid file and language, you will be redirected to the proper `GET /highlight-text` endpoint.
 
 ##### 400 Bad Request
 
