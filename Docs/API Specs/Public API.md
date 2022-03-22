@@ -27,10 +27,28 @@ If you don't provide the language (or the language is set to `auto`) you will be
 
 Requests might be missing a required parameter or is badly encoded.
 
-##### 413 Payload Too Large
+##### 414 URI Too Long
 
 Sometimes the source-text was too large, and therefore we can't give you a proper reply.
 
 ### `POST /highlight-file`
 
 <!--This technically probably breaks the REST principles, but I would keep it that way for usability -->
+
+#### Parameters
+
+Parameters are the same as the get request. 
+
+#### Responses
+
+##### 302 Found
+
+Given a valid file and language you will be redirected to the proper `GET /highlight-text` endpoint.
+
+##### 400 Bad Request
+
+Requests might be missing a required parameter or is badly encoded.
+
+##### 413 Payload Too Large
+
+Sometimes the source-text was too large, and therefore we can't give you a proper reply.
