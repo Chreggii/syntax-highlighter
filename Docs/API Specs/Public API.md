@@ -27,9 +27,33 @@ If you don't provide the language (or the language is set to `auto`) you will be
 
 Requests might be missing a required parameter or is badly encoded.
 
+```json
+{
+  "error": {
+    "code": 400,
+    "type": "Bad Request",
+    "reasons": "The given reason that triggered the bad request."
+  }
+}
+```
+
+
+
 ##### 414 URI Too Long
 
 Sometimes the source-text was too large, and therefore we can't give you a proper reply.
+
+```json
+{
+  "error": {
+    "code": 414,
+    "type": "URI Too Long",
+    "reasons": "URI is too long, max allowed is xxx, request is xxx long."
+  }
+}
+```
+
+
 
 ### `POST /highlight-file`
 
