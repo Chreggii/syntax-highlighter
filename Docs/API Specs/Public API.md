@@ -19,6 +19,26 @@
 
 Returns the highlighted code
 
+**Example response:**
+
+```json
+{
+  "source-code": "print('Hello, world!')",
+  "formal-formatting": [
+    {startIndex=0, endIndex=4, tokenId=42}, 
+    {startIndex=5, endIndex=5, tokenId=54}, 
+    {startIndex=6, endIndex=20, tokenId=3},
+    {startIndex=21, endIndex=21, tokenId=55}
+  ],
+  "ml-formatting": [
+    [0, 4, 42], 
+    [5, 5, 54], 
+    [6, 20, 3],
+    [21, 21, 55]
+  ],
+}
+```
+
 ##### 400 Bad Request
 
 Requests might be missing a required parameter or is badly encoded.
