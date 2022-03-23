@@ -70,7 +70,7 @@ Gets the annotated token sequence including the highlighting code for the input 
 
 ### Parameters
 
-The parameters are the same as the request for `POST /lex-string`.
+The parameters are the same as the request for `GET /lex-string`.
 
 ### Response
 
