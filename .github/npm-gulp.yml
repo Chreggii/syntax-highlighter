@@ -1,11 +1,5 @@
 name: NodeJS with Gulp
 
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ dev ]
-
 jobs:
   build:
     runs-on: ubuntu-latest
