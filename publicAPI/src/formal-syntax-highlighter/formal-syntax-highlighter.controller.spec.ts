@@ -1,4 +1,6 @@
+import { HttpModule } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
+
 import { FormalSyntaxHighlighterController } from './formal-syntax-highlighter.controller';
 
 describe('FormalSyntaxHighlighterController', () => {
@@ -6,7 +8,8 @@ describe('FormalSyntaxHighlighterController', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [FormalSyntaxHighlighterController],
+      imports: [HttpModule],
+      controllers: [FormalSyntaxHighlighterController]
     }).compile();
 
     controller = module.get<FormalSyntaxHighlighterController>(FormalSyntaxHighlighterController);

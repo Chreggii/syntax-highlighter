@@ -1,4 +1,14 @@
-import { Body, Controller, Get, HttpException, HttpStatus, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  HttpException,
+  HttpService,
+  HttpStatus,
+  Param,
+  Post,
+  UploadedFile,
+  UseInterceptors
+} from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { of } from 'rxjs';
 
@@ -8,12 +18,14 @@ import { FileHighlighterService } from './services/file-highlighter.service';
 @Controller('file-highlighter')
 export class FileHighlighterController {
 
-    constructor(private fileHighlighterService: FileHighlighterService) { }
+    constructor(private httpService: HttpService, private fileHighlighterService: FileHighlighterService) { }
 
     @Get()
-    highlightText(@Body() body: { sourceText: string, language: SupportedLanguages }): Promise<any> {
+    highlightText(@Param() body: { sourceText: string, language: SupportedLanguages }): Promise<any> {
         // TODO Eleonora: here comes your code
         console.log(body);
+        this.httpService.get('http://mlclassifier:3000/');
+        this.httpService.get('http://formalSyntaxHighlighter:8080/')
         return of(undefined).toPromise();
     }
 
