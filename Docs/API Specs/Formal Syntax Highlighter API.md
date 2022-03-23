@@ -1,6 +1,7 @@
-# RestAPI Design for the formal Syntax Highlighter
+# API Design for the formal Syntax Highlighter
 
 ## GET `/lex-string`
+
 ### Description
 
 Gets the annotated token sequence for the input text.
@@ -15,6 +16,7 @@ Gets the annotated token sequence for the input text.
 ### Responses
 
 #### 200 OK
+
 Array of LTok objects. An LTok object looks as follows: LTok{startIndex: int, stopIndex:int, tokenId: int}
 
 **Example response**:
@@ -45,6 +47,7 @@ Array of LTok objects. An LTok object looks as follows: LTok{startIndex: int, st
 ```
 
 #### 400 Bad request
+
 Bad Request if parameters are missing or wrong/no type specified
 
 **Example response:**
@@ -59,12 +62,12 @@ Bad Request if parameters are missing or wrong/no type specified
 }
 ```
 
-
-
 ## GET `/highlight-string`
+
 ### Description
 
 Gets the annotated token sequence including the highlighting code for the input text.
+
 ### Parameters
 
 The parameters are the same as the request for `GET /lex-string`.
@@ -72,9 +75,10 @@ The parameters are the same as the request for `GET /lex-string`.
 ### Response
 
 #### 200 OK
+
 Array of HTok objects. An LTok object looks as follows: LTok{hCodeValue: int, startIndex: int, stopIndex:int, tokenId: int}
 
-**Exampke response**:
+**Example response**:
 
 ```json
 [
@@ -111,9 +115,8 @@ Array of HTok objects. An LTok object looks as follows: LTok{hCodeValue: int, st
 ]
 ```
 
-
-
 #### 400 Bad request
+
 Bad Request if parameters are missing or wrong/no type specified
 
 **Example response**:
@@ -127,4 +130,3 @@ Bad Request if parameters are missing or wrong/no type specified
   }
 }
 ```
-
