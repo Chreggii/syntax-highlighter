@@ -77,7 +77,7 @@ Sometimes the source-text was too large, and therefore we can't give you a prope
 
 #### Parameters
 
-Parameters are the same as the `GET` request. 
+The post enpoint only accepts a file that is uploaded.
 
 #### Responses
 
