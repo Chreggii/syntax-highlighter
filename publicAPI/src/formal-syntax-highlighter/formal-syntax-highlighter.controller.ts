@@ -8,6 +8,6 @@ export class FormalSyntaxHighlighterController {
     @Get()
     async highlight(): Promise<string> {
         const response = await this.httpService.get('http://mlclassifier:3000/').toPromise();
-        return "The followind data was received from the ML classifier:\n\n" + response.data;
+        return "The following data was received from the ML classifier:\n\n" + response.data;
     }
 }
