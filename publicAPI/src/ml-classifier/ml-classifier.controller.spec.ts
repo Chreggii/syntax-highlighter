@@ -1,3 +1,4 @@
+import { HttpModule } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 
 import { MlClassifierController } from './ml-classifier.controller';
@@ -7,6 +8,7 @@ describe('MlClassifierController', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports: [HttpModule],
       controllers: [MlClassifierController],
     }).compile();
 
