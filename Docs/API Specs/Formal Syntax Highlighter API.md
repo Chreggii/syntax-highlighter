@@ -17,7 +17,7 @@ Gets the annotated token sequence for the input text.
 
 #### 200 OK
 
-Array of LTok objects. An LTok object looks as follows:`{startIndex: int, stopIndex:int, tokenId: int}`.
+Array of LTok objects. An LTok object looks as follows:`{"startIndex": int, "stopIndex": int, "tokenId": int}`.
 
 **Example response**:
 
@@ -76,7 +76,7 @@ The parameters are the same as the request for `GET /lex-string`.
 
 #### 200 OK
 
-Array of HTok objects. An LTok object looks as follows: `{hCodeValue: int, startIndex: int, stopIndex:int, tokenId: int}`.
+Array of HTok objects. An LTok object looks as follows: `{"hCodeValue": int, "startIndex": int, "stopIndex": int, "tokenId": int}`.
 
 **Example response**:
 
