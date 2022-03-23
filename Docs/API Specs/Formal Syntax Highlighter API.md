@@ -1,6 +1,6 @@
 # API Design for the formal Syntax Highlighter
 
-## Post `/lex-string`
+## GET `/lex-string`
 
 ### Description
 
@@ -8,10 +8,10 @@ Gets the annotated token sequence for the input text.
 
 ### Parameters
 
-| Parameter/Body | Required | Type                                  | default |
-|----------------| -------- | ------------------------------------- | ------- |
-| `text` (Body)  | ✅        | URL-encoded string                    | -       |
-| `type` (Param) | ✅        | string:`["python", "kotlin", "java"]` | -       |
+| Parameter | Required | Type                                  | default |
+|-----------| -------- | ------------------------------------- | ------- |
+| `text`    | ✅        | URL-encoded string                    | -       |
+| `type`    | ✅        | string:`["python", "kotlin", "java"]` | -       |
 
 ### Responses
 
@@ -62,7 +62,7 @@ Bad Request if parameters are missing or wrong/no type specified
 }
 ```
 
-## POST `/highlight-string`
+## GET `/highlight-string`
 
 ### Description
 
@@ -131,7 +131,7 @@ Bad Request if parameters are missing or wrong/no type specified
 }
 ```
 
-## POST `/highlighting-codes`
+## GET `/highlighting-codes`
 
 ### Description
 
