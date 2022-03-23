@@ -8,6 +8,6 @@ export class MsClassifierController {
     @Get()
     async classify(): Promise<string> {
         const response = await this.httpService.get('http://formalSyntaxHighlighter:8080/').toPromise();
-        return "The followind data was received from the Formal Syntax Highlighter:\n\n" + response.data;
+        return "The following data was received from the Formal Syntax Highlighter:\n\n" + response.data;
     }
 }
