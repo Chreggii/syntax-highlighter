@@ -141,8 +141,6 @@ Get the meaning of the `hcodeValue`.
 
 #### 200 OK
 
-Array of HTok objects. An LTok object looks as follows: LTok{hCodeValue: int, startIndex: int, stopIndex:int, tokenId: int}
-
 **Example response**:
 
 ```json
