@@ -130,3 +130,34 @@ Bad Request if parameters are missing or wrong/no type specified
   }
 }
 ```
+
+## GET `/highlighting-codes`
+
+### Description
+
+Get the meaning of the `hcodeValue`.
+
+### Response
+
+#### 200 OK
+
+Array of HTok objects. An LTok object looks as follows: LTok{hCodeValue: int, startIndex: int, stopIndex:int, tokenId: int}
+
+**Example response**:
+
+```json
+[
+  {"name": "ANY", "hCodeValue": 0}, 
+	{"name": "KEYWORD", "hCodeValue": 1}, 
+	{"name": "LITERAL", "hCodeValue": 2}, 
+	{"name": "CHAR_STRING_LITERAL", "hCodeValue": 3},
+	{"name": "COMMENT", "hCodeValue": 4},
+  {"name": "CLASS_DECLARATOR", "hCodeValue": 5},
+  {"name": "FUNCTION_DECLARATOR", "hCodeValue": 6},
+  {"name": "VARIABLE_DECLARATOR", "hCodeValue": 7},
+  {"name": "TYPE_IDENTIFIER", "hCodeValue": 8},
+  {"name": "FUNCTION_IDENTIFIER", "hCodeValue": 9},
+  {"name": "FIELD_IDENTIFIER", "hCodeValue": 10},
+  {"name": "ANNOTATION_DECLARATOR", "hCodeValue": 11}
+]
+```
