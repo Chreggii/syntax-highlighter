@@ -24,7 +24,6 @@ app.get('/', (req, res) => res.send("Hi from the public API"));
 
 // Another demo enpoint
 app.get('/highlight-text', runAsync(async (req, res) => {
-
   const source_text = req.query.source_text;
   const language = req.query.language;
 
@@ -44,8 +43,9 @@ app.get('/highlight-text', runAsync(async (req, res) => {
   }
 
   // Make request through internal network
-  const reponse = await axios.get('http://localhost:8080/');
-  res.send("The following data was received from the Formal Syntax Highlighter:\n\n" + reponse.data + ".\n The text is: " + source_text + "The language is: " + language)
+  const reponse_spring = await axios.get('http://formalSyntaxHighlighter:8080/');
+  const response_flask = await axios.get('http://mlclassifier:3000/')
+  res.send("The following data was received from the Formal Syntax Highlighter:\n\n" + reponse_spring.data + " " + response_flask.data + ".\n The text is: " + source_text + "The language is: " + language)
 }));
 
 
