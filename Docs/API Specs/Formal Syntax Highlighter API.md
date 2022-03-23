@@ -7,9 +7,10 @@ Gets the annotated token sequence for the input text.
 
 ### Parameters
 
-text: string
-type: string (type can be either Java, Python or Kotlin
-(Optional Feature: Auto))
+| Parameter | Required | Type                                  | default |
+| --------- | -------- | ------------------------------------- | ------- |
+| `text`    | ✅        | URL-encoded string                    | -       |
+| `type`    | ✅        | string:`["python", "kotlin", "java"]` | -       |
 
 ### Responses
 
@@ -23,9 +24,7 @@ Bad Request if parameters are missing or wrong/no type specified
 Gets the annotated token sequence including the highlighting code for the input text.
 ### Parameters
 
-text: string
-type: string (type can be either Java, Python or Kotlin
-(Optional Feature: Auto))
+The parameters are the same as the request for `GET /lex-string`.
 
 ### Response
 
