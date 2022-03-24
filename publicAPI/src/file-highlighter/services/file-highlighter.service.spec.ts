@@ -23,5 +23,6 @@ describe('FileHighlighterService', () => {
     expect(service['getLanguage']('text.kt')).toBe('kotlin');
     expect(service['getLanguage']('text.kts')).toBe('kotlin');
     expect(service['getLanguage']('text.kts')).toBe('kotlin');
+    expect(service['getLanguage']('text.csv')).toBe(undefined);
   });
 });

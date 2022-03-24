@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpException, HttpStatus, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Controller, Get, HttpException, HttpStatus, Post, Query, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { of } from 'rxjs';
 
@@ -11,9 +11,9 @@ export class FileHighlighterController {
     constructor(private fileHighlighterService: FileHighlighterService) { }
 
     @Get()
-    highlightText(@Body() body: { sourceText: string, language: SupportedLanguages }): Promise<any> {
+    highlightText(@Query() query: { sourceText: string, language: SupportedLanguages }): Promise<any> {
         // TODO Eleonora: here comes your code
-        console.log(body);
+        console.log(query);
         return of(undefined).toPromise();
     }
 
