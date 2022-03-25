@@ -1,5 +1,5 @@
 @startuml
-skinparam defaultFontName CMU Serif
+skinparam defaultFontName Hevetica Neue
 
 package "Annotation WebService" {
   frame "exposed network" {
@@ -35,11 +35,12 @@ package "Annotation WebService" {
   FrontendService -> PAPIAPI
  
   PAPI --( SHAPI :uses
-   PAPI -( MLCAPI :uses
+  PAPI --( MLCAPI :uses
   MLT - PSQL :uses
   SH --( MLTAPI :uses
+  MLC -( SHAPI :uses
   MS - MLT
-  MLC - MS
+  MLC -- MS
   
 }
 @enduml
