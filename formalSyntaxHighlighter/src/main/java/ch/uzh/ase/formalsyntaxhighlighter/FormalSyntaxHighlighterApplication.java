@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.HashMap;
 import java.util.Map;
 
+import resolver.*;
+
 @SpringBootApplication
 @RestController
 public class FormalSyntaxHighlighterApplication {
