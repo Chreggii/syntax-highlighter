@@ -55,9 +55,6 @@ public class FormalSyntaxHighlighterApplication {
         List<Map<String, Integer>> outputData = new ArrayList<>(){
         };
         for (Object lTok: lToks){
-            // Debugging only
-            System.out.println(lTok);
-
             try {
                 // Inflection because we don't have access to lTok through library
                 Class cls = lTok.getClass();
