@@ -1,6 +1,6 @@
 @startuml
 
-skinparam defaultFontName CMU Serif
+skinparam defaultFontName Helvetica Neue
 skinparam defaultTextAlignment center
 
 participant "Frontend" as front

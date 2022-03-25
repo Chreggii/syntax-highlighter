@@ -1,5 +1,5 @@
 @startuml
-skinparam defaultFontName CMU Serif
+skinparam defaultFontName Hevetica Neue
 
 package "Annotation WebService" {
   frame "exposed network" {
