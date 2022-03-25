@@ -1,0 +1,19 @@
+name: Test Syntax Highlighter
+
+on:
+  push:
+    branches: [ dev ]
+  pull_request:
+    branches: [ dev ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container: gradle:7-jdk17
+    steps:
+    - uses: actions/checkout@v2
+  
+    - name: test Syntax Highlighter
+      run: |
+        cd formalSyntaxHighlighter
+        gradle test
