@@ -145,6 +145,84 @@ public class FormalSyntaxHighlighterApplication {
 
     }
 
+    @GetMapping("/highlighting-codes")
+    public ResponseEntity<Object> codes() {
+        // Not optimal but HCode enum is not available in .jar
+        return ResponseEntity.ok(new ArrayList<>(){{
+//          {"name": "ANY", "hCodeValue": 0},
+            add(new HashMap<String, Object>(){{
+                put("name", "ANY");
+                put("hCodeValue", 0);
+            }});
+
+//          {"name": "KEYWORD", "hCodeValue": 1},
+            add(new HashMap<String, Object>(){{
+                put("name", "KEYWORD");
+                put("hCodeValue", 1);
+            }});
+
+//          {"name": "LITERAL", "hCodeValue": 2},
+            add(new HashMap<String, Object>(){{
+                put("name", "LITERAL");
+                put("hCodeValue", 2);
+            }});
+
+//          {"name": "CHAR_STRING_LITERAL", "hCodeValue": 3},
+            add(new HashMap<String, Object>(){{
+                put("name", "CHAR_STRING_LITERAL");
+                put("hCodeValue", 3);
+            }});
+
+//          {"name": "COMMENT", "hCodeValue": 4},
+            add(new HashMap<String, Object>(){{
+                put("name", "COMMENT");
+                put("hCodeValue", 4);
+            }});
+
+//          {"name": "CLASS_DECLARATOR", "hCodeValue": 5},
+            add(new HashMap<String, Object>(){{
+                put("name", "CLASS_DECLARATOR");
+                put("hCodeValue", 5);
+            }});
+
+//          {"name": "FUNCTION_DECLARATOR", "hCodeValue": 6},
+            add(new HashMap<String, Object>(){{
+                put("name", "FUNCTION_DECLARATOR");
+                put("hCodeValue", 6);
+            }});
+
+//          {"name": "VARIABLE_DECLARATOR", "hCodeValue": 7},
+            add(new HashMap<String, Object>(){{
+                put("name", "VARIABLE_DECLARATOR");
+                put("hCodeValue", 7);
+            }});
+
+//          {"name": "TYPE_IDENTIFIER", "hCodeValue": 8},
+            add(new HashMap<String, Object>(){{
+                put("name", "TYPE_IDENTIFIER");
+                put("hCodeValue", 8);
+            }});
+
+//          {"name": "FUNCTION_IDENTIFIER", "hCodeValue": 9},
+            add(new HashMap<String, Object>(){{
+                put("name", "FUNCTION_IDENTIFIER");
+                put("hCodeValue", 9);
+            }});
+
+//          {"name": "FIELD_IDENTIFIER", "hCodeValue": 10},
+            add(new HashMap<String, Object>(){{
+                put("name", "FIELD_IDENTIFIER");
+                put("hCodeValue", 10);
+            }});
+
+//          {"name": "ANNOTATION_DECLARATOR", "hCodeValue": 11}
+            add(new HashMap<String, Object>(){{
+                put("name", "ANNOTATION_DECLARATOR");
+                put("hCodeValue", 11);
+            }});
+        }});
+    }
+
     public static void main(String[] args) {
         SpringApplication.run(FormalSyntaxHighlighterApplication.class, args);
     }
