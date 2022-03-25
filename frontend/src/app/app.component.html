@@ -1,0 +1,17 @@
+<h2>File Upload</h2>
+<input type="file" accept=".java,.py,.kt,.kts,.ktm,.txt" (change)="onFileSelected($event)">
+
+<h2>Test Get Request</h2>
+<form [formGroup]="form">
+  <div>
+    <label>SourceCode:</label>
+    <br>
+    <textarea cols="100" rows="10" formControlName="sourceText"></textarea>
+  </div>
+  <div>
+    <label>Language:</label>
+    <br>
+    <input type="text" formControlName="language">
+  </div>
+  <button (click)="sendRequest()">Send</button>
+</form>

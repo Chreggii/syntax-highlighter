@@ -1,4 +1,4 @@
-name: NodeJS with Gulp
+name: Public API test
 
 on:
   push:
@@ -6,14 +6,13 @@ on:
   pull_request:
     branches: [ dev ]
 
-
 jobs:
   test:
     runs-on: ubuntu-latest
     container: node:16-alpine
     steps:
     - uses: actions/checkout@v2
-
+  
     - name: test Public API
       run: |
         cd publicAPI
