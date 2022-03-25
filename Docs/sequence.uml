@@ -14,23 +14,23 @@ database PostgreSQL as DB
 front -> PAPI: request with source code
 
 PAPI -> MLC: request with source code
-MLC -> SH: Lexing
+MLC -> SH: lexing
 SH -> MLC: lexed source code
 MLC -> MLS: retrieve model
 MLC <- MLS: model
 PAPI -> SH: request with source code
-MLC -> PAPI: response highlighted code
-SH -> PAPI: response highlighted code
-PAPI -> front: reponde requested highlighted code
+MLC -> PAPI: response highlighted code (machine learning)
+SH -> PAPI: response highlighted code (formal model)
+PAPI -> front: response requested highlighted code
 
 group training (async)
 SH -> MLT: request with highlighted source code
 MLT -> DB: store highlighted source code
-DB -> MLT: retrieve collection of higlighted source code
+DB -> MLT: retrieve collection of highlighted source code
 MLT -> MLS: load previous model
 MLS -> MLT: previous model
 MLT -> MLT: refine model
-MLT -> MLS: Store refined model
+MLT -> MLS: store refined model
 end
 
 @enduml
