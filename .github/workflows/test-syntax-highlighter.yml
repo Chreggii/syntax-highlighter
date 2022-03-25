@@ -16,4 +16,4 @@ jobs:
     - name: test Syntax Highlighter
       run: |
         cd formalSyntaxHighlighter
-        gradle test
+        gradle test --no-daemon
