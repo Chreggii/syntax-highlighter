@@ -1,0 +1,21 @@
+name: Public API test
+
+on:
+  push:
+    branches: [ dev, main ]
+  pull_request:
+    branches: [ dev, main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container: node:16-alpine
+    steps:
+    - uses: actions/checkout@v2
+  
+    - name: test Public API
+      run: |
+        cd publicAPI
+        npm i 
+        npm run build
+        npm run test

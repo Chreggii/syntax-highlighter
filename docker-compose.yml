@@ -1,17 +1,26 @@
 version: "3.9"
 services:
+  frontend:
+    build:
+      context: ./frontend/
+    restart: always
+    ports:
+      - 80:80
+    networks:
+      - public
+
   publicapi:
-    build: 
+    build:
       context: ./publicAPI/
     restart: always
     ports:
-      - 80:3000
+      - 3000:3000
     networks:
       - public
       - backend
 
   mlclassifier:
-    build: 
+    build:
       context: ./mlClassifier/
     restart: always
     environment:
@@ -20,7 +29,7 @@ services:
       - backend
 
   formalsyntaxhighlighter:
-    build: 
+    build:
       context: ./formalSyntaxHighlighter/
     restart: always
     networks:
@@ -37,7 +46,7 @@ services:
       - backend
 
   #adminer to be able to access  database
-  adminer: 
+  adminer:
     image: adminer:4
     restart: always
     ports:
