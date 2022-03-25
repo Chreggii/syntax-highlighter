@@ -5,13 +5,21 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @SpringBootApplication
 @RestController
 public class FormalSyntaxHighlighterApplication {
 
     @GetMapping("/")
-    public String main() {
-        return "Hello from Java";
+    public Map<String, Object> main() {
+        return new HashMap<>(){
+            {
+                put("service", "Formal Syntax Highlighter");
+                put("status", "okay");
+            }
+        };
     }
 
     public static void main(String[] args) {
