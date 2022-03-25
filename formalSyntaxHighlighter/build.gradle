@@ -2,6 +2,7 @@ plugins {
     id 'org.springframework.boot' version '2.6.4'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
+    id 'com.adarshr.test-logger' version '3.2.0'
 }
 
 group = 'ch.uzh.ase'
@@ -22,4 +23,8 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+testlogger {
+    theme 'mocha'
 }
