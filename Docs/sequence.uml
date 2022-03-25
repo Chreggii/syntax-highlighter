@@ -1,6 +1,6 @@
 @startuml
 
-skinparam defaultFontName CMU Serif
+skinparam defaultFontName Helvetica Neue
 skinparam defaultTextAlignment center
 
 participant "Frontend" as front
@@ -14,6 +14,8 @@ database PostgreSQL as DB
 front -> PAPI: request with source code
 
 PAPI -> MLC: request with source code
+MLC -> SH: Lexing
+SH -> MLC: lexed source code
 MLC -> MLS: retrieve model
 MLC <- MLS: model
 PAPI -> SH: request with source code
