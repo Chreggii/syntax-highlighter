@@ -1,7 +1,8 @@
 package ch.uzh.ase.formalsyntaxhighlighter;
 
 import org.junit.jupiter.api.Test;
-import org.skyscreamer.jsonassert.*;
+import org.skyscreamer.jsonassert.JSONAssert;
+import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
@@ -9,7 +10,6 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 
 import static org.assertj.core.api.Assertions.assertThat;
-
 
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
