@@ -2,14 +2,9 @@ package ch.uzh.ase.formalsyntaxhighlighter;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import resolver.JavaResolver;
-import resolver.KotlinResolver;
-import resolver.Python3Resolver;
+import org.springframework.http.*;
+import org.springframework.web.bind.annotation.*;
+import resolver.*;
 
 import java.util.*;
 
