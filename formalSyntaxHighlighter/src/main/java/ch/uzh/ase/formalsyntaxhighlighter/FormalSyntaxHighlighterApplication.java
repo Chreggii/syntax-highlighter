@@ -113,7 +113,7 @@ public class FormalSyntaxHighlighterApplication {
         List<Map<String, Integer>> outputData = new ArrayList<>(){
         };
         for (Object hTok: hToks){
-            
+
             try {
                 // Inflection because we don't have access to hTok through library
                 Class cls = hTok.getClass();
