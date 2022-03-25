@@ -1,4 +1,14 @@
-import { Controller, Get, HttpException, HttpService, HttpStatus, Post, Query, UploadedFile, UseInterceptors } from '@nestjs/common';
+import {
+    Controller,
+    Get,
+    HttpException,
+    HttpService,
+    HttpStatus,
+    Post,
+    Query,
+    UploadedFile,
+    UseInterceptors
+} from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { of } from 'rxjs';
 
@@ -14,20 +24,19 @@ export class FileHighlighterController {
 
         const languages = ["python", "java", "kotlin"]
 
-        if(languages.includes(query.language)){
-            let responseSpring = (await this.httpService.get("http://formalSyntaxHighlighter:8080/").toPromise()).data;
-
-            let responseFlask = (await this.httpService.get("http://mlclassifier:3000/").toPromise()).data;
+        if (languages.includes(query.language)) {
+            const responseSpring = (await this.httpService.get("http://formalSyntaxHighlighter:8080/").toPromise()).data;
+            const responseFlask = (await this.httpService.get("http://mlclassifier:3000/").toPromise()).data;
 
             const response = {
-            "source-code": query.sourceText,
-            "formal-formatting": responseSpring,
-            "ml-formatting": responseFlask
+                "source-code": query.sourceText,
+                "formal-formatting": responseSpring,
+                "ml-formatting": responseFlask
             }
 
             return of(response).toPromise();
-        }else{
-            throw new HttpException({ status: HttpStatus.FORBIDDEN, error: 'Text language not supported! Please choose python, java or kotlin' }, HttpStatus.FORBIDDEN);
+        } else {
+            throw new HttpException({ status: HttpStatus.BAD_REQUEST, error: 'Text language not supported! Please choose python, java or kotlin' }, HttpStatus.BAD_REQUEST);
         }
 
     }
@@ -43,7 +52,7 @@ export class FileHighlighterController {
         if (language) {
             return this.highlightText({ sourceText, language });
         } else {
-            throw new HttpException({ status: HttpStatus.FORBIDDEN, error: 'File extension not supported!' }, HttpStatus.FORBIDDEN);
+            throw new HttpException({ status: HttpStatus.BAD_REQUEST, error: 'File extension not supported!' }, HttpStatus.BAD_REQUEST);
         }
     }
 }
