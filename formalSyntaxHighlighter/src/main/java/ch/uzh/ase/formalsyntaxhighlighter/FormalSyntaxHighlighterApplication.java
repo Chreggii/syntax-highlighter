@@ -1,11 +1,13 @@
 package ch.uzh.ase.formalsyntaxhighlighter;
 
+import org.antlr.v4.misc.OrderedHashMap;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import resolver.*;
 
+import java.lang.reflect.Field;
 import java.util.*;
 
 @SpringBootApplication
@@ -23,49 +25,64 @@ public class FormalSyntaxHighlighterApplication {
     }
 
     @GetMapping("/lex-string")
-    public ResponseEntity<Object> lex(@RequestParam String text, @RequestParam String type) {
+    public ResponseEntity<Object> lex(@RequestParam String text, @RequestParam String type) throws NoSuchFieldException {
+        Resolver resolver;
 
         if (Objects.equals(type, "python")) {
-            Python3Resolver resolver = new Python3Resolver();
+            resolver = new Python3Resolver();
+        }
+        else if (Objects.equals(type, "kotlin")) {
+            resolver = new KotlinResolver();
+        }
+        else if (Objects.equals(type, "java")) {
+            resolver = new JavaResolver();
+        }
+        else { // Invalid type
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new HashMap<>() {
+                {
+                    put("error", new HashMap<>() {
+                        {
+                            put("code", 400);
+                            put("type", "Bad request");
+                            put("reason", type + " is not a valid type ([python, kotlin, java])");
+                        }
+                    });
+                }
+            });
+        }
+        Object[] lToks = resolver.lex(text);
 
-            return ResponseEntity.ok(new HashMap<>() {
-                {
-                    put("language", "Python");
-                    put("source code", text);
-                }
-            });
-        }
-        if (Objects.equals(type, "kotlin")) {
-            KotlinResolver resolver = new KotlinResolver();
+        List<Map<String, Integer>> outputData = new ArrayList<>(){
+        };
+        for (Object lTok: lToks){
+            // Debugging only
+            System.out.println(lTok);
 
-            return ResponseEntity.ok(new HashMap<>() {
-                {
-                    put("language", "Kotlin");
-                    put("source code", text);
-                }
-            });
-        }
-        if (Objects.equals(type, "java")) {
-            JavaResolver resolver = new JavaResolver();
-            return ResponseEntity.ok(new HashMap<>() {
-                {
-                    put("language", "Java");
-                    put("source code", text);
-                }
-            });
-        }
-        // Invalid type
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new HashMap<>(){
-            {
-                put("error", new HashMap<>(){
-                    {
-                        put("code", 400);
-                        put("type", "Bad request");
-                        put("reason", type + " is not a valid type ([python, kotlin, java])");
-                    }
-                });
+            try {
+                // Inflection because we don't have access to lTok through library
+                Class cls = lTok.getClass();
+
+                Field startIndexField = cls.getDeclaredField("startIndex");
+                Integer startIndex = (Integer) startIndexField.get(lTok);
+
+                Field endIndexField = cls.getDeclaredField("endIndex");
+                Integer endIndex = (Integer) endIndexField.get(lTok);
+
+                Field tokenIdField = cls.getDeclaredField("tokenId");
+                Integer tokenId = (Integer) tokenIdField.get(lTok);
+
+                outputData.add(new OrderedHashMap<>(){{
+                    // Ordered hashmap so we get the described output format
+                    put("startIndex", startIndex);
+                    put("endIndex", endIndex);
+                    put("tokenId", tokenId);
+                }});
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        });
+        }
+        return ResponseEntity.ok(outputData);
+
     }
 
     public static void main(String[] args) {
