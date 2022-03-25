@@ -1,3 +1,4 @@
+import { HttpModule } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 
 import { FileHighlighterController } from './file-highlighter.controller';
@@ -8,6 +9,7 @@ describe('FileHighlighterController', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports: [HttpModule],
       controllers: [FileHighlighterController],
       providers: [FileHighlighterService]
     }).compile();
