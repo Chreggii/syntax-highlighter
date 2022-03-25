@@ -22,16 +22,6 @@ public class HttpRequestTestLexing {
     private TestRestTemplate restTemplate;
 
     @Test
-    public void defaultEndpoint() throws Exception {
-        assertThat(
-                this.restTemplate.getForObject("http://localhost:" + port + "/",
-                        String.class)
-        )
-                .contains("Formal Syntax Highlighter")
-                .contains("\"status\":\"okay\"");
-    }
-
-    @Test
     public void pythonLexingHelloWorld() throws Exception {
         String helloWorldProgramm = "print(\"Hello world!\")";
         String test = "[{\"startIndex\":0,\"endIndex\":4,\"tokenId\":42},{\"startIndex\":5,\"endIndex\":5,\"tokenId\":54},{\"startIndex\":6,\"endIndex\":19,\"tokenId\":3},{\"startIndex\":20,\"endIndex\":20,\"tokenId\":55}]";
