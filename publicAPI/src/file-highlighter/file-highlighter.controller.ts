@@ -34,12 +34,11 @@ export class FileHighlighterController {
             // TODO Nicolas: connect to proper ml classifier endpoint and pass lexData
             const mlClassifierData = (await this.httpService.get("http://mlclassifier:3000/").toPromise()).data;
 
-            const response = {
+            return of({
                 "source-code": query.sourceText,
                 "formal-formatting": highLightData,
                 "ml-formatting": mlClassifierData
-            }
-            return of(response).toPromise();
+            }).toPromise()
         } else {
             throw new HttpException({ status: HttpStatus.BAD_REQUEST, error: 'Text language not supported! Please choose python, java or kotlin' }, HttpStatus.BAD_REQUEST);
         }
