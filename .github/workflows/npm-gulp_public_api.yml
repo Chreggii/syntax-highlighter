@@ -12,10 +12,13 @@ jobs:
     container: node:16-alpine
     steps:
     - uses: actions/checkout@v2
-  
+
     - name: test Public API
       run: |
         cd publicAPI
         npm i 
         npm run build
         npm run test:cov
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v1
