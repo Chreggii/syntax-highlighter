@@ -12,6 +12,8 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import { of } from 'rxjs';
 
+import { Highlight } from '../models/highlight.model';
+import { Lex } from '../models/lex.model';
 import { FileHighlighterService } from './services/file-highlighter.service';
 
 @Controller('file-highlighter')
@@ -25,15 +27,18 @@ export class FileHighlighterController {
         const languages = ["python", "java", "kotlin"]
 
         if (languages.includes(query.language)) {
-            const responseSpring = (await this.httpService.get("http://formalSyntaxHighlighter:8080/").toPromise()).data;
-            const responseFlask = (await this.httpService.get("http://mlclassifier:3000/").toPromise()).data;
+            const syntaxHighlighterParams = `?text=${query.sourceText}&type=${query.language}`;
+
+            const lexData = (await this.httpService.get(`http://formalSyntaxHighlighter:8080/lex-string${syntaxHighlighterParams}`).toPromise()).data as Lex[];
+            const highLightData = (await this.httpService.get(`http://formalSyntaxHighlighter:8080/highlight-string${syntaxHighlighterParams}`).toPromise()).data as Highlight[];
+            // TODO Nicolas: connect to proper ml classifier endpoint and pass lexData
+            const mlClassifierData = (await this.httpService.get("http://mlclassifier:3000/").toPromise()).data;
 
             const response = {
                 "source-code": query.sourceText,
-                "formal-formatting": responseSpring,
-                "ml-formatting": responseFlask
+                "formal-formatting": highLightData,
+                "ml-formatting": mlClassifierData
             }
-
             return of(response).toPromise();
         } else {
             throw new HttpException({ status: HttpStatus.BAD_REQUEST, error: 'Text language not supported! Please choose python, java or kotlin' }, HttpStatus.BAD_REQUEST);
