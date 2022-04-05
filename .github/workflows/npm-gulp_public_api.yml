@@ -28,6 +28,7 @@ jobs:
         threshold_alert: 50
         threshold_warning: 80
         threshold_metric: "statements"
-        status_context: "Coverage Public API"
+        status_context: "Public API coverage"
+        comment_context: "Public API coverage"
         comment_mode: 
         comment_footer: false
