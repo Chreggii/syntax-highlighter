@@ -1,0 +1,12 @@
+Flask~=2.0.3
+
+# Requirements from https://github.com/MEPalma/UZH-ASE-AnnotationWS-BaseLearner
+certifi==2021.10.8
+numpy==1.22.1
+Pillow==9.0.0
+setuptools==58.0.4
+torch==1.10.1
+torchaudio==0.10.1
+torchvision==0.11.2
+typing_extensions==4.0.1
+wheel==0.37.1
