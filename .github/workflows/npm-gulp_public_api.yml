@@ -12,10 +12,23 @@ jobs:
     container: node:16-alpine
     steps:
     - uses: actions/checkout@v2
-  
+
     - name: test Public API
       run: |
         cd publicAPI
         npm i 
         npm run build
-        npm run test
+        npm run test:cov
+
+    - name: Monitor coverage
+      uses: slavcodev/coverage-monitor-action@v1
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        coverage_path: "publicAPI/coverage/clover.xml"
+        threshold_alert: 50
+        threshold_warning: 80
+        threshold_metric: "statements"
+        status_context: "Public API coverage"
+        comment_context: "Public API coverage"
+        comment_mode: "replace"
+        comment_footer: false
