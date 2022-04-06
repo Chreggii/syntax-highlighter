@@ -7,7 +7,7 @@ export class MlClassifierController {
 
     @Get()
     async classify(): Promise<string> {
-        const response = await this.httpService.get('http://mlclassifier:3000/').toPromise();
+        const response = await this.httpService.get('http://mlclassifier:3000/ml-highlight').toPromise();
         return "The followind data was received from the Formal Syntax Highlighter:\n\n" + response.data;
     }
 }

@@ -22,6 +22,24 @@ def predict(lexing, language):
 
     return highlighted_data
 
+@app.route('/train',  methods=['PUT'])
+def learn(lexing, language):
+    formal_syntax_highligter = requests.get("http://formalSyntaxHighlighter:8080/highlight-string",
+                                            params={'text': lexing, 'type': language})
+    response = formal_syntax_highligter.json()
+    data_token = response[0]
+    tokens = []
+    highlighted = []
+    for id in data:
+        tokens.append(id['tokenId'])
+        highlighted.append(id['hCodeValue'])
+    if language == 'python':
+        language = 'python3'
+    model = SHModel(language, 'model_data')
+    model.setup_for_finetuning()
+    # check value later
+    value = model.finetune_on(token, highlighted)
+
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 3000))
