@@ -10,11 +10,11 @@ app = Flask(__name__)
 
 @app.route("/ml-highlight", methods=["GET"])
 def predict(lexing, language):
-    formal_syntax_highligter = requests.get(
+    formal_syntax_highlighter = requests.get(
         "http://formalSyntaxHighlighter:8080/lex-string",
         params={"text": lexing, "type": language},
     )
-    response = formal_syntax_highligter.json()
+    response = formal_syntax_highlighter.json()
     data = response[0]
     tokens = []
     for id in data:
@@ -30,11 +30,11 @@ def predict(lexing, language):
 
 @app.route("/ml-train", methods=["PUT"])
 def learn(lexing, language):
-    formal_syntax_highligter = requests.get(
+    formal_syntax_highlighter = requests.get(
         "http://formalSyntaxHighlighter:8080/highlight-string",
         params={"text": lexing, "type": language},
     )
-    response = formal_syntax_highligter.json()
+    response = formal_syntax_highlighter.json()
     data_token = response[0]
     tokens = []
     highlighted = []
