@@ -1,5 +1,7 @@
+import http
+
 from Base_Learner.SHModelUtils import SHModel
-from flask import Flask
+from flask import Flask, Response
 import os
 import requests
 
@@ -43,8 +45,11 @@ def learn(lexing, language):
         language = "python3"
     model = SHModel(language, "model_data")
     model.setup_for_finetuning()
-    # check value later
-    value = model.finetune_on(token, highlighted)
+
+    model.finetune_on(token, highlighted)
+    model.persist_model()
+
+    return Response(status=http.HTTPStatus.NO_CONTENT)
 
 
 if __name__ == "__main__":
