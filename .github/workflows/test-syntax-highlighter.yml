@@ -26,4 +26,4 @@ jobs:
         paths: formalSyntaxHighlighter/build/reports/jacoco/test/jacocoTestReport.xml
         token: ${{ secrets.GITHUB_TOKEN }}
         min-coverage-overall: 90
-        title: "SyntaxHighlighter Coverage"
+        title: "Syntax Highlighter Coverage"
