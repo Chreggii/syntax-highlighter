@@ -21,7 +21,10 @@ def predict(lexing, language):
         tokens.append(id["tokenId"])
     if language == "python":
         language = "python3"
-    model = SHModel(language, "model_data")
+    # TODO: Use constants provided: JAVA_LANG_NAME, KOTLIN_LANG_NAME, PYTHON3_LANG_NAME
+    model = SHModel(
+        language, "model_data"
+    )  # TODO: Name needs to depend on language as the name is used in the filename for the persistent model
     model.setup_for_prediction()
     highlighted_data = model.predict(tokens)
 
