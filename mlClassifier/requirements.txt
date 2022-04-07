@@ -4,10 +4,14 @@
 #
 #    pip-compile
 #
+black==22.3.0
+    # via -r requirements.in
 certifi==2021.10.8
     # via -r requirements.in
 click==8.1.2
-    # via flask
+    # via
+    #   black
+    #   flask
 flask==2.0.3
     # via -r requirements.in
 itsdangerous==2.1.2
@@ -16,14 +20,22 @@ jinja2==3.1.1
     # via flask
 markupsafe==2.1.1
     # via jinja2
+mypy-extensions==0.4.3
+    # via black
 numpy==1.22.1
     # via
     #   -r requirements.in
     #   torchvision
+pathspec==0.9.0
+    # via black
 pillow==9.0.0
     # via
     #   -r requirements.in
     #   torchvision
+platformdirs==2.5.1
+    # via black
+tomli==2.0.1
+    # via black
 torch==1.10.1
     # via
     #   -r requirements.in
@@ -36,6 +48,7 @@ torchvision==0.11.2
 typing-extensions==4.0.1
     # via
     #   -r requirements.in
+    #   black
     #   torch
 werkzeug==2.1.1
     # via flask

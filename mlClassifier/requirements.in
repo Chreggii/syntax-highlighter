@@ -1,4 +1,5 @@
 Flask~=2.0.3
+black
 
 # Requirements from https://github.com/MEPalma/UZH-ASE-AnnotationWS-BaseLearner
 certifi==2021.10.8
