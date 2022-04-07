@@ -24,10 +24,10 @@ public class HttpRequestTestHighlighting {
     @Test
     public void pythonHighlightingHelloWorld() throws Exception {
         String helloWorldProgramm = "print(\"Hello world!\")";
-        String test = "[{\"startIndex\":0,\"endIndex\":4,\"tokenId\":42},{\"startIndex\":5,\"endIndex\":5,\"tokenId\":54},{\"startIndex\":6,\"endIndex\":19,\"tokenId\":3},{\"startIndex\":20,\"endIndex\":20,\"tokenId\":55}]";
+        String test = "[{\"hCodeValue\":9,\"startIndex\":0,\"endIndex\":4,\"tokenId\":42},{\"hCodeValue\":0,\"startIndex\":5,\"endIndex\":5,\"tokenId\":54},{\"hCodeValue\":3,\"startIndex\":6,\"endIndex\":19,\"tokenId\":3},{\"hCodeValue\":0,\"startIndex\":20,\"endIndex\":20,\"tokenId\":55},{\"hCodeValue\":0,\"startIndex\":21,\"endIndex\":20,\"tokenId\":-1}]";
         JSONAssert.assertEquals(
                 test,
-                this.restTemplate.getForObject(String.format("http://localhost:%s/lex-string?type=python&text=%s", port, helloWorldProgramm), String.class),
+                this.restTemplate.getForObject(String.format("http://localhost:%s/highlight-string?type=python&text=%s", port, helloWorldProgramm), String.class),
                 JSONCompareMode.LENIENT
         );
     }
