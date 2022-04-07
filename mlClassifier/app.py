@@ -22,7 +22,7 @@ def predict(lexing, language):
 
     return highlighted_data
 
-@app.route('/train',  methods=['PUT'])
+@app.route('/ml-train',  methods=['PUT'])
 def learn(lexing, language):
     formal_syntax_highligter = requests.get("http://formalSyntaxHighlighter:8080/highlight-string",
                                             params={'text': lexing, 'type': language})
