@@ -17,3 +17,16 @@ jobs:
         npm i 
         npm run build:ci
         npm run test:ci
+
+    - name: Monitor coverage
+      uses: slavcodev/coverage-monitor-action@v1
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        coverage_path: "frontend/coverage/frontend/coverage-summary.json"
+        threshold_alert: 50
+        threshold_warning: 80
+        threshold_metric: "statements"
+        status_context: "Frontend coverage"
+        comment_context: "Frontend coverage"
+        comment_mode: "replace"
+        comment_footer: false
