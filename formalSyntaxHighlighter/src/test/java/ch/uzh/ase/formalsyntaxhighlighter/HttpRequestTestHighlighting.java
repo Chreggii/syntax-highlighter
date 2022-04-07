@@ -57,4 +57,17 @@ public class HttpRequestTestHighlighting {
                 JSONCompareMode.LENIENT
         );
     }
+
+    @Test
+    public void invalidtypeHighlighting() throws Exception {
+        String helloWorldProgramm = "println(\"Hello, World!\")";
+        String test = "{\"error\":{\"reason\":\"abc is not a valid type ([python, kotlin, java])\",\"code\":400,\"type\":\"Bad request\"}}";
+        JSONAssert.assertEquals(
+                test,
+                this.restTemplate.getForObject(
+                        String.format("http://localhost:%s/highlight-string?type=abc&text=%s", port, helloWorldProgramm), String.class
+                ),
+                JSONCompareMode.LENIENT
+        );
+    }
 }
