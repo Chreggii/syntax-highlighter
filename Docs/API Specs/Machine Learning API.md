@@ -6,10 +6,10 @@
 
 #### Parameters
 
-| Parameter  | Required | Type                                  | default | Description                                                  |
-| ---------- | -------- | ------------------------------------- | ------- | ------------------------------------------------------------ |
-| `lexing`   | ✅        | URL-encoded string                    | -       | An array describing the output from the lexting data. The array has to be ordered properly to ensure correct output: `[...tokenIds]`. |
-| `language` | ✅        | string:`["python", "kotlin", "java"]` | -       | The programming language that the code is written in.        |
+| Parameter  | Required | Type                                  | Description                                                  |
+| ---------- | -------- | ------------------------------------- | ------------------------------------------------------------ |
+| `lexing`   | ✅        | URL-Encoded list                      | An array describing the output from the lexting data. The array has to be ordered properly to ensure correct output: `[...tokenIds]`. |
+| `language` | ✅        | string:`["python", "kotlin", "java"]` | The programming language that the code is written in.        |
 
 #### Responses
 
