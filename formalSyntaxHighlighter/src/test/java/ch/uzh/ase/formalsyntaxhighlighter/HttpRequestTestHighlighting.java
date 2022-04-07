@@ -59,7 +59,7 @@ public class HttpRequestTestHighlighting {
     }
 
     @Test
-    public void invalidtypeHighlighting() throws Exception {
+    public void invalidTypeHighlighting() throws Exception {
         String helloWorldProgramm = "println(\"Hello, World!\")";
         String test = "{\"error\":{\"reason\":\"abc is not a valid type ([python, kotlin, java])\",\"code\":400,\"type\":\"Bad request\"}}";
         JSONAssert.assertEquals(

@@ -57,4 +57,18 @@ public class HttpRequestTestLexing {
                 JSONCompareMode.LENIENT
         );
     }
+
+    @Test
+    public void invalidTypeLexingHelloWorld() throws Exception {
+        String helloWorldProgram = "println(\"Hello, World!\")";
+        String test = "{\"error\":{\"reason\":\"abc is not a valid type ([python, kotlin, java])\",\"code\":400,\"type\":\"Bad request\"}}";
+        JSONAssert.assertEquals(
+                test,
+                this.restTemplate.getForObject(
+                        String.format("http://localhost:%s/lex-string?type=abc&text=%s", port, helloWorldProgram), String.class
+                ),
+                JSONCompareMode.LENIENT
+        );
+    }
+
 }
