@@ -60,12 +60,25 @@ public class HttpRequestTestHighlighting {
 
     @Test
     public void invalidTypeHighlighting() throws Exception {
-        String helloWorldProgramm = "println(\"Hello, World!\")";
+        String helloWorldProgram = "println(\"Hello, World!\")";
         String test = "{\"error\":{\"reason\":\"abc is not a valid type ([python, kotlin, java])\",\"code\":400,\"type\":\"Bad request\"}}";
         JSONAssert.assertEquals(
                 test,
                 this.restTemplate.getForObject(
-                        String.format("http://localhost:%s/highlight-string?type=abc&text=%s", port, helloWorldProgramm), String.class
+                        String.format("http://localhost:%s/highlight-string?type=abc&text=%s", port, helloWorldProgram), String.class
+                ),
+                JSONCompareMode.LENIENT
+        );
+    }
+
+    @Test
+    public void getHighlightingCodes() throws Exception {
+        String helloWorldProgram = "println(\"Hello, World!\")";
+        String test = "[{\"name\":\"ANY\",\"hCodeValue\":0},{\"name\":\"KEYWORD\",\"hCodeValue\":1},{\"name\":\"LITERAL\",\"hCodeValue\":2},{\"name\":\"CHAR_STRING_LITERAL\",\"hCodeValue\":3},{\"name\":\"COMMENT\",\"hCodeValue\":4},{\"name\":\"CLASS_DECLARATOR\",\"hCodeValue\":5},{\"name\":\"FUNCTION_DECLARATOR\",\"hCodeValue\":6},{\"name\":\"VARIABLE_DECLARATOR\",\"hCodeValue\":7},{\"name\":\"TYPE_IDENTIFIER\",\"hCodeValue\":8},{\"name\":\"FUNCTION_IDENTIFIER\",\"hCodeValue\":9},{\"name\":\"FIELD_IDENTIFIER\",\"hCodeValue\":10},{\"name\":\"ANNOTATION_DECLARATOR\",\"hCodeValue\":11}]";
+        JSONAssert.assertEquals(
+                test,
+                this.restTemplate.getForObject(
+                        String.format("http://localhost:%s/highlighting-codes", port, helloWorldProgram), String.class
                 ),
                 JSONCompareMode.LENIENT
         );
