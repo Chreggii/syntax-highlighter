@@ -56,3 +56,40 @@ Sometimes the source-text was too large, and therefore we can't give you a prope
   }
 }
 ```
+
+### `GET /ml-train`
+
+#### Parameters
+
+| Parameter      | Required | Type                                  | Description                                                  |
+| -------------- | -------- | ------------------------------------- | ------------------------------------------------------------ |
+| `lexing`       | ✅        | URL-encoded list                      | An array describing the output from the lexting data. The array has to be ordered properly to ensure correct output: `[...tokenIds]`. |
+| `highlighting` | ✅        | URL-encoded list                      | An array that contains the training data that corresponds to the lexing data: `[...hCodeValues]` |
+| `language`     | ✅        | string:`["python", "kotlin", "java"]` | The programming language that the code is written in.        |
+
+#### Responses
+
+##### 204 No Content
+
+The machine learning service has received the data and will train on it. It is not guaranteed that the training will take place immediatly.
+
+##### 400 Bad Request
+
+Requests might be missing a required parameter or is badly encoded.
+
+**Example response:**
+
+```json
+{
+  "error": {
+    "code": 400,
+    "type": "Bad Request",
+    "reasons": "The given reason that triggered the bad request."
+  }
+}
+```
+
+##### 414 URI Too Long
+
+Sometimes the source-text was too large, and therefore we can't give you a proper reply.
+
