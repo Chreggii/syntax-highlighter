@@ -2,7 +2,7 @@
 
 ## Dependencies
 
-This serivce uses `pip-tools` to manage the dependencies.
+This serivce uses `pip-tools` to manage the dependencies. (`pip install pip-tools`)
 
 ### Install dependencies
 
