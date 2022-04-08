@@ -15,7 +15,7 @@
 
 ##### 200 OK
 
-Returns the data from the machine learning highlighter, in the following format: `[...hCodeValues]`. If the ML model is working properly the first three items of every list item should be the same as the provided lexing data.
+Returns the data from the machine learning highlighter, in the following format: `[...hCodeValues]`. It also contains the lexting data from the formal syntax highlighter that includes `startIndex` and `endIndex`. If the ML model is working properly the first three items of every list item should be the same as the provided lexing data.
 
 **Example response:**
 
