@@ -1,5 +1,6 @@
-import { Lex } from './lex.model';
-
-export interface Highlight extends Lex {
+export interface Highlight {
+    startIndex: number;
+    endIndex: number;
+    tokenId: number;
     hCodeValue: number;
 }
