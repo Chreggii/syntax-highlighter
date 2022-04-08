@@ -32,7 +32,7 @@ export class FileHighlighterController {
             const lexData = (await this.httpService.get(`http://formalSyntaxHighlighter:8080/lex-string${syntaxHighlighterParams}`).toPromise()).data as Lex[];
             const highLightData = (await this.httpService.get(`http://formalSyntaxHighlighter:8080/highlight-string${syntaxHighlighterParams}`).toPromise()).data as Highlight[];
             // TODO Nicolas: connect to proper ml classifier endpoint and pass lexData
-            const mlClassifierData = (await this.httpService.get("http://mlclassifier:3000/ml-highlight").toPromise()).data;
+            const mlClassifierData = (await this.httpService.get("http://mlclassifier:3000").toPromise()).data;
 
             return of({
                 "source-code": query.sourceText,
