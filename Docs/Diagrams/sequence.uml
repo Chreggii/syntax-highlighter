@@ -9,15 +9,21 @@ participant "Syntax Highlighter" as SH
 participant "ML Model" as ML
 
 front -> PAPI: request with source code
+
 PAPI -> SH: request with source code
-PAPI <- SH: lexed data
+PAPI <- SH: highligthed code (formal Syntax Highlighter)
+
 PAPI -> ML: request with source code
-PAPI <- SH: response highlighted code (formal model)
-PAPI <- ML: response highlighted code (machine learning)
-PAPI -> front: response requested highlighted code
+SH <- ML: request lexing data with source code
+SH -> ML: lexed data
+PAPI <- ML: highlighted code (ML model)
+
+front <- PAPI: response requested highlighted code
 
 group training (async)
-SH -> ML: request with highlighted source code
+PAPI -> ML: request with highlighted source code
+SH <- ML: request highling data with source code
+SH -> ML: highlighted data
 ML -> ML: training
 end
 
