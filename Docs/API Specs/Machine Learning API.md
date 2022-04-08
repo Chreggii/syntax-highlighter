@@ -6,23 +6,31 @@
 
 #### Parameters
 
-| Parameter  | Required | Type                                  | Description                                                  |
-| ---------- | -------- | ------------------------------------- | ------------------------------------------------------------ |
-| `lexing`   | ✅        | URL-Encoded list                      | An array describing the output from the lexting data. The array has to be ordered properly to ensure correct output: `[...tokenIds]`. |
-| `language` | ✅        | string:`["python", "kotlin", "java"]` | The programming language that the code is written in.        |
+| Parameter | Required | Type                                  | default |
+| --------- | -------- | ------------------------------------- | ------- |
+| `text`    | ✅        | URL-encoded string                    | -       |
+| `type`    | ✅        | string:`["python", "kotlin", "java"]` | -       |
 
 #### Responses
 
 ##### 200 OK
 
-Returns the data from the machine learning highlighter, in the following format: `[...hCodeValues]`. If the ML model is working properly the first three items of every list item should be the same as the provided lexing data.
+Returns the data from the machine learning highlighter, in the following format: `[...hCodeValues]`. It also contains the lexting data from the formal syntax highlighter that includes `startIndex` and `endIndex`. If the ML model is working properly the first three items of every list item should be the same as the provided lexing data.
 
 **Example response:**
 
 ```json
-[
-  11, 13, 4, 2, 1, 4, 5, 12
-]
+{
+  lexingData: [
+    {
+      "startIndex": 0,
+      "endIndex": 4,
+      "tokenId": 42
+    },
+    ...
+  ],
+  hCodeValues: [11, 13, 4, 2, 1, 4, 5, 12],
+}
 ```
 
 ##### 400 Bad Request
@@ -61,11 +69,10 @@ Sometimes the source-text was too large, and therefore we can't give you a prope
 
 #### Parameters
 
-| Parameter      | Required | Type                                  | Description                                                  |
-| -------------- | -------- | ------------------------------------- | ------------------------------------------------------------ |
-| `lexing`       | ✅        | URL-encoded list                      | An array describing the output from the lexting data. The array has to be ordered properly to ensure correct output: `[...tokenIds]`. |
-| `highlighting` | ✅        | URL-encoded list                      | An array that contains the training data that corresponds to the lexing data: `[...hCodeValues]` |
-| `language`     | ✅        | string:`["python", "kotlin", "java"]` | The programming language that the code is written in.        |
+| Parameter | Required | Type                                  | default |
+| --------- | -------- | ------------------------------------- | ------- |
+| `text`    | ✅        | URL-encoded string                    | -       |
+| `type`    | ✅        | string:`["python", "kotlin", "java"]` | -       |
 
 #### Responses
 

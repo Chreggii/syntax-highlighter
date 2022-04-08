@@ -26,7 +26,7 @@ package "Annotation WebService" {
  
   PAPI --( SHAPI :uses
   PAPI --( MLAPI :uses
-  SH -( MLAPI :uses
+  ML -( SHAPI : uses
   
 }
 @enduml
