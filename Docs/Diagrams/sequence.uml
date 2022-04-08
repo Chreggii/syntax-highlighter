@@ -21,7 +21,9 @@ PAPI <- ML: highlighted code (ML model)
 front <- PAPI: response requested highlighted code
 
 group training (async)
-SH -> ML: request with highlighted source code
+PAPI -> ML: request with highlighted source code
+SH <- ML: request highling data with source code
+SH -> ML: highlighted data
 ML -> ML: training
 end
 
