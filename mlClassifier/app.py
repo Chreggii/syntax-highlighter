@@ -1,58 +1,94 @@
 import http
 
-from Base_Learner.SHModelUtils import SHModel
-from flask import Flask, Response
-import os
+from Base_Learner.SHModelUtils import *
+from flask import Flask, Response, request
+import os, werkzeug
 import requests
 
 app = Flask(__name__)
 
+types = [PYTHON3_LANG_NAME, KOTLIN_LANG_NAME, JAVA_LANG_NAME, "python"]
 
 @app.route("/ml-highlight", methods=["GET"])
-def predict(lexing, language):
+@app.errorhandler(werkzeug.exceptions.BadRequest)
+def predict():
+    # define the parameter that we expect
+    text = request.args.get('text')
+    type = request.args.get('type')
+
+    # check type of 'text' and 'type', return 400 error if is wrong
+    if type not in types:
+        return "The type should be either 'java', 'kotlin', 'python'!", 400
+    if not isinstance(text, str):
+        return "Text should be a string!", 400
+
+    # convert 'python3' variable to python for the formalSyntaxHighlighter API call
+    if type == PYTHON3_LANG_NAME:
+        type = 'python'
     formal_syntax_highlighter = requests.get(
-        "http://formalSyntaxHighlighter:8080/lex-string",
-        params={"text": lexing, "type": language},
+        "http://localhost:8080/lex-string",# for docker: http://formalSyntaxHighlighter:8080/lex-string
+        params={"text": text, "type": type},
     )
-    response = formal_syntax_highlighter.json()
-    data = response[0]
+    fsh_response = formal_syntax_highlighter.json()
+
+    # collect tokenId from formalSyntaxHighlighter API response
     tokens = []
-    for id in data:
-        tokens.append(id["tokenId"])
-    if language == "python":
-        language = "python3"
-    # TODO: Use constants provided: JAVA_LANG_NAME, KOTLIN_LANG_NAME, PYTHON3_LANG_NAME
+    for ltok in fsh_response:
+        tokens.append(ltok["tokenId"])
+
+    # convert type to 'python3' for the SHModel
+    if type == 'python':
+        type = PYTHON3_LANG_NAME
     model = SHModel(
-        language, "model_data"
-    )  # TODO: Name needs to depend on language as the name is used in the filename for the persistent model
+        type, "model_data"
+    )
     model.setup_for_prediction()
     highlighted_data = model.predict(tokens)
 
-    return highlighted_data
+    response_data = {
+        'lexingData': fsh_response,
+        'hCodeValues': highlighted_data
+    }
+
+    return response_data
 
 
 @app.route("/ml-train", methods=["PUT"])
-def learn(lexing, language):
+def learn():
+    text = request.args.get('text')
+    type = request.args.get('type')
+
+    if type not in types:
+        return "The type should be either 'java', 'kotlin', 'python'!", 400
+
+    if not isinstance(text, str):
+        return "Text should be a string!", 400
+
+    if type == PYTHON3_LANG_NAME:
+        type = 'python'
+
     formal_syntax_highlighter = requests.get(
-        "http://formalSyntaxHighlighter:8080/highlight-string",
-        params={"text": lexing, "type": language},
+        "http://localhost:8080/highlight-string",# for docker: http://formalSyntaxHighlighter:8080/highlight-string
+        params={"text": text, "type": type},
     )
-    response = formal_syntax_highlighter.json()
-    data_token = response[0]
+    fsh_response = formal_syntax_highlighter.json()
+
     tokens = []
     highlighted = []
-    for id in data:
+    for id in fsh_response:
         tokens.append(id["tokenId"])
         highlighted.append(id["hCodeValue"])
-    if language == "python":
-        language = "python3"
-    model = SHModel(language, "model_data")
+
+    if type == "python":
+        type = PYTHON3_LANG_NAME
+
+    model = SHModel(type, "model_data")
     model.setup_for_finetuning()
 
-    model.finetune_on(token, highlighted)
+    finetuning = model.finetune_on(tokens, highlighted)
     model.persist_model()
 
-    return Response(status=http.HTTPStatus.NO_CONTENT)
+    return "Training loss: {}".format(finetuning)
 
 
 if __name__ == "__main__":
