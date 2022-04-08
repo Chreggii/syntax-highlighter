@@ -9,6 +9,13 @@ app = Flask(__name__)
 
 types = [PYTHON3_LANG_NAME, KOTLIN_LANG_NAME, JAVA_LANG_NAME, "python"]
 
+# Helper method to make testing easier
+def getLexing(text, type):
+    return requests.get(
+        "http://localhost:8080/lex-string",# for docker: http://formalSyntaxHighlighter:8080/lex-string
+        params={"text": text, "type": type},
+    )
+
 @app.route("/ml-highlight", methods=["GET"])
 @app.errorhandler(werkzeug.exceptions.BadRequest)
 def predict():
@@ -25,10 +32,7 @@ def predict():
     # convert 'python3' variable to python for the formalSyntaxHighlighter API call
     if type == PYTHON3_LANG_NAME:
         type = 'python'
-    formal_syntax_highlighter = requests.get(
-        "http://localhost:8080/lex-string",# for docker: http://formalSyntaxHighlighter:8080/lex-string
-        params={"text": text, "type": type},
-    )
+    formal_syntax_highlighter = getLexing(text, type)
     fsh_response = formal_syntax_highlighter.json()
 
     # collect tokenId from formalSyntaxHighlighter API response
