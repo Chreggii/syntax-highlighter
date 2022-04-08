@@ -10,7 +10,7 @@ import {
     UseInterceptors
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { of } from 'rxjs';
+import { catchError, forkJoin, map, throwError } from 'rxjs';
 
 import { Highlight } from '../models/highlight.model';
 import { FileHighlighterService } from './services/file-highlighter.service';
@@ -28,18 +28,20 @@ export class FileHighlighterController {
         if (languages.includes(query.language)) {
             const params = `?text=${query.sourceText}&type=${query.language}`;
 
-            const formalFormatting = (await this.httpService.get(`http://formalSyntaxHighlighter:8080/highlight-string${params}`).toPromise()).data as Highlight[];
-            const mlFormatting = (await this.httpService.get(`http://mlclassifier:3000/ml-highlight${params}`).toPromise()).data as Highlight[];
-
             this.httpService.get(`http://mlclassifier:3000/ml-train${params}`).subscribe();
 
-            return of({
-                "source-code": query.sourceText,
-                "formal-formatting": formalFormatting,
-                "ml-formatting": mlFormatting
-            }).toPromise()
+            return forkJoin([
+                this.httpService.get<Highlight[]>(`http://formalSyntaxHighlighter:8080/highlight-string${params}`).pipe(catchError(() => throwError(this.throwError(HttpStatus.BAD_REQUEST, 'No response from formal syntax highlighter')))),
+                this.httpService.get<number[]>(`http://mlclassifier:3000/ml-highlight${params}`).pipe(catchError(() => throwError(this.throwError(HttpStatus.BAD_REQUEST, 'No response from ml classifier'))))
+            ]).pipe(
+                map(([formalFormatting, mlFormatting]) => ({
+                    "source-code": query.sourceText,
+                    "formal-formatting": formalFormatting,
+                    "ml-formatting": mlFormatting
+                }))
+            );
         } else {
-            throw new HttpException({ status: HttpStatus.BAD_REQUEST, error: 'Text language not supported! Please choose python, java or kotlin' }, HttpStatus.BAD_REQUEST);
+            this.throwError(HttpStatus.BAD_REQUEST, 'Text language not supported! Please choose python, java or kotlin');
         }
 
     }
@@ -57,5 +59,9 @@ export class FileHighlighterController {
         } else {
             throw new HttpException({ status: HttpStatus.BAD_REQUEST, error: 'File extension not supported!' }, HttpStatus.BAD_REQUEST);
         }
+    }
+
+    private throwError(status: HttpStatus, error: string): void {
+        throw new HttpException({ status, error }, status);
     }
 }
