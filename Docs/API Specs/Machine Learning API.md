@@ -20,9 +20,17 @@ Returns the data from the machine learning highlighter, in the following format:
 **Example response:**
 
 ```json
-[
-  11, 13, 4, 2, 1, 4, 5, 12
-]
+{
+  lexingData: [
+    {
+      "startIndex": 0,
+      "endIndex": 4,
+      "tokenId": 42
+    },
+    ...
+  ],
+  hCodeValues: [11, 13, 4, 2, 1, 4, 5, 12],
+}
 ```
 
 ##### 400 Bad Request
