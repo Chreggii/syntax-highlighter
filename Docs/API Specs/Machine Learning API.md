@@ -6,10 +6,10 @@
 
 #### Parameters
 
-| Parameter  | Required | Type                                  | Description                                                  |
-| ---------- | -------- | ------------------------------------- | ------------------------------------------------------------ |
-| `lexing`   | ✅        | URL-Encoded list                      | An array describing the output from the lexting data. The array has to be ordered properly to ensure correct output: `[...tokenIds]`. |
-| `language` | ✅        | string:`["python", "kotlin", "java"]` | The programming language that the code is written in.        |
+| Parameter | Required | Type                                  | default |
+| --------- | -------- | ------------------------------------- | ------- |
+| `text`    | ✅        | URL-encoded string                    | -       |
+| `type`    | ✅        | string:`["python", "kotlin", "java"]` | -       |
 
 #### Responses
 
@@ -61,11 +61,10 @@ Sometimes the source-text was too large, and therefore we can't give you a prope
 
 #### Parameters
 
-| Parameter      | Required | Type                                  | Description                                                  |
-| -------------- | -------- | ------------------------------------- | ------------------------------------------------------------ |
-| `lexing`       | ✅        | URL-encoded list                      | An array describing the output from the lexting data. The array has to be ordered properly to ensure correct output: `[...tokenIds]`. |
-| `highlighting` | ✅        | URL-encoded list                      | An array that contains the training data that corresponds to the lexing data: `[...hCodeValues]` |
-| `language`     | ✅        | string:`["python", "kotlin", "java"]` | The programming language that the code is written in.        |
+| Parameter | Required | Type                                  | default |
+| --------- | -------- | ------------------------------------- | ------- |
+| `text`    | ✅        | URL-encoded string                    | -       |
+| `type`    | ✅        | string:`["python", "kotlin", "java"]` | -       |
 
 #### Responses
 
