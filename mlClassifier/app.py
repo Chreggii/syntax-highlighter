@@ -1,13 +1,10 @@
 import http
 
 from Base_Learner.SHModelUtils import *
-from flask import Flask, Response, request
+from flask import Flask, Response, request, app
 import os, werkzeug
 import requests
 
-app = Flask(__name__)
-
-types = [PYTHON3_LANG_NAME, KOTLIN_LANG_NAME, JAVA_LANG_NAME, "python"]
 
 # Helper method to make testing easier
 def getLexing(text, type):
@@ -16,15 +13,20 @@ def getLexing(text, type):
         params={"text": text, "type": type},
     )
 
+
 # Helper method to make testing easier
 def getHighlightString(text, type):
     return requests.get(
-            "http://localhost:8080/highlight-string",
-            # for docker: http://formalSyntaxHighlighter:8080/highlight-string
-            params={"text": text, "type": type},
-        )
+        "http://localhost:8080/highlight-string",
+        # for docker: http://formalSyntaxHighlighter:8080/highlight-string
+        params={"text": text, "type": type},
+    )
 
-def configure_routes(app):
+
+def create_app():
+    app = Flask(__name__)
+    types = [PYTHON3_LANG_NAME, KOTLIN_LANG_NAME, JAVA_LANG_NAME, "python"]
+
     @app.route("/ml-highlight", methods=["GET"])
     @app.errorhandler(werkzeug.exceptions.BadRequest)
     def predict():
@@ -42,7 +44,7 @@ def configure_routes(app):
         if type == PYTHON3_LANG_NAME:
             type = 'python'
         formal_syntax_highlighter = getLexing(text, type)
-        fsh_response = formal_syntax_highlighter.json
+        fsh_response = formal_syntax_highlighter.json()
 
         # collect tokenId from formalSyntaxHighlighter API response
         tokens = []
@@ -80,7 +82,7 @@ def configure_routes(app):
             type = 'python'
 
         formal_syntax_highlighter = getHighlightString(text, type)
-        fsh_response = formal_syntax_highlighter.json
+        fsh_response = formal_syntax_highlighter.json()
 
         tokens = []
         highlighted = []
@@ -99,6 +101,10 @@ def configure_routes(app):
 
         return "Training loss: {}".format(finetuning)
 
-    if __name__ == "__main__":
-        port = int(os.environ.get("PORT", 3000))
-        app.run(debug=True, host="0.0.0.0", port=port)
+    return app
+
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 3000))
+    app = create_app()
+    app.run(debug=True, host="0.0.0.0", port=port)
