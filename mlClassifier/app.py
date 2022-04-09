@@ -16,6 +16,14 @@ def getLexing(text, type):
         params={"text": text, "type": type},
     )
 
+def getHighlightString(text, type):
+    return requests.get(
+            "http://localhost:8080/highlight-string",
+            # for docker: http://formalSyntaxHighlighter:8080/highlight-string
+            params={"text": text, "type": type},
+        )
+
+
 
 def configure_routes(app):
     @app.route("/ml-highlight", methods=["GET"])
@@ -35,7 +43,7 @@ def configure_routes(app):
         if type == PYTHON3_LANG_NAME:
             type = 'python'
         formal_syntax_highlighter = getLexing(text, type)
-        fsh_response = formal_syntax_highlighter.json()
+        fsh_response = formal_syntax_highlighter.json
 
         # collect tokenId from formalSyntaxHighlighter API response
         tokens = []
@@ -72,12 +80,8 @@ def configure_routes(app):
         if type == PYTHON3_LANG_NAME:
             type = 'python'
 
-        formal_syntax_highlighter = requests.get(
-            "http://localhost:8080/highlight-string",
-            # for docker: http://formalSyntaxHighlighter:8080/highlight-string
-            params={"text": text, "type": type},
-        )
-        fsh_response = formal_syntax_highlighter.json()
+        formal_syntax_highlighter = getHighlightString(text, type)
+        fsh_response = formal_syntax_highlighter.json
 
         tokens = []
         highlighted = []
