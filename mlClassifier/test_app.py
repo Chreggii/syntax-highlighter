@@ -19,7 +19,7 @@ class FlaskTest(unittest.TestCase):
         app.getHighlightString = mock.Mock(return_value=jsonify(data))
 
     #Basic Test for predicting
-    def test_predict(client):
+    def test_predict_200(client):
         app = Flask(__name__)
         configure_routes(app)
         client = app.test_client()
@@ -29,8 +29,19 @@ class FlaskTest(unittest.TestCase):
         )
         assert response.status_code == 200
 
+    # Should throw error if invalid language is chosen
+    def test_predict_bad_request(client):
+        app = Flask(__name__)
+        configure_routes(app)
+        client = app.test_client()
+        response = client.get(
+            '/ml-highlight',
+            query_string=dict(text='print', type='invalid_language')
+        )
+        assert response.status_code == 400
+
     # Basic Test for training
-    def test_learn(client):
+    def test_learn_200(client):
         app = Flask(__name__)
         configure_routes(app)
         client = app.test_client()
@@ -39,6 +50,17 @@ class FlaskTest(unittest.TestCase):
             query_string=dict(text='print', type='python')
         )
         assert response.status_code == 200
+
+    # Should throw error if invalid language is chosen
+    def test_learn_bad_request(client):
+        app = Flask(__name__)
+        configure_routes(app)
+        client = app.test_client()
+        response = client.put(
+            '/ml-train',
+            query_string=dict(text='print', type='invalid_language')
+        )
+        assert response.status_code == 400
 
 
 

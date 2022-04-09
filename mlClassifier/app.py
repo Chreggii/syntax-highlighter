@@ -16,14 +16,13 @@ def getLexing(text, type):
         params={"text": text, "type": type},
     )
 
+# Helper method to make testing easier
 def getHighlightString(text, type):
     return requests.get(
             "http://localhost:8080/highlight-string",
             # for docker: http://formalSyntaxHighlighter:8080/highlight-string
             params={"text": text, "type": type},
         )
-
-
 
 def configure_routes(app):
     @app.route("/ml-highlight", methods=["GET"])
