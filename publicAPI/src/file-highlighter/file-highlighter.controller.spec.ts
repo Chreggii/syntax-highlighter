@@ -13,7 +13,10 @@ describe("FileHighlighterController", () => {
       controllers: [FileHighlighterController],
       providers: [
         FileHighlighterService,
-        { provide: HttpService, useValue: { get: () => of({ data: [] }) } },
+        {
+          provide: HttpService,
+          useValue: { get: () => of({ data: [] }), put: () => of() },
+        },
       ],
     }).compile();
 
