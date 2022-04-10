@@ -18,6 +18,8 @@ click==8.1.2
     # via
     #   black
     #   flask
+coverage[toml]==6.3.2
+    # via pytest-cov
 flask==2.0.3
     # via -r requirements.in
 idna==3.3
@@ -55,12 +57,17 @@ py==1.11.0
 pyparsing==3.0.7
     # via packaging
 pytest==7.1.1
+    # via
+    #   -r requirements.in
+    #   pytest-cov
+pytest-cov==3.0.0
     # via -r requirements.in
 requests==2.27.1
     # via -r requirements.in
 tomli==2.0.1
     # via
     #   black
+    #   coverage
     #   pytest
 torch==1.10.1
     # via
