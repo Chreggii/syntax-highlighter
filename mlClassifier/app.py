@@ -5,11 +5,16 @@ from flask import Flask, Response, request, app
 import os, werkzeug
 import requests
 
+docker_network = os.getenv("DOCKER_NETWORK", "False") == "True"
+base_URL = (
+    "http://formalSyntaxHighlighter:8080" if docker_network else "http://localhost:8080"
+)
+
 
 # Helper method to make testing easier
 def getLexing(text, type):
     return requests.get(
-        "http://localhost:8080/lex-string",  # for docker: http://formalSyntaxHighlighter:8080/lex-string
+        base_URL + "/lex-string",
         params={"text": text, "type": type},
     )
 
@@ -17,8 +22,7 @@ def getLexing(text, type):
 # Helper method to make testing easier
 def getHighlightString(text, type):
     return requests.get(
-        "http://localhost:8080/highlight-string",
-        # for docker: http://formalSyntaxHighlighter:8080/highlight-string
+        base_URL + "/highlight-string",
         params={"text": text, "type": type},
     )
 
@@ -102,4 +106,6 @@ def create_app():
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 3000))
     app = create_app()
-    app.run(debug=True, host="0.0.0.0", port=port)
+    app.run(
+        debug=(os.getenv("FLASK_DEBUG", "True") == "True"), host="0.0.0.0", port=port
+    )
