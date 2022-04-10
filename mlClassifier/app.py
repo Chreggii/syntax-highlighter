@@ -68,8 +68,10 @@ def create_app():
 
     @app.route("/ml-train", methods=["PUT"])
     def learn():
-        text = request.args.get("text")
-        type = request.args.get("type")
+        data = request.json
+    
+        text = data["text"]
+        type = data["type"]
 
         if type not in types:
             return "The type should be either 'java', 'kotlin', 'python'!", 400
