@@ -1,5 +1,15 @@
 # Version
 
+## 0.2.0
+
+Release for milestone 2.
+
+- Running machine learning predictor.
+- Testing and automatic coverage.
+- Redesigned and optimized API Specs and microservice architecutre.
+
+
+
 ## 0.1.0
 
 First release for milestone 1. 🎉🎉🎉

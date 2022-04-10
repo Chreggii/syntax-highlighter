@@ -1,9 +1,9 @@
-import { HttpModule } from '@nestjs/common';
-import { Test, TestingModule } from '@nestjs/testing';
+import { HttpModule } from "@nestjs/common";
+import { Test, TestingModule } from "@nestjs/testing";
 
-import { MlClassifierController } from './ml-classifier.controller';
+import { MlClassifierController } from "./ml-classifier.controller";
 
-describe('MlClassifierController', () => {
+describe("MlClassifierController", () => {
   let controller: MlClassifierController;
 
   beforeEach(async () => {
@@ -15,7 +15,7 @@ describe('MlClassifierController', () => {
     controller = module.get<MlClassifierController>(MlClassifierController);
   });
 
-  it('should be defined', () => {
+  it("should be defined", () => {
     expect(controller).toBeDefined();
   });
 });

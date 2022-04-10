@@ -12,35 +12,21 @@ package "Annotation WebService" {
   
   frame "internal network" {
 
-    () "Rest API" as MLTAPI
-    [ML trainer] as MLT
-    MLTAPI -- MLT
-
     () "Rest API" as SHAPI
     [Syntax Highlighter] as SH
     SHAPI -- SH
     
-    () "Rest API" as MLCAPI
-    [ML classifier] as MLC
-    MLCAPI -- MLC
-
-    database " " {
-      [PostgreSQL] as PSQL
-    }
-    
-    storage "ML storage" as MS
+    () "Rest API" as MLAPI
+    [ML Model] as ML
+    MLAPI -- ML
   }
   
   
   FrontendService -> PAPIAPI
  
   PAPI --( SHAPI :uses
-  PAPI --( MLCAPI :uses
-  MLT - PSQL :uses
-  SH --( MLTAPI :uses
-  MLC -( SHAPI :uses
-  MS - MLT
-  MLC -- MS
+  PAPI --( MLAPI :uses
+  ML -( SHAPI : uses
   
 }
 @enduml

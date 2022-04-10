@@ -1,0 +1,30 @@
+@startuml
+
+skinparam defaultFontName Helvetica Neue
+skinparam defaultTextAlignment center
+
+participant "Frontend" as front
+participant "Public API" as PAPI
+participant "Syntax Highlighter" as SH
+participant "ML Model" as ML
+
+front -> PAPI: request with source code
+
+PAPI -> SH: request with source code
+PAPI <- SH: highligthed code (formal Syntax Highlighter)
+
+PAPI -> ML: request with source code
+SH <- ML: request lexing data with source code
+SH -> ML: lexed data
+PAPI <- ML: highlighted code (ML model)
+
+front <- PAPI: response requested highlighted code
+
+group training (async)
+PAPI -> ML: request with highlighted source code
+SH <- ML: request highling data with source code
+SH -> ML: highlighted data
+ML -> ML: training
+end
+
+@enduml

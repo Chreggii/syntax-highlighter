@@ -3,6 +3,7 @@ plugins {
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
     id 'com.adarshr.test-logger' version '3.2.0'
+    id 'jacoco'
 }
 
 group = 'ch.uzh.ase'
@@ -28,3 +29,15 @@ tasks.named('test') {
 testlogger {
     theme 'mocha'
 }
+
+test {
+    finalizedBy jacocoTestReport // report is always generated after tests run
+}
+
+jacocoTestReport {
+    dependsOn test // tests are required to run before generating the report
+    reports {
+        xml.required = true
+    }
+}
+

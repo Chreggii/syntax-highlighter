@@ -1,1 +1,1 @@
-export type SupportedLanguages = 'python' | 'kotlin' | 'java';
+export type SupportedLanguages = "python" | "kotlin" | "java";
