@@ -9,13 +9,9 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    container: python:3.9.7-bullseye
     steps:
     - uses: actions/checkout@v2
-
-    - name: Set Up Python
-      uses: actions/setup-python@v1
-      with:
-        python-version: 3.9
 
     - name: Install requirements
       run: |
