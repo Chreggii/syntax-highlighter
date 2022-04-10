@@ -1,9 +1,9 @@
-import { HttpModule } from '@nestjs/common';
-import { Test, TestingModule } from '@nestjs/testing';
+import { HttpModule } from "@nestjs/common";
+import { Test, TestingModule } from "@nestjs/testing";
 
-import { FormalSyntaxHighlighterController } from './formal-syntax-highlighter.controller';
+import { FormalSyntaxHighlighterController } from "./formal-syntax-highlighter.controller";
 
-describe('FormalSyntaxHighlighterController', () => {
+describe("FormalSyntaxHighlighterController", () => {
   let controller: FormalSyntaxHighlighterController;
 
   beforeEach(async () => {
@@ -12,10 +12,12 @@ describe('FormalSyntaxHighlighterController', () => {
       controllers: [FormalSyntaxHighlighterController],
     }).compile();
 
-    controller = module.get<FormalSyntaxHighlighterController>(FormalSyntaxHighlighterController);
+    controller = module.get<FormalSyntaxHighlighterController>(
+      FormalSyntaxHighlighterController
+    );
   });
 
-  it('should be defined', () => {
+  it("should be defined", () => {
     expect(controller).toBeDefined();
   });
 });

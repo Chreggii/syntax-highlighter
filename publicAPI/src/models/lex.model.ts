@@ -1,5 +1,5 @@
 export interface Lex {
-    startIndex: number;
-    endIndex: number;
-    tokenId: number;
+  startIndex: number;
+  endIndex: number;
+  tokenId: number;
 }

@@ -4,26 +4,64 @@
 #
 #    pip-compile
 #
-certifi==2021.10.8
+attrs==21.4.0
+    # via pytest
+black==22.3.0
     # via -r requirements.in
+certifi==2021.10.8
+    # via
+    #   -r requirements.in
+    #   requests
+charset-normalizer==2.0.12
+    # via requests
 click==8.1.2
-    # via flask
+    # via
+    #   black
+    #   flask
 flask==2.0.3
     # via -r requirements.in
+idna==3.3
+    # via requests
+iniconfig==1.1.1
+    # via pytest
 itsdangerous==2.1.2
     # via flask
 jinja2==3.1.1
     # via flask
 markupsafe==2.1.1
     # via jinja2
+mock==4.0.3
+    # via -r requirements.in
+mypy-extensions==0.4.3
+    # via black
 numpy==1.22.1
     # via
     #   -r requirements.in
     #   torchvision
+packaging==21.3
+    # via pytest
+pathspec==0.9.0
+    # via black
 pillow==9.0.0
     # via
     #   -r requirements.in
     #   torchvision
+platformdirs==2.5.1
+    # via black
+pluggy==1.0.0
+    # via pytest
+py==1.11.0
+    # via pytest
+pyparsing==3.0.7
+    # via packaging
+pytest==7.1.1
+    # via -r requirements.in
+requests==2.27.1
+    # via -r requirements.in
+tomli==2.0.1
+    # via
+    #   black
+    #   pytest
 torch==1.10.1
     # via
     #   -r requirements.in
@@ -36,7 +74,10 @@ torchvision==0.11.2
 typing-extensions==4.0.1
     # via
     #   -r requirements.in
+    #   black
     #   torch
+urllib3==1.26.9
+    # via requests
 werkzeug==2.1.1
     # via flask
 wheel==0.37.1

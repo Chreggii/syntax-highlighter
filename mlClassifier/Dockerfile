@@ -13,6 +13,10 @@ RUN pip install -r requirements.txt
 # copy every content from the local file to the image
 COPY . /app
 
+# Set the environment
+ENV FLASK_DEBUG="False"
+ENV DOCKER_NETWORK="True"
+
 # configure the container to run in an executed manner
 ENTRYPOINT [ "python" ]
 

@@ -2,7 +2,7 @@
 
 ## Dependencies
 
-This serivce uses `pip-tools` to manage the dependencies.
+This serivce uses `pip-tools` to manage the dependencies. (`pip install pip-tools`)
 
 ### Install dependencies
 
@@ -19,3 +19,11 @@ pip install -r requirements.txt
 ### Upgrade dependencies
 
 Dependencies that are not pinned in `requirements.in` can automatically be upgraded using `pip-compile --upgrade`.
+
+## Formatinng
+
+Use black to automatically format `app.py`:
+
+```bash
+black app.yp
+```
