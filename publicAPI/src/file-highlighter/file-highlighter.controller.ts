@@ -43,7 +43,7 @@ export class FileHighlighterController {
       ).data as Highlight[];
 
       this.httpService
-        .put(`http://mlclassifier:3000/ml-train${params}`, {
+        .put(`http://mlclassifier:3000/ml-train`, {
           text: query.sourceText,
           type: query.language,
         })
