@@ -58,7 +58,7 @@ def test_predict_bad_request(client):
 def test_learn_200(client):
     response = client.put(
         '/ml-train',
-        query_string=dict(text='print', type='python')
+        json=dict(text='print', type='python')
     )
     assert response.status_code == 200
 
@@ -67,6 +67,6 @@ def test_learn_200(client):
 def test_learn_bad_request(client):
     response = client.put(
         '/ml-train',
-        query_string=dict(text='print', type='invalid_language')
+        json=dict(text='print', type='invalid_language')
     )
     assert response.status_code == 400
