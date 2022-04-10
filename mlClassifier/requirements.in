@@ -3,6 +3,7 @@ requests
 
 # testing
 pytest
+mock
 
 # formatting
 black
