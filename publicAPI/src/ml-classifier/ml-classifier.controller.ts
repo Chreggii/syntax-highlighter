@@ -1,13 +1,17 @@
-import { Controller, Get, HttpService } from '@nestjs/common';
+import { Controller, Get, HttpService } from "@nestjs/common";
 
-@Controller('ml-classifier')
+@Controller("ml-classifier")
 export class MlClassifierController {
+  constructor(private httpService: HttpService) {}
 
-    constructor(private httpService: HttpService) { }
-
-    @Get()
-    async classify(): Promise<string> {
-        const response = await this.httpService.get('http://mlclassifier:3000/ml-highlight').toPromise();
-        return "The followind data was received from the Formal Syntax Highlighter:\n\n" + response.data;
-    }
+  @Get()
+  async classify(): Promise<string> {
+    const response = await this.httpService
+      .get("http://mlclassifier:3000/ml-highlight")
+      .toPromise();
+    return (
+      "The followind data was received from the Formal Syntax Highlighter:\n\n" +
+      response.data
+    );
+  }
 }
