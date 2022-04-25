@@ -1,9 +1,8 @@
-import http
+import requests
+import werkzeug
+from flask import Flask, request
 
 from Base_Learner.SHModelUtils import *
-from flask import Flask, Response, request, app
-import os, werkzeug
-import requests
 
 docker_network = os.getenv("DOCKER_NETWORK", "False") == "True"
 base_URL = (
