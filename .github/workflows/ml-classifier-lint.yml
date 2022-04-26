@@ -15,8 +15,11 @@ jobs:
           cd mlClassifier
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-      - name: Analysing the code with pylint and Black
+      - name: Analysing the code with pylint
         run: |
           cd mlClassifier          
-          pylint --fail-under=10 test_app.py app.py
+          pylint --fail-under=3 test_app.py app.py
+      - name: Analysing the code with Black
+        run: |
+          cd mlClassifier          
           black --check test_app.py app.py
