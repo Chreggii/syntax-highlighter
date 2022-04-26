@@ -69,7 +69,7 @@ def create_app():
     @app.route("/ml-train", methods=["PUT"])
     def learn():
         data = request.json
-    
+
         text = data["text"]
         type = data["type"]
 
