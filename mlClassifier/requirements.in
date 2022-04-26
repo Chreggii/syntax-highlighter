@@ -8,6 +8,7 @@ mock
 
 # formatting
 black
+pylint
 
 
 # Requirements from https://github.com/MEPalma/UZH-ASE-AnnotationWS-BaseLearner
