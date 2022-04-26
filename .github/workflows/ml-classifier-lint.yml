@@ -10,10 +10,6 @@ jobs:
     container: python:3.9.7-bullseye
     steps:
       - uses: actions/checkout@v2
-      - uses: psf/black@stable
-        with:
-          options: "--check --diff"
-
       - name: Install requirements
         run: |
           cd mlClassifier
@@ -21,5 +17,5 @@ jobs:
           pip install -r requirements.txt
       - name: Analysing the code with pylint
         run: |
-           black
-           pylint
+           pylint --fail-under=10 test_app.py app.py
+           black --check test_app.py app.py
