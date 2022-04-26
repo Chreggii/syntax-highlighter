@@ -124,3 +124,48 @@ Sometimes the source-text was too large, and therefore we can't give you a prope
 }
 ```
 
+### GET `/h-code-values`
+
+Endpoint for all the hCodeValues for the different.
+
+#### Responses
+
+##### 200 OK
+
+```json
+[
+  {"name": "ANY", "hCodeValue": 0}, 
+  {"name": "KEYWORD", "hCodeValue": 1}, 
+  {"name": "LITERAL", "hCodeValue": 2}, 
+  {"name": "CHAR_STRING_LITERAL", "hCodeValue": 3},
+  {"name": "COMMENT", "hCodeValue": 4},
+  {"name": "CLASS_DECLARATOR", "hCodeValue": 5},
+  {"name": "FUNCTION_DECLARATOR", "hCodeValue": 6},
+  {"name": "VARIABLE_DECLARATOR", "hCodeValue": 7},
+  {"name": "TYPE_IDENTIFIER", "hCodeValue": 8},
+  {"name": "FUNCTION_IDENTIFIER", "hCodeValue": 9},
+  {"name": "FIELD_IDENTIFIER", "hCodeValue": 10},
+  {"name": "ANNOTATION_DECLARATOR", "hCodeValue": 11}
+]
+```
+
+### GET `/h-code-value/<value>`
+
+Endpoint for a specific hCodeValue including a suggested color.
+
+#### Responses
+
+##### 200 OK 
+
+**Example: `GET /h-code-value/4`**
+
+```json
+{name: "COMMENT", hCodeValue: 4, color: "#808080"}
+```
+
+##### 404 Not Found
+
+```json
+{error: "HCodoe for <value> does not exist."}
+```
+
