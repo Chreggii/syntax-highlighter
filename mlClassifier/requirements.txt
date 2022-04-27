@@ -8,6 +8,8 @@ astroid==2.11.3
     # via pylint
 attrs==21.4.0
     # via pytest
+autopep8==1.6.0
+    # via -r requirements.in
 black==22.3.0
     # via -r requirements.in
 certifi==2021.10.8
@@ -66,6 +68,8 @@ pluggy==1.0.0
     # via pytest
 py==1.11.0
     # via pytest
+pycodestyle==2.8.0
+    # via autopep8
 pylint==2.13.7
     # via -r requirements.in
 pyparsing==3.0.8
@@ -78,6 +82,8 @@ pytest-cov==3.0.0
     # via -r requirements.in
 requests==2.27.1
     # via -r requirements.in
+toml==0.10.2
+    # via autopep8
 tomli==2.0.1
     # via
     #   black
