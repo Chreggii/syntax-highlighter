@@ -4,7 +4,12 @@ import requests
 import werkzeug
 from flask import Flask, request
 
-from Base_Learner.SHModelUtils import PYTHON3_LANG_NAME, KOTLIN_LANG_NAME, JAVA_LANG_NAME, SHModel
+from Base_Learner.SHModelUtils import (
+    PYTHON3_LANG_NAME,
+    KOTLIN_LANG_NAME,
+    JAVA_LANG_NAME,
+    SHModel,
+)
 
 docker_network = os.getenv("DOCKER_NETWORK", "False") == "True"
 BASE_URL = (
