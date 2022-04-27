@@ -71,5 +71,7 @@ def test_learn_200(client):
 
 # Should throw error if invalid language is chosen
 def test_learn_bad_request(client):
-    response_400 = client.put("/ml-train", json=dict(text="print", type="invalid_language"))
+    response_400 = client.put(
+        "/ml-train", json=dict(text="print", type="invalid_language")
+    )
     assert response_400.status_code == 400
