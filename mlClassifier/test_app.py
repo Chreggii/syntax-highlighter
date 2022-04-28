@@ -44,36 +44,36 @@ def get_app():
 
 
 @pytest.fixture()
-def test_client(get_app):
+def test_client(flask_app):
     """gets the test client"""
-    return get_app.test_client()
+    return flask_app.test_client()
 
 
-def test_predict_200(test_client):
+def test_predict_200(client):
     """Basic Test for predicting"""
-    response_200 = test_client.get(
+    response_200 = client.get(
         "/ml-highlight", query_string=dict(text="print", type="python")
     )
     assert response_200.status_code == 200
 
 
-def test_predict_bad_request(test_client):
+def test_predict_bad_request(client):
     """Should throw error if invalid language is chosen"""
-    response_400 = test_client.get(
+    response_400 = client.get(
         "/ml-highlight", query_string=dict(text="print", type="invalid_language")
     )
     assert response_400.status_code == 400
 
 
-def test_learn_200(test_client):
+def test_learn_200(client):
     """Basic Test for training"""
-    response_200 = test_client.put("/ml-train", json=dict(text="print", type="python"))
+    response_200 = client.put("/ml-train", json=dict(text="print", type="python"))
     assert response_200.status_code == 200
 
 
-def test_learn_bad_request(test_client):
+def test_learn_bad_request(client):
     """Should throw error if invalid language is chosen"""
-    response_400 = test_client.put(
+    response_400 = client.put(
         "/ml-train", json=dict(text="print", type="invalid_language")
     )
     assert response_400.status_code == 400
