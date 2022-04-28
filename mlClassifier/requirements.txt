@@ -4,8 +4,12 @@
 #
 #    pip-compile
 #
+astroid==2.11.3
+    # via pylint
 attrs==21.4.0
     # via pytest
+autopep8==1.6.0
+    # via -r requirements.in
 black==22.3.0
     # via -r requirements.in
 certifi==2021.10.8
@@ -20,18 +24,26 @@ click==8.1.2
     #   flask
 coverage[toml]==6.3.2
     # via pytest-cov
+dill==0.3.4
+    # via pylint
 flask==2.0.3
     # via -r requirements.in
 idna==3.3
     # via requests
 iniconfig==1.1.1
     # via pytest
+isort==5.10.1
+    # via pylint
 itsdangerous==2.1.2
     # via flask
 jinja2==3.1.1
     # via flask
+lazy-object-proxy==1.7.1
+    # via astroid
 markupsafe==2.1.1
     # via jinja2
+mccabe==0.7.0
+    # via pylint
 mock==4.0.3
     # via -r requirements.in
 mypy-extensions==0.4.3
@@ -49,11 +61,17 @@ pillow==9.0.0
     #   -r requirements.in
     #   torchvision
 platformdirs==2.5.1
-    # via black
+    # via
+    #   black
+    #   pylint
 pluggy==1.0.0
     # via pytest
 py==1.11.0
     # via pytest
+pycodestyle==2.8.0
+    # via autopep8
+pylint==2.13.7
+    # via -r requirements.in
 pyparsing==3.0.7
     # via packaging
 pytest==7.1.1
@@ -64,10 +82,13 @@ pytest-cov==3.0.0
     # via -r requirements.in
 requests==2.27.1
     # via -r requirements.in
+toml==0.10.2
+    # via autopep8
 tomli==2.0.1
     # via
     #   black
     #   coverage
+    #   pylint
     #   pytest
 torch==1.10.1
     # via
@@ -81,7 +102,9 @@ torchvision==0.11.2
 typing-extensions==4.0.1
     # via
     #   -r requirements.in
+    #   astroid
     #   black
+    #   pylint
     #   torch
 urllib3==1.26.9
     # via requests
@@ -89,6 +112,8 @@ werkzeug==2.1.1
     # via flask
 wheel==0.37.1
     # via -r requirements.in
+wrapt==1.14.0
+    # via astroid
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools
