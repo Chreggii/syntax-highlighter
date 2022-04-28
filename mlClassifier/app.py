@@ -1,3 +1,7 @@
+"""
+Small Flask app that used the Base Learner and applies it to API requests.
+"""
+
 import os
 
 import requests
