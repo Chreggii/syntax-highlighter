@@ -29,7 +29,6 @@ def get_lexing(text, lang):
     )
 
 
-
 def get_highlight_string(text, lang):
     """Helper method to make testing easier"""
     return requests.get(
