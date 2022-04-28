@@ -21,16 +21,17 @@ BASE_URL = (
 )
 
 
-# Helper method to make testing easier
 def get_lexing(text, lang):
+    """Helper method to make testing easier"""
     return requests.get(
         BASE_URL + "/lex-string",
         params={"text": text, "type": lang},
     )
 
 
-# Helper method to make testing easier
+
 def get_highlight_string(text, lang):
+    """Helper method to make testing easier"""
     return requests.get(
         BASE_URL + "/highlight-string",
         params={"text": text, "type": lang},
@@ -38,6 +39,7 @@ def get_highlight_string(text, lang):
 
 
 def create_app():
+    """Create the Flask APP with the endpoints"""
     app = Flask(__name__)
     types = [PYTHON3_LANG_NAME, KOTLIN_LANG_NAME, JAVA_LANG_NAME, "python"]
 
