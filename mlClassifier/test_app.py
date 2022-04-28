@@ -6,7 +6,7 @@ import mock
 import requests
 
 import app
-from app import create_app
+from app import create_app, get_lexing
 
 # Mocking the get Lexing Function
 with create_app().app_context():
@@ -37,16 +37,16 @@ with create_app().app_context():
 
 
 @pytest.fixture()
-def get_app():
+def app():
     """gets the app"""
     created_app = create_app()
     yield created_app
 
 
 @pytest.fixture()
-def test_client(flask_app):
+def client(app):
     """gets the test client"""
-    return flask_app.test_client()
+    return app.test_client()
 
 
 def test_predict_200(client):
