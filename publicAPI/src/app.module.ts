@@ -6,6 +6,7 @@ import { FileHighlighterController } from "./file-highlighter/file-highlighter.c
 import { FileHighlighterService } from "./file-highlighter/services/file-highlighter.service";
 import { FormalSyntaxHighlighterController } from "./formal-syntax-highlighter/formal-syntax-highlighter.controller";
 import { MlClassifierController } from "./ml-classifier/ml-classifier.controller";
+import { HCodeValuesController } from "./hcode-values/hcode-values.controller";
 
 @Module({
   imports: [HttpModule],
@@ -14,6 +15,7 @@ import { MlClassifierController } from "./ml-classifier/ml-classifier.controller
     MlClassifierController,
     FormalSyntaxHighlighterController,
     FileHighlighterController,
+    HCodeValuesController,
   ],
   providers: [AppService, FileHighlighterService],
 })
