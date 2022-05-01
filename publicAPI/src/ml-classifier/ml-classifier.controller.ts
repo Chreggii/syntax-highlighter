@@ -1,17 +1,22 @@
-import { Controller, Get, HttpService } from "@nestjs/common";
+import { HttpService } from "@nestjs/axios";
+import { Controller, Get } from "@nestjs/common";
+import { map, Observable } from "rxjs";
 
 @Controller("ml-classifier")
 export class MlClassifierController {
   constructor(private httpService: HttpService) {}
 
   @Get()
-  async classify(): Promise<string> {
-    const response = await this.httpService
+  classify(): Observable<string> {
+    // TODO CH: Remove at the end of the project
+    return this.httpService
       .get("http://mlclassifier:3000/ml-highlight")
-      .toPromise();
-    return (
-      "The followind data was received from the Formal Syntax Highlighter:\n\n" +
-      response.data
-    );
+      .pipe(
+        map(
+          (response) =>
+            "The following data was received from the Formal Syntax Highlighter:\n\n" +
+            response.data
+        )
+      );
   }
 }
