@@ -1,4 +1,7 @@
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import {
+  HttpClientTestingModule,
+  HttpTestingController,
+} from '@angular/common/http/testing';
 import { getTestBed, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -14,11 +17,9 @@ describe('AppComponent', () => {
       imports: [
         RouterTestingModule,
         HttpClientTestingModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
       ],
-      declarations: [
-        AppComponent
-      ],
+      declarations: [AppComponent],
     }).compileComponents();
 
     const injector = getTestBed();
@@ -34,9 +35,9 @@ describe('AppComponent', () => {
   it('should send request with empty fields', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    app.sendRequest()
+    app.sendRequest();
     const req = httpMock.expectOne(`${getURL()}?sourceText=null&language=null`);
-    expect(req.request.method).toBe("GET");
+    expect(req.request.method).toBe('GET');
   });
 
   it('should not send request when no file found', () => {
