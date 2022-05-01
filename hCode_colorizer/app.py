@@ -56,7 +56,7 @@ def create_app():
                 {"name": "FIELD_IDENTIFIER", "hCodeValue": 10, "hexcode": "#ffcd01"},
                 {"name": "ANNOTATION_DECLARATOR", "hCodeValue": 11, "hexcode": "#1f7199"} #yes
             ])
-        else: return 'Not a valid mode! Try "default" or..', 406
+        else: return 'Not a valid mode! Try "classic", "dracula" or "dark', 406
 
 
     return app
