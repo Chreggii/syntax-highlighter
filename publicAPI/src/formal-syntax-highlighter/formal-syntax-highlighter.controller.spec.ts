@@ -1,4 +1,4 @@
-import { HttpModule } from "@nestjs/common";
+import { HttpModule } from "@nestjs/axios";
 import { Test, TestingModule } from "@nestjs/testing";
 
 import { FormalSyntaxHighlighterController } from "./formal-syntax-highlighter.controller";
