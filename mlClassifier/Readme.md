@@ -2,7 +2,7 @@
 
 ## Dependencies
 
-This serivce uses `pip-tools` to manage the dependencies. (`pip install pip-tools`)
+This service uses `pip-tools` to manage the dependencies. (`pip install pip-tools`)
 
 ### Install dependencies
 
@@ -20,10 +20,14 @@ pip install -r requirements.txt
 
 Dependencies that are not pinned in `requirements.in` can automatically be upgraded using `pip-compile --upgrade`.
 
-## Formatinng
+## Formatting
 
 Use black to automatically format `app.py`:
 
 ```bash
 black app.yp
 ```
+
+## Model storage
+The models are stored in the `.pt` files. These files contain in my knowledge binary data that cannot be merged 
+in a useful way. As a general rule never merge them with git and just decide for the larger file in case of a conflict.
