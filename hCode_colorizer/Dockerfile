@@ -1,0 +1,23 @@
+# use bullseye (debian), alpine doesn't work well with pytorch
+FROM python:3.9.7-bullseye
+
+# copy the requirements file into the image
+COPY ./requirements.txt /app/requirements.txt
+
+# switch working directory
+WORKDIR /app
+
+# install the dependencies and packages in the requirements file
+RUN pip install -r requirements.txt
+
+# copy every content from the local file to the image
+COPY . /app
+
+# Set the environment
+ENV FLASK_DEBUG="False"
+ENV DOCKER_NETWORK="True"
+
+# configure the container to run in an executed manner
+ENTRYPOINT [ "python" ]
+
+CMD ["app.py"]

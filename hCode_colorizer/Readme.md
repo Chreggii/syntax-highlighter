@@ -1,4 +1,4 @@
-# ML Classifier
+# hCode Colorizer
 
 ## Dependencies
 
