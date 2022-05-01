@@ -28,7 +28,7 @@ services:
     networks:
       - backend
     volumes:
-      - mlC-data:/app
+      - ./mlClassifier:/app
 
   formalsyntaxhighlighter:
     build:
@@ -56,10 +56,6 @@ services:
     networks:
       - public
       - backend
-
-volumes:
-  mlC-data:
-    driver: local
 
 
 networks:
