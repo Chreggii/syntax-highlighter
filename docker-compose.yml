@@ -30,6 +30,15 @@ services:
     volumes:
       - ./mlClassifier:/app
 
+  hcode_colorizer:
+    build:
+      context: ./hCode_colorizer/
+    restart: always
+    environment:
+      PORT: 3030
+    networks:
+      - backend
+
   formalsyntaxhighlighter:
     build:
       context: ./formalSyntaxHighlighter/
