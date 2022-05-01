@@ -28,4 +28,4 @@ def test_color_scheme_bad_request(client):
         '/color-scheme',
         query_string=dict(mode='invalid_mode')
     )
-    assert response.status_code == 400
+    assert response.status_code == 406

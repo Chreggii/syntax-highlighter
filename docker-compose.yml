@@ -28,7 +28,7 @@ services:
     networks:
       - backend
 
-  hCode_colorizer:
+  hcode_colorizer:
     build:
       context: ./hCode_colorizer/
     restart: always

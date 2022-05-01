@@ -1,3 +1,5 @@
+import json
+
 from flask import Flask, Response, request, app
 import os, werkzeug
 
@@ -10,21 +12,22 @@ def create_app():
     def colorize():
         mode = request.args.get("mode")
         if mode == "default":
-            return [
-                {"name": "ANY", "hCodeValue": 0, "hexcode": "#000000"},
-                {"name": "KEYWORD", "hCodeValue": 1, "hexcode": "#000000"},
-                {"name": "LITERAL", "hCodeValue": 2, "hexcode": "#000000"},
-                {"name": "CHAR_STRING_LITERAL", "hCodeValue": 3, "hexcode": "#000000"},
-                {"name": "COMMENT", "hCodeValue": 4, "hexcode": "#000000"},
-                {"name": "CLASS_DECLARATOR", "hCodeValue": 5, "hexcode": "#000000"},
-                {"name": "FUNCTION_DECLARATOR", "hCodeValue": 6, "hexcode": "#000000"},
-                {"name": "VARIABLE_DECLARATOR", "hCodeValue": 7, "hexcode": "#000000"},
-                {"name": "TYPE_IDENTIFIER", "hCodeValue": 8, "hexcode": "#000000"},
-                {"name": "FUNCTION_IDENTIFIER", "hCodeValue": 9, "hexcode": "#000000"},
-                {"name": "FIELD_IDENTIFIER", "hCodeValue": 10, "hexcode": "#000000"},
-                {"name": "ANNOTATION_DECLARATOR", "hCodeValue": 11, "hexcode": "#000000"}
-            ]
-        return None
+            return json.dumps([
+                {"name": "ANY", "hCodeValue": 0, "hexcode": "#ffffff"},
+                {"name": "KEYWORD", "hCodeValue": 1, "hexcode": "#ff8800"},
+                {"name": "LITERAL", "hCodeValue": 2, "hexcode": "#add8e6"},
+                {"name": "CHAR_STRING_LITERAL", "hCodeValue": 3, "hexcode": "#006400"},
+                {"name": "COMMENT", "hCodeValue": 4, "hexcode": "#A9A9A9"},
+                {"name": "CLASS_DECLARATOR", "hCodeValue": 5, "hexcode": "#ff8800"},
+                {"name": "FUNCTION_DECLARATOR", "hCodeValue": 6, "hexcode": "#ffcd01"},
+                {"name": "VARIABLE_DECLARATOR", "hCodeValue": 7, "hexcode": "#1870d5"},
+                {"name": "TYPE_IDENTIFIER", "hCodeValue": 8, "hexcode": "#ffffff"},
+                {"name": "FUNCTION_IDENTIFIER", "hCodeValue": 9, "hexcode": "#ffcd01"},
+                {"name": "FIELD_IDENTIFIER", "hCodeValue": 10, "hexcode": "#ffcd01"},
+                {"name": "ANNOTATION_DECLARATOR", "hCodeValue": 11, "hexcode": "#ffff00"}
+            ])
+        else: return 'Not a valid mode! Try "default" or..', 406
+
 
     return app
 
