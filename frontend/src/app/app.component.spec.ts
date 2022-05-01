@@ -7,7 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { AppComponent } from './app.component';
-import { getURL } from './functions/url-resolver.function';
+import { getBaseUrl } from './functions/url-resolver.function';
 
 describe('AppComponent', () => {
   let httpMock: HttpTestingController;
@@ -36,7 +36,9 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     app.sendRequest();
-    const req = httpMock.expectOne(`${getURL()}?sourceText=null&language=null`);
+    const req = httpMock.expectOne(
+      `${getBaseUrl()}/file-highlighter?sourceText=null&language=null`
+    );
     expect(req.request.method).toBe('GET');
   });
 
@@ -44,6 +46,8 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     app.onFileSelected({ target: { files: [] } });
-    httpMock.expectNone(`${getURL()}?sourceText=null&language=null`);
+    httpMock.expectNone(
+      `${getBaseUrl()}/file-highlighter?sourceText=null&language=null`
+    );
   });
 });
