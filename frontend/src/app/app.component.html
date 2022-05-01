@@ -1,7 +1,7 @@
 <h2>File Upload</h2>
 <input type="file" accept=".java,.py,.kt,.kts,.ktm,.txt" (change)="onFileSelected($event)">
 
-<h2>Test Get Request</h2>
+<h2>Code Highlighting</h2>
 <form [formGroup]="form">
   <div>
     <label>SourceCode:</label>
@@ -13,5 +13,22 @@
     <br>
     <input type="text" formControlName="language">
   </div>
+  <br>
   <button (click)="sendRequest()">Send</button>
+
+  <h2>H-Code-Values</h2>
+  <button (click)="logHCodes()">Log All H-Codes</button>
+  <br>
+  <br>
+  <br>
+
+  <div>
+    <div>
+      <label>Get H-Code-Value:</label>
+      <br>
+      <input type="number" formControlName="hCodeNumber">
+    </div>
+  </div>
+  <br>
+  <button (click)="logHCode()">Send</button>
 </form>

@@ -27,6 +27,8 @@ services:
       PORT: 3000
     networks:
       - backend
+    volumes:
+      - ./mlClassifier:/app
 
   hcode_colorizer:
     build:
@@ -63,6 +65,7 @@ services:
     networks:
       - public
       - backend
+
 
 networks:
   public:

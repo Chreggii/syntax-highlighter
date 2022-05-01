@@ -1,4 +1,5 @@
-import { HttpService, HttpStatus } from "@nestjs/common";
+import { HttpService } from "@nestjs/axios";
+import { HttpStatus } from "@nestjs/common";
 import { Test, TestingModule } from "@nestjs/testing";
 import { of } from "rxjs";
 
@@ -32,7 +33,7 @@ describe("FileHighlighterController", () => {
   it("should return result when language is supported", async () => {
     controller
       .highlightText({ sourceText: `printf('test')`, language: "python" })
-      .then((response) => {
+      .subscribe((response) => {
         expect(response["source-code"]).toBe(`printf('test')`);
         expect(response["formal-formatting"]).toStrictEqual([]);
         expect(response["ml-formatting"]).toStrictEqual([]);
@@ -40,15 +41,20 @@ describe("FileHighlighterController", () => {
   });
 
   it("should return error when language not supported", async () => {
-    controller
-      .highlightText({ sourceText: `printf('test')`, language: "test" })
-      .catch((ex) => {
-        expect(ex.status).toBe(HttpStatus.BAD_REQUEST);
-      });
-    controller
-      .highlightText({ sourceText: `printf('test')`, language: "" })
-      .catch((ex) => {
-        expect(ex.status).toBe(HttpStatus.BAD_REQUEST);
-      });
+    try {
+      controller
+        .highlightText({ sourceText: `printf('test')`, language: "test" })
+        .subscribe();
+    } catch (error) {
+      expect(error.status).toBe(HttpStatus.BAD_REQUEST);
+    }
+
+    try {
+      controller
+        .highlightText({ sourceText: `printf('test')`, language: "" })
+        .subscribe();
+    } catch (error) {
+      expect(error.status).toBe(HttpStatus.BAD_REQUEST);
+    }
   });
 });
