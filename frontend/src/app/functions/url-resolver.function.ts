@@ -1,1 +1,1 @@
-export const getURL = () => `http://localhost:3000/file-highlighter`;
+export const getBaseUrl = () => `http://localhost:3000`;
