@@ -1,8 +1,8 @@
+import { HttpService } from "@nestjs/axios";
 import {
   Controller,
   Get,
   HttpException,
-  HttpService,
   HttpStatus,
   Post,
   Query,
@@ -10,9 +10,8 @@ import {
   UseInterceptors,
 } from "@nestjs/common";
 import { FileInterceptor } from "@nestjs/platform-express";
-import { of } from "rxjs";
+import { forkJoin, map, Observable } from "rxjs";
 
-import { Highlight } from "../models/highlight.model";
 import { FileHighlighterService } from "./services/file-highlighter.service";
 
 @Controller("file-highlighter")
@@ -23,25 +22,15 @@ export class FileHighlighterController {
   ) {}
 
   @Get()
-  async highlightText(
+  highlightText(
     @Query() query: { sourceText: string; language: string }
-  ): Promise<any> {
+  ): Observable<any> {
     const languages = ["python", "java", "kotlin"];
 
     if (languages.includes(query.language)) {
       const params = `?text=${query.sourceText}&type=${query.language}`;
 
-      const formalFormatting = (
-        await this.httpService
-          .get(`http://formalSyntaxHighlighter:8080/highlight-string${params}`)
-          .toPromise()
-      ).data as Highlight[];
-      const mlFormatting = (
-        await this.httpService
-          .get(`http://mlclassifier:3000/ml-highlight${params}`)
-          .toPromise()
-      ).data as Highlight[];
-
+      // Fire & Forget
       this.httpService
         .put(`http://mlclassifier:3000/ml-train`, {
           text: query.sourceText,
@@ -49,11 +38,20 @@ export class FileHighlighterController {
         })
         .subscribe();
 
-      return of({
-        "source-code": query.sourceText,
-        "formal-formatting": formalFormatting,
-        "ml-formatting": mlFormatting,
-      }).toPromise();
+      return forkJoin({
+        formalFormatting: this.httpService.get(
+          `http://formalSyntaxHighlighter:8080/highlight-string${params}`
+        ),
+        mlFormatting: this.httpService.get(
+          `http://mlclassifier:3000/ml-highlight${params}`
+        ),
+      }).pipe(
+        map(({ formalFormatting, mlFormatting }) => ({
+          "source-code": query.sourceText,
+          "formal-formatting": formalFormatting.data,
+          "ml-formatting": mlFormatting.data,
+        }))
+      );
     } else {
       throw new HttpException(
         {
