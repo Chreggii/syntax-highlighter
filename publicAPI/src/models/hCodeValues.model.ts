@@ -1,5 +1,4 @@
 export interface HCodeValues {
-    name: string;
-    hCodeValue: number;
-  }
-  
+  name: string;
+  hCodeValue: number;
+}
