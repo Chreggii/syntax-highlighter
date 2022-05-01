@@ -27,6 +27,8 @@ services:
       PORT: 3000
     networks:
       - backend
+    volumes:
+      - ./mlClassifier:/app
 
   formalsyntaxhighlighter:
     build:
@@ -54,6 +56,7 @@ services:
     networks:
       - public
       - backend
+
 
 networks:
   public:
