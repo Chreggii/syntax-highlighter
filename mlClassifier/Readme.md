@@ -20,7 +20,7 @@ pip install -r requirements.txt
 
 Dependencies that are not pinned in `requirements.in` can automatically be upgraded using `pip-compile --upgrade`.
 
-## Formatinng
+## Formatting
 
 Use black to automatically format `app.py`:
 
