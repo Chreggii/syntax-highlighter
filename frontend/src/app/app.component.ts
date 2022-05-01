@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 
-import { getURL } from './functions/url-resolver.function';
+import { getBaseUrl } from './functions/url-resolver.function';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +13,7 @@ export class AppComponent {
   readonly form = this.formBuilder.group({
     sourceText: undefined,
     language: undefined,
+    hCodeNumber: undefined,
   });
 
   constructor(private http: HttpClient, private formBuilder: FormBuilder) {}
@@ -25,7 +26,7 @@ export class AppComponent {
       formData.append('file', file);
 
       this.http
-        .post<string>(getURL(), formData)
+        .post<string>(`${getBaseUrl()}/file-highlighter`, formData)
         .pipe()
         .subscribe((response) => console.log(response));
     }
@@ -38,8 +39,21 @@ export class AppComponent {
     };
     this.http
       .get(
-        `${getURL()}?sourceText=${data.sourceText}&language=${data.language}`
+        `${getBaseUrl()}/file-highlighter?sourceText=${
+          data.sourceText
+        }&language=${data.language}`
       )
+      .subscribe(console.log);
+  }
+
+  logHCodes(): void {
+    this.http.get(`${getBaseUrl()}/h-code-value`).subscribe(console.log);
+  }
+
+  logHCode(): void {
+    const value = this.form.get('hCodeNumber')?.value;
+    this.http
+      .get(`${getBaseUrl()}/h-code-value/${value}`)
       .subscribe(console.log);
   }
 }
