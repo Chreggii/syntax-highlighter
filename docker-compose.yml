@@ -1,13 +1,13 @@
 version: "3.9"
 services:
-  frontend:
-    build:
-      context: ./frontend/
-    restart: always
-    ports:
-      - 80:80
-    networks:
-      - public
+  #frontend:
+    #build:
+      #context: ./frontend/
+    #restart: always
+    #ports:
+    #  - 80:80
+    #networks:
+    #  - public
 
   publicapi:
     build:
@@ -27,6 +27,8 @@ services:
       PORT: 3000
     networks:
       - backend
+    volumes:
+      - mlC-data:/app
 
   formalsyntaxhighlighter:
     build:
@@ -54,6 +56,11 @@ services:
     networks:
       - public
       - backend
+
+volumes:
+  mlC-data:
+    driver: local
+
 
 networks:
   public:
