@@ -8,7 +8,7 @@
 
 | Parameter | Required | Type                                  | default |
 | --------- | -------- | ------------------------------------- | ------- |
-| `mode`    | ✅        | string:`["default", "dark", "grey"]` | -       |
+| `mode`    | ✅        | string:`["dracula", "dark", "classic"]` | -       |
 
 #### Responses
 
