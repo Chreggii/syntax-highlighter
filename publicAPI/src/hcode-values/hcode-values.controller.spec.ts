@@ -1,18 +1,18 @@
 import { HttpModule } from "@nestjs/axios";
 import { Test, TestingModule } from "@nestjs/testing";
 
-import { MlClassifierController } from "./ml-classifier.controller";
+import { HCodeValuesController } from "./hcode-values.controller";
 
-describe("MlClassifierController", () => {
-  let controller: MlClassifierController;
+describe("HCodeValuesController", () => {
+  let controller: HCodeValuesController;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [HttpModule],
-      controllers: [MlClassifierController],
+      controllers: [HCodeValuesController],
     }).compile();
 
-    controller = module.get<MlClassifierController>(MlClassifierController);
+    controller = module.get<HCodeValuesController>(HCodeValuesController);
   });
 
   it("should be defined", () => {
