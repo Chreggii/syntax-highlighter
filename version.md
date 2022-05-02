@@ -1,5 +1,14 @@
 # Version
 
+## 0.3.0
+
+Release for milstone 3.
+
+- Color API
+- Formatting and syntax highlighting for Python and Typescript projects.
+- Persistent storage of the trained language models.
+
+
 ## 0.2.0
 
 Release for milestone 2.
