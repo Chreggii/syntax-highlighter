@@ -10,6 +10,11 @@ import resolver.*;
 import java.lang.reflect.Field;
 import java.util.*;
 
+class PostBody {
+    public String text;
+    public String type;
+}
+
 @SpringBootApplication
 @RestController
 public class FormalSyntaxHighlighterApplication {
@@ -24,9 +29,12 @@ public class FormalSyntaxHighlighterApplication {
         };
     }
 
-    @GetMapping("/lex-string")
-    public ResponseEntity<Object> lex(@RequestParam String text, @RequestParam String type) throws NoSuchFieldException {
+    @PostMapping("/lex-string")
+    public ResponseEntity<Object> lex(@RequestBody PostBody body)
+            throws NoSuchFieldException {
         Resolver resolver;
+        String type = body.type;
+        String text = body.text;
 
         if (Objects.equals(type, "python")) {
             resolver = new Python3Resolver();
@@ -82,9 +90,12 @@ public class FormalSyntaxHighlighterApplication {
 
     }
 
-    @GetMapping("/highlight-string")
-    public ResponseEntity<Object> highlight(@RequestParam String text, @RequestParam String type) throws NoSuchFieldException {
+    @PostMapping("/highlight-string")
+    public ResponseEntity<Object> highlight(@RequestBody PostBody body)
+            throws NoSuchFieldException {
         Resolver resolver;
+        String type = body.type;
+        String text = body.text;
 
         if (Objects.equals(type, "python")) {
             resolver = new Python3Resolver();

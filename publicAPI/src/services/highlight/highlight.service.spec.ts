@@ -1,16 +1,18 @@
-import { Test, TestingModule } from "@nestjs/testing";
+import { HttpModule } from '@nestjs/axios';
+import { Test, TestingModule } from '@nestjs/testing';
 
-import { FileHighlighterService } from "./file-highlighter.service";
+import { HighlightService } from './highlight.service';
 
-describe("FileHighlighterService", () => {
-  let service: FileHighlighterService;
+describe('HighlightService', () => {
+  let service: HighlightService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [FileHighlighterService],
+      imports: [HttpModule],
+      providers: [HighlightService],
     }).compile();
 
-    service = module.get<FileHighlighterService>(FileHighlighterService);
+    service = module.get<HighlightService>(HighlightService);
   });
 
   it("should be defined", () => {
