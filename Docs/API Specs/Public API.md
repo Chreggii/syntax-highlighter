@@ -4,13 +4,13 @@
 
 ## Endpoints
 
-### `GET /highlight-text`
+### `POST /highlight-text`
 
 #### Parameters
 
-| Parameter     | Required | Type                                  | default | Description                                                  |
-| ------------- | -------- | ------------------------------------- | ------- | ------------------------------------------------------------ |
-| `source-text` | ✅        | URL-encoded string                    | -       | The source code that is to be highlighted. This source-code must be URL-encoded. |
+| Parameter     | Required | Type                                  | default | Description                                                                                                                                                                                                                                             |
+| ------------- | -------- | ------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `source-text` | ✅        | string                                | -       | The source code that is to be highlighted. This source-code must be URL-encoded.                                                                                                                                                                        |
 | `language`    | ✅        | string:`["python", "kotlin", "java"]` | -       | The programming language that the code is written in. If no programming language is defined, an educated guess will be made and redirected to the endpoint with the guess. It is strongly recommended you set the language instead of letting it guess. |
 
 #### Responses

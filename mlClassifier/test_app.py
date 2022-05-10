@@ -51,16 +51,14 @@ def client(app):
 
 def test_predict_200(client):
     """Basic Test for predicting"""
-    response_200 = client.get(
-        "/ml-highlight", query_string=dict(text="print", type="python")
-    )
+    response_200 = client.post("/ml-highlight", json=dict(text="print", type="python"))
     assert response_200.status_code == 200
 
 
 def test_predict_bad_request(client):
     """Should throw error if invalid language is chosen"""
-    response_400 = client.get(
-        "/ml-highlight", query_string=dict(text="print", type="invalid_language")
+    response_400 = client.post(
+        "/ml-highlight", json=dict(text="print", type="invalid_language")
     )
     assert response_400.status_code == 400
 

@@ -1,7 +1,4 @@
-import {
-  HttpClientTestingModule,
-  HttpTestingController,
-} from '@angular/common/http/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { getTestBed, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -37,9 +34,9 @@ describe('AppComponent', () => {
     const app = fixture.componentInstance;
     app.sendRequest();
     const req = httpMock.expectOne(
-      `${getBaseUrl()}/file-highlighter?sourceText=null&language=null`
+      `${getBaseUrl()}/highlight-text`
     );
-    expect(req.request.method).toBe('GET');
+    expect(req.request.method).toBe('POST');
   });
 
   it('should not send request when no file found', () => {
@@ -47,7 +44,7 @@ describe('AppComponent', () => {
     const app = fixture.componentInstance;
     app.onFileSelected({ target: { files: [] } });
     httpMock.expectNone(
-      `${getBaseUrl()}/file-highlighter?sourceText=null&language=null`
+      `${getBaseUrl()}/highlight-file`
     );
   });
 });

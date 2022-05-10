@@ -2,13 +2,13 @@
 
 ## Endpoints
 
-### `GET /ml-highlight`
+### `POST /ml-highlight`
 
 #### Parameters
 
 | Parameter | Required | Type                                  | default |
 | --------- | -------- | ------------------------------------- | ------- |
-| `text`    | ✅        | URL-encoded string                    | -       |
+| `text`    | ✅        | string                                | -       |
 | `type`    | ✅        | string:`["python", "kotlin", "java"]` | -       |
 
 #### Responses

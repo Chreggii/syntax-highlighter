@@ -1,10 +1,10 @@
-import { HttpService } from "@nestjs/axios";
-import { Controller, Get } from "@nestjs/common";
-import { map, Observable } from "rxjs";
+import { HttpService } from '@nestjs/axios';
+import { Controller, Get } from '@nestjs/common';
+import { map, Observable } from 'rxjs';
 
 @Controller("formal-syntax-highlighter")
 export class FormalSyntaxHighlighterController {
-  constructor(private httpService: HttpService) {}
+  constructor(private httpService: HttpService) { }
 
   @Get()
   highlight(): Observable<string> {

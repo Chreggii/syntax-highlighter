@@ -16,7 +16,7 @@ export class AppComponent {
     hCodeNumber: undefined,
   });
 
-  constructor(private http: HttpClient, private formBuilder: FormBuilder) {}
+  constructor(private http: HttpClient, private formBuilder: FormBuilder) { }
 
   onFileSelected(event: any): void {
     const file: File = event.target?.files?.[0];
@@ -26,8 +26,7 @@ export class AppComponent {
       formData.append('file', file);
 
       this.http
-        .post<string>(`${getBaseUrl()}/file-highlighter`, formData)
-        .pipe()
+        .post<string>(`${getBaseUrl()}/highlight-file`, formData)
         .subscribe((response) => console.log(response));
     }
   }
@@ -38,10 +37,9 @@ export class AppComponent {
       language: this.form.get('language')?.value,
     };
     this.http
-      .get(
-        `${getBaseUrl()}/file-highlighter?sourceText=${
-          data.sourceText
-        }&language=${data.language}`
+      .post(
+        `${getBaseUrl()}/highlight-text`,
+        data
       )
       .subscribe(console.log);
   }
