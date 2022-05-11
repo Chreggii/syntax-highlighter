@@ -31,4 +31,6 @@
   </div>
   <br>
   <button (click)="logHCode()">Send</button>
+
+  <app-code-presenter *ngIf="code" [code]="code"></app-code-presenter>
 </form>
