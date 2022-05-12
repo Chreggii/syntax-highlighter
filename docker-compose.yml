@@ -46,26 +46,6 @@ services:
     networks:
       - backend
 
-  database:
-    image: postgres:14
-    restart: always
-    environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: db
-    networks:
-      - backend
-
-  #adminer to be able to access  database
-  adminer:
-    image: adminer:4
-    restart: always
-    ports:
-      - 8080:8080
-    networks:
-      - public
-      - backend
-
 
 networks:
   public:
