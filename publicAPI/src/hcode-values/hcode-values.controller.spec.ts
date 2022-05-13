@@ -1,4 +1,4 @@
-import { HttpModule } from "@nestjs/common";
+import { HttpService } from "@nestjs/axios";
 import { Test, TestingModule } from "@nestjs/testing";
 
 import { HCodeValuesService } from "../services/hcode-values/hcode-values.service";
@@ -9,7 +9,7 @@ describe("HCodeValuesController", () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [HttpModule],
+      imports: [HttpService],
       providers: [HCodeValuesService],
       controllers: [HCodeValuesController],
     }).compile();
