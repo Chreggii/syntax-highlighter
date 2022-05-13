@@ -1,0 +1,30 @@
+.home-div-top {
+  position: relative;
+  left: 0px;
+  background-color: grey;
+}
+
+
+.home-div-middle {
+  position: relative;
+  right: 0px;
+  background-color: grey;
+}
+
+.home-div-bottom {
+  position: relative;
+  left: 0px;
+  background-color: grey;
+}
+
+.column {
+  float: left;
+  width: 50%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}

@@ -1,5 +1,15 @@
+.title {
+}
+
+h1 {
+  color: #2d282b;
+  font-weight: bold;
+  margin-top: 0px;
+  margin-bottom: 5px;
+}
+
 .topnav {
-  background-color: black;
+  background-color: #2d282b;
   overflow: hidden;
 }
 
@@ -19,6 +29,6 @@
 
 .topnav a.split {
   float: right;
-  background-color: lightskyblue;
+  background-color: #2d282b;
   color: white;
 }
