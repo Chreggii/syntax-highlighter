@@ -1,0 +1,14 @@
+$background-color: rgba(242, 242, 242, 1);
+
+.code-wrapper {
+  background: $background-color;
+  padding: 0 5px;
+
+  pre {
+    background: $background-color;
+
+    code {
+      margin-left: -14px;
+    }
+  }
+}

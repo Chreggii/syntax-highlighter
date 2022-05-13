@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 
 import { getBaseUrl } from './functions/url-resolver.function';
+import { HighlightService } from './services/highlighter/highlight.service';
 
 @Component({
   selector: 'app-root',
@@ -15,8 +16,9 @@ export class AppComponent {
     language: undefined,
     hCodeNumber: undefined,
   });
+  code?: string;
 
-  constructor(private http: HttpClient, private formBuilder: FormBuilder) { }
+  constructor(private http: HttpClient, private formBuilder: FormBuilder, private highlightService: HighlightService) { }
 
   onFileSelected(event: any): void {
     const file: File = event.target?.files?.[0];
@@ -26,8 +28,11 @@ export class AppComponent {
       formData.append('file', file);
 
       this.http
-        .post<string>(`${getBaseUrl()}/highlight-file`, formData)
-        .subscribe((response) => console.log(response));
+        .post<any>(`${getBaseUrl()}/highlight-file`, formData)
+        .subscribe((response) => {
+          console.log(response)
+          this.code = this.highlightService.highlightText(response['source-code']);
+        });
     }
   }
 
@@ -37,11 +42,14 @@ export class AppComponent {
       language: this.form.get('language')?.value,
     };
     this.http
-      .post(
+      .post<any>(
         `${getBaseUrl()}/highlight-text`,
         data
       )
-      .subscribe(console.log);
+      .subscribe(response => {
+        console.log(response);
+        this.code = this.highlightService.highlightText(response['source-code']);
+      });
   }
 
   logHCodes(): void {
