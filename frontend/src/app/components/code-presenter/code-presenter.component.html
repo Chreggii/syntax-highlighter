@@ -1,4 +1,4 @@
-<div class="code-wrapper">
+<div class="code-wrapper" *ngIf="code">
   <pre>
   <code [innerHTML]="code | safe: 'html'"></code>
   </pre>

@@ -1,0 +1,14 @@
+<form [formGroup]="form">
+  <div>
+    <label>SourceCode:</label>
+    <br>
+    <textarea cols="100" rows="10" formControlName="sourceText"></textarea>
+  </div>
+  <div>
+    <label>Language:</label>
+    <br>
+    <input type="text" formControlName="language">
+  </div>
+  <br>
+  <button (click)="sendRequest()">Send</button>
+</form>

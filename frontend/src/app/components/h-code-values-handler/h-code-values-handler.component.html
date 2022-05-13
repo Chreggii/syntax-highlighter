@@ -1,0 +1,17 @@
+<form [formGroup]="form">
+  <h2>H-Code-Values</h2>
+  <button (click)="logHCodes()">Log All H-Codes</button>
+  <br>
+  <br>
+  <br>
+
+  <div>
+    <div>
+      <label>Get H-Code-Value:</label>
+      <br>
+      <input type="number" formControlName="hCodeNumber">
+    </div>
+  </div>
+  <br>
+  <button (click)="logHCode()">Send</button>
+</form>
