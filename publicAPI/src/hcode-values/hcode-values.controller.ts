@@ -32,6 +32,15 @@ export class HCodeValuesController {
   ): Observable<any> {
     const modes = ["dark", "classic", "dracula"];
 
+    if(!query.mode){
+      throw new HttpException(
+       {
+         error: "A parameter 'mode' should be defined. Please choose between dark, dracula or classic.",
+       },
+       HttpStatus.BAD_REQUEST
+     );
+    }
+
     if(modes.includes(query.mode)){
       return this.httpService
         .get<HCodeValues[]>(
@@ -69,7 +78,7 @@ export class HCodeValuesController {
         {
           error: "Mode " + query.mode + " does not exist. Please choose between dark, dracula or classic.",
         },
-        HttpStatus.NOT_FOUND
+        HttpStatus.BAD_REQUEST
       );
     }
   }
