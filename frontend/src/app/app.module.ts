@@ -11,9 +11,14 @@ import { SafePipe } from './pipes/safe.pipe';
 import { FileUploaderComponent } from './components/file-uploader/file-uploader.component';
 import { CodeUploaderComponent } from './components/code-uploader/code-uploader.component';
 import { HCodeValuesHandlerComponent } from './components/h-code-values-handler/h-code-values-handler.component';
+import { TopNavigationBarComponent } from './components/top-navigation-bar/top-navigation-bar.component';
+import { PageHomeComponent } from './components/page-home/page-home.component';
+import { PageFormalModelComponent } from './components/page-formal-model/page-formal-model.component';
+import { PageMlModelComponent } from './components/page-ml-model/page-ml-model.component';
+import { PageAboutComponent } from './components/page-about/page-about.component';
 
 @NgModule({
-  declarations: [AppComponent, CodePresenterComponent, SafePipe, FileUploaderComponent, CodeUploaderComponent, HCodeValuesHandlerComponent],
+  declarations: [AppComponent, CodePresenterComponent, SafePipe, FileUploaderComponent, CodeUploaderComponent, HCodeValuesHandlerComponent, TopNavigationBarComponent, PageHomeComponent, PageFormalModelComponent, PageMlModelComponent, PageAboutComponent],
   imports: [
     CommonModule,
     BrowserModule,
