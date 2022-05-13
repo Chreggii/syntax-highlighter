@@ -182,7 +182,11 @@ Endpoint for a specific hCodeValue including a suggested color.
 {
   "error": "HCode for 21 does not exist."
 }
+
+
 ```
+
+##### 400 Bad Request
 **Example: `GET /h-code-value/3?mode=bright`**
 ```json
 {
@@ -193,7 +197,7 @@ Endpoint for a specific hCodeValue including a suggested color.
 **Example: `GET /h-code-value/3`**
 ```json
 {
-  "error": "Mode undefined does not exist. Please choose between dark, dracula or classic."
+  "error": "A parameter 'mode' should be defined. Please choose between dark, dracula or classic."
 }
 ```
 
