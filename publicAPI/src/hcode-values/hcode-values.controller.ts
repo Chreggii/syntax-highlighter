@@ -11,11 +11,11 @@ import { map, Observable, of, switchMap, tap } from "rxjs";
 import { HCodeValue } from "src/models/hCodeValue.type";
 import { HCodeValues } from "src/models/hCodeValues.model";
 import { Mode } from "src/models/mode.type";
-import { ColorScheme } from "src/models/colorScheme.model";
+import { HcodeValuesService } from "src/services/hcode-values/hcode-values.service"
 
 @Controller("h-code-value")
 export class HCodeValuesController {
-  constructor(private httpService: HttpService) {}
+  constructor(private hCodeValuesService: HcodeValuesService, private httpService: HttpService) {}
 
   @Get()
   getAllHCodeValues(): Observable<HCodeValues[]> {
@@ -30,54 +30,47 @@ export class HCodeValuesController {
   getHCodeValue(
     @Param("value") value : HCodeValue, @Query() query:  {mode: Mode}
   ): Observable<any> {
-    console.log(query.mode);
-    console.log(value);
-    return this.httpService
-      .get<HCodeValues[]>(
-        `http://formalSyntaxHighlighter:8080/highlighting-codes`
-      )
-      .pipe(
-        map((response) => response.data),
-        map(
-          (hCodeValues) =>
-            hCodeValues.find((item) => item.hCodeValue === Number(value))?.name
-        ),
-        switchMap((hCodeName) =>
-          hCodeName
-            ? this.httpService.get('http://hCode_colorizer:3030/color-scheme?mode='+ query.mode).pipe(
-              map(colors => ({
-                name: hCodeName,
-                hCodeValue: value,
-                color: this.getColor(colors.data, value)
-              }))
-            )
-            : of({}).pipe(
-                tap(() => {
-                  throw new HttpException(
-                    {
-                      error: "HCode for " + value + " does not exist.",
-                    },
-                    HttpStatus.NOT_FOUND
-                  );
-                })
-              )
+    const modes = ["dark", "classic", "dracula"];
+
+    if(modes.includes(query.mode)){
+      return this.httpService
+        .get<HCodeValues[]>(
+          `http://formalSyntaxHighlighter:8080/highlighting-codes`
         )
+        .pipe(
+          map((response) => response.data),
+          map(
+            (hCodeValues) =>
+              hCodeValues.find((item) => item.hCodeValue === Number(value))?.name
+          ),
+          switchMap((hCodeName) =>
+            hCodeName
+              ? this.httpService.get('http://hCode_colorizer:3030/color-scheme?mode='+ query.mode).pipe(
+                map(colors => ({
+                  name: hCodeName,
+                  hCodeValue: value,
+                  color: this.hCodeValuesService.getColor(colors.data, value)
+                }))
+              )
+              : of({}).pipe(
+                  tap(() => {
+                    throw new HttpException(
+                      {
+                        error: "HCode for " + value + " does not exist.",
+                      },
+                      HttpStatus.NOT_FOUND
+                    );
+                  })
+                )
+          )
+        );
+    } else {
+       throw new HttpException(
+        {
+          error: "Mode " + query.mode + " does not exist. Please choose between dark, dracula or classic.",
+        },
+        HttpStatus.NOT_FOUND
       );
-  }
-
-  private getColor(colors: [ColorScheme], value: HCodeValue): string {
-    let hexcode = "";
-    for (let i=0; i < colors.length; i++){
-      if(colors[i]["hCodeValue"] === Number(value)){
-        hexcode = colors[i]["hexcode"];
-      }
-    }
-
-    if(hexcode){
-      return hexcode;
-    }
-    else{
-      return "Error! color not found for " + value;
     }
   }
 }
