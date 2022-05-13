@@ -6,7 +6,7 @@ import { ColorScheme } from "src/models/colorScheme.model"
 
 @Injectable()
 export class HCodeValuesService {
-  getColor(colors: [ColorScheme], value: HCodeValue): string {
+  getColor(colors: ColorScheme[], value: HCodeValue): string {
     let hexcode = "";
     for (let i=0; i < colors.length; i++){
       if(colors[i]["hCodeValue"] === Number(value)){
