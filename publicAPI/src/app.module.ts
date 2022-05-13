@@ -9,7 +9,7 @@ import { HighlightFileController } from './highlight-file/highlight-file.control
 import { HighlightTextController } from './highlight-text/highlight-text.controller';
 import { MlClassifierController } from './ml-classifier/ml-classifier.controller';
 import { HighlightService } from './services/highlight/highlight.service';
-import { HcodeValuesService } from './services/hcode-values/hcode-values.service'; 
+import { HCodeValuesService } from './services/hcode-values/hcode-values.service';
 
 @Module({
   imports: [HttpModule],
