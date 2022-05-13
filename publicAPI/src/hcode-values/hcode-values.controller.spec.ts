@@ -1,7 +1,7 @@
 import { HttpModule } from "@nestjs/common";
 import { Test, TestingModule } from "@nestjs/testing";
 
-import { HCodeValuesService } from "src/services/hcode-values/hcode-values.service";
+import { HCodeValuesService } from "../services/hcode-values/hcode-values.service";
 import { HCodeValuesController } from "./hcode-values.controller";
 
 describe("HCodeValuesController", () => {

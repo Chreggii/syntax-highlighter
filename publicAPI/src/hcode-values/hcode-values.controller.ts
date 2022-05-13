@@ -8,10 +8,10 @@ import {
   Query,
 } from "@nestjs/common";
 import { map, Observable, of, switchMap, tap } from "rxjs";
-import { HCodeValue } from "src/models/hCodeValue.type";
-import { HCodeValues } from "src/models/hCodeValues.model";
-import { Mode } from "src/models/mode.type";
-import { HCodeValuesService } from "src/services/hcode-values/hcode-values.service"
+import { HCodeValue } from "../models/hCodeValue.type";
+import { HCodeValues } from "../models/hCodeValues.model";
+import { Mode } from "../models/mode.type";
+import { HCodeValuesService } from "../services/hcode-values/hcode-values.service";
 
 @Controller("h-code-value")
 export class HCodeValuesController {
