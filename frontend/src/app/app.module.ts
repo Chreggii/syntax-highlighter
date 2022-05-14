@@ -8,7 +8,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CodePresenterComponent } from './components/code-presenter/code-presenter.component';
 import { SafePipe } from './pipes/safe.pipe';
-import { FileUploaderComponent } from './components/file-uploader/file-uploader.component';
 import { CodeUploaderComponent } from './components/code-uploader/code-uploader.component';
 import { HCodeValuesHandlerComponent } from './components/h-code-values-handler/h-code-values-handler.component';
 import { TopNavigationBarComponent } from './components/top-navigation-bar/top-navigation-bar.component';
@@ -23,7 +22,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
-  declarations: [AppComponent, CodePresenterComponent, SafePipe, FileUploaderComponent, CodeUploaderComponent, HCodeValuesHandlerComponent, TopNavigationBarComponent, PageHomeComponent, PageFormalModelComponent, PageMlModelComponent, PageAboutComponent],
+  declarations: [AppComponent, CodePresenterComponent, SafePipe, CodeUploaderComponent, HCodeValuesHandlerComponent, TopNavigationBarComponent, PageHomeComponent, PageFormalModelComponent, PageMlModelComponent, PageAboutComponent],
   imports: [
     CommonModule,
     BrowserModule,
