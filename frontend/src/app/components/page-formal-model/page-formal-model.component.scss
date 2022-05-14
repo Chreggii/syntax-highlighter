@@ -1,0 +1,33 @@
+.formal {
+  background-repeat:no-repeat;
+  background-image: url('../../../assets/darkbluenetwork.jpg');
+}
+
+.formal-filler {
+  position: relative;
+  height: 20px;
+
+}
+
+.formal-box {
+  position: relative;
+  top: 20px;
+  bottom: 20px;
+  width: 90%;
+  left: 5%;
+  background-color: rgba(1,24,28,0.9);
+  border-radius: 40px;
+}
+
+
+.formal-content {
+  position: relative;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  position: relative;
+  left: 0px;
+  color: white;
+  text-align: center;
+}

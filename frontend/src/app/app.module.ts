@@ -16,6 +16,7 @@ import { PageHomeComponent } from './components/page-home/page-home.component';
 import { PageFormalModelComponent } from './components/page-formal-model/page-formal-model.component';
 import { PageMlModelComponent } from './components/page-ml-model/page-ml-model.component';
 import { PageAboutComponent } from './components/page-about/page-about.component';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [AppComponent, CodePresenterComponent, SafePipe, FileUploaderComponent, CodeUploaderComponent, HCodeValuesHandlerComponent, TopNavigationBarComponent, PageHomeComponent, PageFormalModelComponent, PageMlModelComponent, PageAboutComponent],
@@ -26,6 +27,7 @@ import { PageAboutComponent } from './components/page-about/page-about.component
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    MatButtonModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
