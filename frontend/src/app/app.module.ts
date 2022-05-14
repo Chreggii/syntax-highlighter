@@ -16,14 +16,25 @@ import { PageFormalModelComponent } from './components/page-formal-model/page-fo
 import { PageMlModelComponent } from './components/page-ml-model/page-ml-model.component';
 import { PageAboutComponent } from './components/page-about/page-about.component';
 import { MatButtonModule } from '@angular/material/button';
-import {MatSelectModule} from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
-  declarations: [AppComponent, CodePresenterComponent, SafePipe, CodeUploaderComponent, HCodeValuesHandlerComponent, TopNavigationBarComponent, PageHomeComponent, PageFormalModelComponent, PageMlModelComponent, PageAboutComponent],
+  declarations: [
+    AppComponent,
+    CodePresenterComponent,
+    SafePipe,
+    CodeUploaderComponent,
+    HCodeValuesHandlerComponent,
+    TopNavigationBarComponent,
+    PageHomeComponent,
+    PageFormalModelComponent,
+    PageMlModelComponent,
+    PageAboutComponent,
+  ],
   imports: [
     CommonModule,
     BrowserModule,
@@ -41,4 +52,4 @@ import { RouterModule } from '@angular/router';
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

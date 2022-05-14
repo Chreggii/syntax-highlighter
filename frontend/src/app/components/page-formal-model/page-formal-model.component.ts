@@ -3,11 +3,11 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-page-formal-model',
   templateUrl: './page-formal-model.component.html',
-  styleUrls: ['./page-formal-model.component.scss']
+  styleUrls: ['./page-formal-model.component.scss'],
 })
 export class PageFormalModelComponent {
   showSourceCodeField = false;
-  showUploadField = false
+  showUploadField = false;
   showHCodes = false;
   showResults = false;
 
@@ -20,6 +20,4 @@ export class PageFormalModelComponent {
     this.showUploadField = false;
     this.showSourceCodeField = true;
   }
-
-
 }

@@ -8,9 +8,8 @@ describe('PageMlModelComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PageMlModelComponent ]
-    })
-    .compileComponents();
+      declarations: [PageMlModelComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
