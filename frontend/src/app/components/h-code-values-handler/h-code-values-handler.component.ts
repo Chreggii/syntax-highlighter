@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {FormBuilder} from "@angular/forms";
 import {getBaseUrl} from "../../functions/url-resolver.function";
@@ -8,16 +8,13 @@ import {getBaseUrl} from "../../functions/url-resolver.function";
   templateUrl: './h-code-values-handler.component.html',
   styleUrls: ['./h-code-values-handler.component.scss']
 })
-export class HCodeValuesHandlerComponent implements OnInit {
+export class HCodeValuesHandlerComponent {
 
   readonly form = this.formBuilder.group({
     hCodeNumber: undefined,
   });
 
   constructor(private http: HttpClient, private formBuilder: FormBuilder) { }
-
-  ngOnInit(): void {
-  }
 
   logHCodes(): void {
     this.http.get(`${getBaseUrl()}/h-code-value`).subscribe(console.log);

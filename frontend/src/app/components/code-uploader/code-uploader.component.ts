@@ -1,20 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {getBaseUrl} from "../../functions/url-resolver.function";
 import {FormBuilder} from "@angular/forms";
 import {HttpClient} from "@angular/common/http";
 import {HighlightService} from "../../services/highlighter/highlight.service";
-
-interface Food {
-  value: string;
-  viewValue: string;
-}
 
 @Component({
   selector: 'app-code-uploader',
   templateUrl: './code-uploader.component.html',
   styleUrls: ['./code-uploader.component.scss']
 })
-export class CodeUploaderComponent implements OnInit {
+export class CodeUploaderComponent {
 
   readonly form = this.formBuilder.group({
     sourceText: undefined,
@@ -23,9 +18,6 @@ export class CodeUploaderComponent implements OnInit {
   code?: string;
 
   constructor(private formBuilder: FormBuilder, private http: HttpClient, private highlightService: HighlightService) { }
-
-  ngOnInit(): void {
-  }
 
   onFileSelected(event: any): void {
     const file: File = event.target?.files?.[0];

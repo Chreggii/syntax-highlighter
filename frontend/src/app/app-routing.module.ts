@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {AppComponent} from "./app.component";
 import {PageFormalModelComponent} from "./components/page-formal-model/page-formal-model.component";
 import {PageHomeComponent} from "./components/page-home/page-home.component";
 import {PageMlModelComponent} from "./components/page-ml-model/page-ml-model.component";
