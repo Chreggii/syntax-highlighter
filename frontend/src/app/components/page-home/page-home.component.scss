@@ -1,7 +1,43 @@
-.home-div-top {
+.home {
+  background-repeat:no-repeat;
+  background-position: bottom;
+  background-image: url('../../../assets/darkbluenetwork.jpg');
+}
+
+.home-box-left {
+  position: relative;
+  top: 20px;
+  bottom: 20px;
+  width: 45%;
+  left: 5%;
+  background-color: rgba(1,24,28,0.9);
+  border-radius: 40px;
+}
+
+.home-box-right {
+  position: relative;
+  top: 20px;
+  bottom: 20px;
+  width: 45%;
+  left: 50%;
+  background-color: rgba(1,24,28,0.9);
+  border-radius: 40px;
+}
+
+.home-content {
+  position: relative;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 3px;
+  padding-bottom: 3px;
   position: relative;
   left: 0px;
-  background-color: grey;
+  color: white;
+}
+
+h2 {
+  opacity: 100%;
+  color: white;
 }
 
 
