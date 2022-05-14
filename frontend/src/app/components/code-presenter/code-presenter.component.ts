@@ -7,6 +7,6 @@ import { Component, Input } from '@angular/core';
 })
 export class CodePresenterComponent {
 
-  //@Input() code?: string;
-  code = "TestCode"
+  @Input() code?: string;
+  //code = "TestCode"
 }

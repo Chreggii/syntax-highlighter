@@ -1,21 +1,30 @@
-<body>
-<form [formGroup]="form">
-  <div>
-    <mat-form-field appearance="fill" class="source-code-input-field">
-      <textarea class="source-code-input-field" matInput placeholder="Paste your source code here..." formControlName="sourceText"></textarea>
-    </mat-form-field>
+<body class="code-uploader-box">
+  <h1>Upload your code</h1>
+  <div class="source-code-paster">
+    <h2>Paste your code into the text field below:</h2>
+    <form [formGroup]="form">
+      <div>
+        <mat-form-field appearance="fill" class="source-code-input-field">
+          <textarea class="source-code-input-field" matInput placeholder="Paste your source code here..." formControlName="sourceText"></textarea>
+        </mat-form-field>
+      </div>
+      <mat-form-field appearance="fill">
+        <mat-label>Language</mat-label>
+        <select matNativeControl required formControlName="language">
+          <option value="none">None</option>
+          <option value="python">Python</option>
+          <option value="java">Java</option>
+          <option value="kotlin">Kotlin</option>
+        </select>
+      </mat-form-field>
+    </form>
   </div>
-  <mat-form-field appearance="fill">
-    <mat-label>Language</mat-label>
-    <select matNativeControl required formControlName="language">
-      <option value="none">None</option>
-      <option value="python">Python</option>
-      <option value="java">Java</option>
-      <option value="kotlin">Kotlin</option>
-    </select>
-  </mat-form-field>
+  <div class="file-uploader">
+    <h2>Alternatively you can also upload a file from your computer</h2>
+    <input type="file" accept=".java,.py,.kt,.kts,.ktm,.txt" (change)="onFileSelected($event)">
+  </div>
+
+  <h2>When you are done, submit the request</h2>
+  <button mat-raised-button color="primary" (click)="sendRequest()"> Submit</button>
   <br>
-  <button mat-raised-button color="primary" (click)="sendRequest()"> Send</button>
-  <br>
-</form>
 </body>

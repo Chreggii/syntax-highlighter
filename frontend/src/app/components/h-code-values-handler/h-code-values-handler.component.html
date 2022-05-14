@@ -1,19 +1,18 @@
-<body>
-<form [formGroup]="form">
-  <h3>H-Code-Values</h3>
-  <button mat-raised-button color="primary" (click)="logHCodes()">Log All H-Codes</button>
-  <br>
-  <br>
-  <br>
-
+<body class="hcode-value-box">
+  <h1>Manage the H-Code Values</h1>
   <div>
-    <div>
-      <label>Get H-Code-Value:</label>
+    <form [formGroup]="form">
+      <h2>Below you can log the H-Code Values</h2>
+      <button mat-raised-button color="primary" (click)="logHCodes()">Log All H-Codes</button>
       <br>
-      <input type="number" formControlName="hCodeNumber">
-    </div>
+      <div>
+        <div>
+          <h2>Retrieve H-Code Values</h2>
+          <input type="number" formControlName="hCodeNumber">
+        </div>
+      </div>
+      <br>
+      <button mat-raised-button color="primary" (click)="logHCode()">Submit</button>
+    </form>
   </div>
-  <br>
-  <button mat-raised-button color="primary" (click)="logHCode()">Send</button>
-</form>
 </body>

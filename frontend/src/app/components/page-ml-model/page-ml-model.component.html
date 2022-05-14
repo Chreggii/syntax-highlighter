@@ -1,26 +1,11 @@
 <div class="mlModel">
 <div class="mlModel-top-box">
   <h1>The Smart Online Syntax Highlighter</h1>
-</div>
-<div class="mlModel-input-box">
   <h2>Machine Learning Syntax Highlighter</h2>
-  <h3>Upload your code</h3>
-  <div class="mlModel-buttons">
-    <button style="margin-right: 15px" mat-raised-button color="primary" (click)="useFile()">Use a File</button>
-    <button mat-raised-button color="primary" (click)="useCode()"> Paste Source Code</button>
-  </div>
-  <app-file-uploader *ngIf="showUploadField == true"></app-file-uploader>
-  <app-code-uploader *ngIf="showSourceCodeField == true"></app-code-uploader>
 </div>
-  <div class="formal-filler"></div>
-  <div class="mlModel-input-box">
-    <h3>Hcode Values</h3>
-    <app-h-code-values-handler></app-h-code-values-handler>
-  </div>
-  <div class="formal-filler"></div>
-
-  <div class="mlModel-input-box">
-    <h3>Result</h3>
-    <app-code-presenter></app-code-presenter>
-  </div>
+  <app-code-uploader></app-code-uploader>
 </div>
+<div class="formal-filler"></div>
+<app-h-code-values-handler></app-h-code-values-handler>
+<div class="formal-filler"></div>
+<app-code-presenter></app-code-presenter>

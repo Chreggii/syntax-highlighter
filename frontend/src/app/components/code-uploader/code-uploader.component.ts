@@ -27,6 +27,22 @@ export class CodeUploaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onFileSelected(event: any): void {
+    const file: File = event.target?.files?.[0];
+
+    if (file) {
+      const formData = new FormData();
+      formData.append('file', file);
+
+      this.http
+        .post<any>(`${getBaseUrl()}/highlight-file`, formData)
+        .subscribe((response) => {
+          console.log(response)
+          this.code = this.highlightService.highlightText(response['source-code']);
+        });
+    }
+  }
+
   sendRequest(): void {
     const data = {
       sourceText: this.form.get('sourceText')?.value,

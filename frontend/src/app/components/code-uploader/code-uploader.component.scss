@@ -1,3 +1,20 @@
+.code-uploader-box {
+  padding: 5px 1.5% 20px;
+  top: 10px;
+  bottom: 40px;
+  width: 87%;
+  left: 5%;
+  position: relative;
+  background-color: rgba(255,255,255,0.8);
+  border-radius: 40px;
+}
+
+.language-chooser {
+  text-align: left;
+  position: relative;
+  left: 0px;
+}
+
 .source-code-input-field {
   position: relative;
   width: 100%;
