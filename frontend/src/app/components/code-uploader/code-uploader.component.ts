@@ -4,6 +4,11 @@ import {FormBuilder} from "@angular/forms";
 import {HttpClient} from "@angular/common/http";
 import {HighlightService} from "../../services/highlighter/highlight.service";
 
+interface Food {
+  value: string;
+  viewValue: string;
+}
+
 @Component({
   selector: 'app-code-uploader',
   templateUrl: './code-uploader.component.html',

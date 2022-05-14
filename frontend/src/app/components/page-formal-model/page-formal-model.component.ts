@@ -6,21 +6,36 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./page-formal-model.component.scss']
 })
 export class PageFormalModelComponent implements OnInit {
+  showUploadBox = false;
   showSourceCodeField = false;
   showUploadField = false
+  showHCodes = false;
+  showResults = false;
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  uploadFile(): void {
-    this.showSourceCodeField = false
+  uploadCode(): void {
+    this.showUploadBox = true;
+  }
+
+  useFile(): void {
+    this.showSourceCodeField = false;
     this.showUploadField = true;
   }
 
-  pasteCode(): void {
+  useCode(): void {
     this.showUploadField = false;
-    this.showSourceCodeField = true
+    this.showSourceCodeField = true;
+  }
+
+  useHCode(): void {
+    this.showHCodes = true;
+  }
+
+  results(): void {
+    this.showResults = true;
   }
 
 }

@@ -1,0 +1,74 @@
+.mlModel {
+}
+
+.mlModel-top-box {
+  position: relative;
+  top: 10px;
+  bottom: 40px;
+  width: 90%;
+  left: 5%;
+  height: 200px;
+  background-color: rgba(1,24,28,0.9);
+  background-image: url('../../../assets/coding.png');
+  opacity: 80%;
+  border-radius: 40px;
+  margin-bottom: 50px;
+}
+
+h1 {
+  padding-top: 10px;
+  color: white;
+  font-size: 80px;
+  text-align: center;
+  margin-top: 0px;
+}
+
+h2 {
+  padding-top: 10px;
+  color: black;
+  font-size: 60px;
+  text-align: center;
+  margin-top: 0px;
+}
+
+h3 {
+  padding-top: 10px;
+  color: black;
+  font-size: 40px;
+  text-align: left;
+  margin-top: 0px;
+  text-align: center;
+}
+
+.mlModel-buttons {
+  position: relative;
+  width: 100%;
+  text-align: center;
+}
+
+.mlModel-input-box {
+  padding-top: 5px;
+  padding-left: 20px;
+  padding-bottom: 20px;
+  top: 10px;
+  bottom: 40px;
+  width: 90%;
+  left: 5%;
+  text-align: center;
+  position: relative;
+  background-color: rgba(255,255,255,0.8);
+  border-radius: 40px;
+}
+
+.mlModel-help-box {
+  position: relative;
+  background-color: rgba(255,255,255,0.8);
+  left: 76%;
+  width: 22%;
+}
+
+.formal-filler {
+  position: relative;
+  height: 20px;
+
+}

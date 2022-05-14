@@ -1,27 +1,33 @@
 <div class="formal">
   <div class="formal-box">
     <div class="formal-content">
-    <h2>Formal Model</h2>
-    <p>Short Description goes here</p>
+    <h1>Formal Model</h1>
+    <p>You have choosen the formal model. Upload your code!</p>
+      <button mat-raised-button color="primary" (click)="uploadCode()"> Upload Code</button>
     </div>
   </div>
   <div class="formal-filler"></div>
-  <div class="formal-box">
+  <div class="formal-box" *ngIf="showUploadBox == true">
     <div class="formal-content">
-      <h3>Upload your code</h3>
-      <p>Short Description goes here</p>
-      <button mat-raised-button color="primary" (click)="uploadFile()">Upload a File</button>
-      <button mat-raised-button color="secondary" (click)="pasteCode()"> Paste Source Code</button>
+      <h2>Upload your code</h2>
+      <p>Please choose whether you want to upload a file or if u want to paste source code</p>
+      <button style="margin-right: 30px" mat-raised-button color="primary" (click)="useFile()">Use a File</button>
+      <button mat-raised-button color="primary" (click)="useCode()"> Paste Source Code</button>
       <app-file-uploader *ngIf="showUploadField == true"></app-file-uploader>
       <app-code-uploader *ngIf="showSourceCodeField == true"></app-code-uploader>
+      <div class="formal-filler"></div>
+      <button mat-raised-button color="primary" (click)="useHCode()"> Continue</button>
     </div>
   </div>
-  <div class="formal-box">
+  <div class="formal-filler"></div>
+  <div class="formal-box" *ngIf="showHCodes == true">
     <div class="formal-content">
   <app-h-code-values-handler></app-h-code-values-handler>
+      <button mat-raised-button color="primary" (click)="results()"> Continue</button>
     </div>
   </div>
-  <div class="formal-box">
+  <div class="formal-filler"></div>
+  <div class="formal-box" *ngIf="showResults == true">
     <div class="formal-content">
   <app-code-presenter></app-code-presenter>
     </div>

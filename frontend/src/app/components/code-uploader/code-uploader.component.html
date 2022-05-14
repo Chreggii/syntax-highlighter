@@ -1,16 +1,21 @@
 <body>
 <form [formGroup]="form">
   <div>
-    <label>SourceCode:</label>
-    <br>
-    <textarea cols="100" rows="10" formControlName="sourceText"></textarea>
+    <mat-form-field appearance="fill" class="source-code-input-field">
+      <textarea class="source-code-input-field" matInput placeholder="Paste your source code here..." formControlName="sourceText"></textarea>
+    </mat-form-field>
   </div>
-  <div>
-    <label>Language:</label>
-    <br>
-    <input type="text" formControlName="language">
-  </div>
+  <mat-form-field appearance="fill">
+    <mat-label>Language</mat-label>
+    <select matNativeControl required formControlName="language">
+      <option value="none">None</option>
+      <option value="python">Python</option>
+      <option value="java">Java</option>
+      <option value="kotlin">Kotlin</option>
+    </select>
+  </mat-form-field>
   <br>
-  <button (click)="sendRequest()">Send</button>
+  <button mat-raised-button color="primary" (click)="sendRequest()"> Send</button>
+  <br>
 </form>
 </body>
