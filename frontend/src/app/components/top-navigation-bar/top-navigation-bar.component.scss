@@ -1,20 +1,26 @@
 .div-header {
-  background-image: url('../../../assets/darkbluenetwork.jpg');
-  background-repeat:no-repeat;
+
 }
 
 h1 {
   color: white;
   font-weight: bold;
-  margin-top: 70px;
+  margin-top: 30px;
   margin-left: 20px;
-  margin-bottom: 5px;
+  margin-bottom: 2px;
   font-size: 60px;
-  height: 120px;
+  height: 60px;
+}
+
+h3 {
+  color: white;
+  font-weight: bold;
+  margin-left: 60px;
+  font-size: 20px;
 }
 
 .topnav {
-  background-color: rgba(1,24,28,1);
+  background-color: rgba(1,24,28,0.9);
   overflow: hidden;
 }
 
