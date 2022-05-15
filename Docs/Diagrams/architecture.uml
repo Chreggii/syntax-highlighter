@@ -19,6 +19,9 @@ package "Annotation WebService" {
     () "Rest API" as MLAPI
     [ML Model] as ML
     MLAPI -- ML
+    () "Color API" as CAPI
+    [hCode Color classifier] as CC
+    
   }
   
   
@@ -26,7 +29,9 @@ package "Annotation WebService" {
  
   PAPI --( SHAPI :uses
   PAPI --( MLAPI :uses
-  ML -( SHAPI : uses
+  ML -( SHAPI :uses
+  PAPI --( CAPI :Uses
+  CAPI -- CC
   
 }
 @enduml
