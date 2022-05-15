@@ -7,6 +7,7 @@ participant "Frontend" as front
 participant "Public API" as PAPI
 participant "Syntax Highlighter" as SH
 participant "ML Model" as ML
+participant "hCode Color Classifier" as CC
 
 front -> PAPI: request with source code
 
@@ -17,6 +18,9 @@ PAPI -> ML: request with source code
 SH <- ML: request lexing data with source code
 SH -> ML: lexed data
 PAPI <- ML: highlighted code (ML model)
+
+PAPI -> CC: Request colors and values of hCodes
+PAPI <- CC: Values of hCodes and corresponding colors
 
 front <- PAPI: response requested highlighted code
 
