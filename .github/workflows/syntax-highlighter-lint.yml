@@ -7,17 +7,17 @@ on:
     branches: [ dev, main ]
 
 jobs:
-  os_matrix:
+  lint:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
-    lint:
-      runs-on: ${{ matrix.os }}
-      container: gradle:7-jdk17
-      steps:
-      - uses: actions/checkout@v2
-    
-      - name: lint Syntax Highlighter
-        run: |
-          cd formalSyntaxHighlighter
-          gradle spotlessCheck --no-daemon
+
+    runs-on: ${{ matrix.os }}
+    container: gradle:7-jdk17
+    steps:
+    - uses: actions/checkout@v2
+  
+    - name: lint Syntax Highlighter
+      run: |
+        cd formalSyntaxHighlighter
+        gradle spotlessCheck --no-daemon
