@@ -11,11 +11,11 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
-  test:
-    runs-on: ${{ matrix.os }}
-    steps:
-      - uses: actions/checkout@v2
+    test:
+      runs-on: ${{ matrix.os }}
+      steps:
+        - uses: actions/checkout@v2
 
-      - name: Build docker containers
-        run: |
-          docker-compose build
+        - name: Build docker containers
+          run: |
+            docker-compose build
