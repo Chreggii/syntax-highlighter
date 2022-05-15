@@ -11,21 +11,14 @@ import org.springframework.boot.web.server.LocalServerPort;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class HttpRequestTest {
-    @LocalServerPort
-    private int port;
+  @LocalServerPort private int port;
 
-    @Autowired
-    private TestRestTemplate restTemplate;
+  @Autowired private TestRestTemplate restTemplate;
 
-    @Test
-    public void defaultEndpoint() throws Exception {
-        assertThat(
-                this.restTemplate.getForObject(
-                        "http://localhost:" + port + "/",
-                        String.class
-                    )
-            )
-            .contains("Formal Syntax Highlighter")
-            .contains("\"status\":\"okay\"");
-    }
+  @Test
+  public void defaultEndpoint() throws Exception {
+    assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/", String.class))
+        .contains("Formal Syntax Highlighter")
+        .contains("\"status\":\"okay\"");
+  }
 }
