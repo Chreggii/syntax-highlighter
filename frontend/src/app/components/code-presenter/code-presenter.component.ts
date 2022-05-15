@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import {HighlightService} from "../../services/highlighter/highlight.service";
 
 @Component({
   selector: 'app-code-presenter',
@@ -6,6 +7,8 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./code-presenter.component.scss'],
 })
 export class CodePresenterComponent {
-  @Input() code?: string;
-  //code = "TestCode"
+
+  constructor(public highlightService: HighlightService) {
+  }
+
 }

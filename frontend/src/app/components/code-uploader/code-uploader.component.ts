@@ -14,7 +14,6 @@ export class CodeUploaderComponent {
     sourceText: undefined,
     language: undefined,
   });
-  code?: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -33,7 +32,7 @@ export class CodeUploaderComponent {
         .post<any>(`${getBaseUrl()}/highlight-file`, formData)
         .subscribe((response) => {
           console.log(response);
-          this.code = this.highlightService.highlightText(
+          this.highlightService.setHighlightText(
             response['source-code']
           );
         });
@@ -49,7 +48,7 @@ export class CodeUploaderComponent {
       .post<any>(`${getBaseUrl()}/highlight-text`, data)
       .subscribe((response) => {
         console.log(response);
-        this.code = this.highlightService.highlightText(
+        this.highlightService.setHighlightText(
           response['source-code']
         );
       });

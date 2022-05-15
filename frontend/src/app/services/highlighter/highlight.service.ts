@@ -6,11 +6,17 @@ import { Injectable } from '@angular/core';
 export class HighlightService {
   // TODO Alain: implement here the coloring
 
-  highlightText(sourceCode: string): string {
-    return sourceCode.replace(
+  private highlightedText?: string;
+
+  setHighlightText(sourceCode: string): void {
+    this.highlightedText = sourceCode.replace(
       'import',
       this.getColoredElement('import', 'red')
     );
+  }
+
+  getHighlightText(): string | undefined {
+    return this.highlightedText;
   }
 
   private getColoredElement(key: string, color: string): string {

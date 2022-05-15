@@ -1,8 +1,8 @@
 <body class="code-presenter-box">
   <h1> Result</h1>
-  <div class="code-wrapper" *ngIf="code">
+  <div class="code-wrapper" *ngIf="highlightService.getHighlightText()">
     <pre>
-      <code [innerHTML]="code | safe: 'html'"></code>
+      <code [innerHTML]="highlightService.getHighlightText() | safe: 'html'"></code>
     </pre>
   </div>
 </body>
