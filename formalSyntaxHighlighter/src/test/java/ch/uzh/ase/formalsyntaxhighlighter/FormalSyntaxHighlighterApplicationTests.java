@@ -10,5 +10,4 @@ class FormalSyntaxHighlighterApplicationTests {
     public void mainTest() {
         FormalSyntaxHighlighterApplication.main(new String[0]);
     }
-
 }
