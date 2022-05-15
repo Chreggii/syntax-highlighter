@@ -7,8 +7,12 @@ on:
     branches: [ dev, main ]
 
 jobs:
+  os-matrix:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
   lint:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     container: gradle:7-jdk17
     steps:
     - uses: actions/checkout@v2
