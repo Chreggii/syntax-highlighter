@@ -1,4 +1,4 @@
-name: Syntax Highlighter Test
+name: Syntax Highlighter Lint
 
 on:
   push:
