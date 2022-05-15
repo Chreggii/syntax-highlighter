@@ -47,6 +47,10 @@ spotless {
         // Use the default importOrder configuration
         importOrder()
 
+        removeUnusedImports()
+
+        googleJavaFormat()
+
         prettier(['prettier': '2.0.5', 'prettier-plugin-java': '0.8.0']).config(['parser': 'java', 'tabWidth': 4])
 
     }
