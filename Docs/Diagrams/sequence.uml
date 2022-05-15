@@ -25,7 +25,7 @@ PAPI <- CC: Values of hCodes and corresponding colors
 front <- PAPI: response requested highlighted code
 
 group training (async)
-PAPI -> ML: request with highlighted source code
+PAPI -> ML: request with highlighted source code (fire and forget)
 SH <- ML: request highling data with source code
 SH -> ML: highlighted data
 ML -> ML: training
