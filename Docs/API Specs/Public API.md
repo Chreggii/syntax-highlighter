@@ -35,7 +35,7 @@ Returns the highlighted code
     [5, 5, 54], 
     [6, 20, 3],
     [21, 21, 55]
-  ],
+  ]
 }
 ```
 
@@ -153,19 +153,51 @@ Endpoint for all the hCodeValues for the different.
 
 Endpoint for a specific hCodeValue including a suggested color.
 
+#### Parameters
+
+| Parameter  | Required | Type                                   | default | Description                            |
+|------------| -------- |----------------------------------------| ------- |----------------------------------------|
+| `mode`     | ✅        | string:`["dark", "dracula", "classic"]` | -       | Mode for returning colors accordingly. |
+
+
+
 #### Responses
 
 ##### 200 OK 
 
-**Example: `GET /h-code-value/4`**
+**Example: `GET /h-code-value/3?mode=dark`**
 
 ```json
-{name: "COMMENT", hCodeValue: 4, color: "#808080"}
+{
+  "name": "CHAR_STRING_LITERAL",
+  "hCodeValue": "3",
+  "color": "#006400"
+}
 ```
 
 ##### 404 Not Found
 
+**Example: `GET /h-code-value/21?mode=dark`**
 ```json
-{error: "HCodoe for <value> does not exist."}
+{
+  "error": "HCode for 21 does not exist."
+}
+
+
+```
+
+##### 400 Bad Request
+**Example: `GET /h-code-value/3?mode=bright`**
+```json
+{
+"error": "Mode bright does not exist. Please choose between dark, dracula or classic."
+}
+```
+
+**Example: `GET /h-code-value/3`**
+```json
+{
+  "error": "A parameter 'mode' should be defined. Please choose between dark, dracula or classic."
+}
 ```
 
