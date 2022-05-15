@@ -7,13 +7,13 @@ on:
     branches: [ dev, main ]
 
 jobs:
-  test:
+  lint:
     runs-on: ubuntu-latest
     container: gradle:7-jdk17
     steps:
     - uses: actions/checkout@v2
   
-    - name: test Syntax Highlighter
+    - name: lint Syntax Highlighter
       run: |
         cd formalSyntaxHighlighter
         gradle spotlessCheck --no-daemon

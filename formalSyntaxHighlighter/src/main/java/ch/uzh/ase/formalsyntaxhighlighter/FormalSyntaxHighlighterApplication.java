@@ -57,7 +57,6 @@ public class FormalSyntaxHighlighterApplication {
                   put(
                       "error",
                       new HashMap<>() {
-
                         {
                           put("code", 400);
                           put("type", "Bad request");
