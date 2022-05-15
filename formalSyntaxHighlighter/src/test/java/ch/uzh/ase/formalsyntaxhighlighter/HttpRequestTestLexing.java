@@ -1,7 +1,5 @@
 package ch.uzh.ase.formalsyntaxhighlighter;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.junit.jupiter.api.Test;
 import org.skyscreamer.jsonassert.*;
 import org.springframework.beans.factory.annotation.Autowired;
