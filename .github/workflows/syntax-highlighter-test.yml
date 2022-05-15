@@ -1,4 +1,4 @@
-name: Test Syntax Highlighter
+name: Syntax Highlighter Test
 
 on:
   push:
