@@ -45,13 +45,9 @@ jacocoTestReport {
 spotless {
     java {
         lineEndings 'GIT_ATTRIBUTES'
-        // Use the default importOrder configuration
         importOrder()
-
         removeUnusedImports()
-
         googleJavaFormat()
-
     }
 }
 
