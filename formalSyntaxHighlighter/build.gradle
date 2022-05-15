@@ -44,6 +44,7 @@ jacocoTestReport {
 
 spotless {
     java {
+        lineEndings 'UNIX'
         // Use the default importOrder configuration
         importOrder()
 
