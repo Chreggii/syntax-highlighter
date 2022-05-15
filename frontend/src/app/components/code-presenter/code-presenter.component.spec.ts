@@ -10,9 +10,8 @@ describe('CodePresenterComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [CodePresenterComponent, SafePipe]
-    })
-      .compileComponents();
+      declarations: [CodePresenterComponent, SafePipe],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
