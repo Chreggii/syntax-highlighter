@@ -20,11 +20,11 @@ describe("HCodeValuesController", () => {
     controller = module.get<HCodeValuesController>(HCodeValuesController);
   });
 
-  fit("should be defined", () => {
+  it("should be defined", () => {
     expect(controller).toBeDefined();
   });
 
-  fit("getAllHCodeValues be work", () => {
+  it("getAllHCodeValues be work", () => {
     controller.getAllHCodeValues().subscribe(value => expect(value).toEqual([
       {"name": "ANY", "hCodeValue": 0}, 
       {"name": "KEYWORD", "hCodeValue": 1}, 
