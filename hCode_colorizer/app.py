@@ -57,32 +57,48 @@ def create_app():
             return {"hexcode": dark[packet['hCodeValue']]['hexcode'], "startIndex": packet["startIndex"],
                     "endIndex": packet["endIndex"]}
 
-    def colorizer_html(packet, mode):
+    def colorizer_html(packet, mode, text):
         if mode == "classic":
-            return 'span style='
+            return f'span style="color: {classic[packet["hCodeValue"]]["hexcode"]}">{text[int(packet["startIndex"]):int(packet["endIndex"])]}</span>'
         if mode == "dracula":
-            return ''
+            return f'span style="color: {dracula[packet["hCodeValue"]]["hexcode"]}">{text[int(packet["startIndex"]):int(packet["endIndex"])]}</span>'
         if mode == "dark":
-            return ''
+            return f'span style="color: {dark[packet["hCodeValue"]]["hexcode"]}">{text[int(packet["startIndex"]):int(packet["endIndex"])]}</span>'
 
-    @app.route("/color-scheme", methods=["GET"])
+    @app.route("/color-text", methods=["GET"])
     @app.errorhandler(werkzeug.exceptions.BadRequest)
     def colorize():
-        # TODO: Language specific coloring, html: but here I need the text aswell
+        try:
+            mode = request.args.get("mode")
+            if mode != "classic" and mode != "dracula" and mode != "dark":
+                return 'Chosen mode does not exist! Please try classic, dark or dracula', 406
+            try:
+                content = request.json
+            except werkzeug.exceptions.BadRequest:
+                return 'Not correct format!', 400
+            if type(content) != list:
+                return 'Not list format!', 400
+            if not all([isinstance(item, dict) for item in content]):
+                return 'Not correct format!', 400
+
+            result = list(map(lambda p: colorizer(p, mode), content))
+            return json.dumps(result)
+        except Exception:
+            return 'Not correct format!', 400
+
+    @app.route("/color-text-html", methods=["GET"])
+    @app.errorhandler(werkzeug.exceptions.BadRequest)
+    def colorize_html():
         mode = request.args.get("mode")
-        html = request.args.get("html")
+        if mode != "classic" and mode != "dracula" and mode != "dark":
+            return 'Chosen mode does not exist! Please try classic, dark or dracula', 406
         try:
             content = request.json
         except werkzeug.exceptions.BadRequest:
             return 'Not correct format!', 400
-        if type(content) != list:
-            return 'Not list format!', 400
-        if not all([isinstance(item, dict) for item in content]):
+        if type(content) == list:
             return 'Not correct format!', 400
-
-        if html:
-            return list(map(lambda p: colorizer_html(p, mode), content))
-        result = list(map(lambda p: colorizer(p, mode), content))
+        result = list(map(lambda p: colorizer_html(p, mode, content["text"]), content["hCodes"]))
         return json.dumps(result)
 
     return app
