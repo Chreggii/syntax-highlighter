@@ -23,17 +23,17 @@ BASE_URL = (
 
 def get_lexing(text, lang):
     """Helper method to make testing easier"""
-    return requests.get(
+    return requests.post(
         BASE_URL + "/lex-string",
-        params={"text": text, "type": lang},
+        json={"text": text, "type": lang},
     )
 
 
 def get_highlight_string(text, lang):
     """Helper method to make testing easier"""
-    return requests.get(
+    return requests.post(
         BASE_URL + "/highlight-string",
-        params={"text": text, "type": lang},
+        json={"text": text, "type": lang},
     )
 
 
@@ -42,12 +42,13 @@ def create_app():
     app = Flask(__name__)
     types = [PYTHON3_LANG_NAME, KOTLIN_LANG_NAME, JAVA_LANG_NAME, "python"]
 
-    @app.route("/ml-highlight", methods=["GET"])
+    @app.route("/ml-highlight", methods=["POST"])
     @app.errorhandler(werkzeug.exceptions.BadRequest)
     def predict():
         # define the parameter that we expect
-        text = request.args.get("text")
-        lang = request.args.get("type")
+        request_data = request.get_json()
+        text = request_data["text"]
+        lang = request_data["type"]
 
         # check type of 'text' and 'lang', return 400 error if is wrong
         if lang not in types:

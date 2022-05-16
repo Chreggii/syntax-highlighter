@@ -6,9 +6,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class FormalSyntaxHighlighterApplicationTests {
 
-    @Test
-    public void mainTest() {
-        FormalSyntaxHighlighterApplication.main(new String[0]);
-    }
-
+  @Test
+  public void mainTest() {
+    FormalSyntaxHighlighterApplication.main(new String[0]);
+  }
 }

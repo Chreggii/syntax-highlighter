@@ -1,0 +1,45 @@
+.div-header {
+
+}
+
+h1 {
+  color: white;
+  font-weight: bold;
+  margin-top: 30px;
+  margin-left: 20px;
+  margin-bottom: 2px;
+  font-size: 60px;
+  height: 60px;
+}
+
+h3 {
+  color: white;
+  font-weight: bold;
+  margin-left: 60px;
+  font-size: 20px;
+}
+
+.topnav {
+  background-color: rgba(1,24,28,0.9);
+  overflow: hidden;
+}
+
+.topnav a {
+  float: left;
+  color: white;
+  text-align: center;
+  padding: 10px 15px;
+  text-decoration: none;
+  font-size: 30px;
+}
+
+.topnav a:hover {
+  background-color: lightgrey;
+  color: black;
+}
+
+.topnav a.split {
+  float: right;
+  background-color: #5c7c43;
+  color: white;
+}

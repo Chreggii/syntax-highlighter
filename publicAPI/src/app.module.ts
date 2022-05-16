@@ -1,13 +1,15 @@
-import { HttpModule } from "@nestjs/axios";
-import { Module } from "@nestjs/common";
+import { HttpModule } from '@nestjs/axios';
+import { Module } from '@nestjs/common';
 
-import { AppController } from "./app.controller";
-import { AppService } from "./app.service";
-import { FileHighlighterController } from "./file-highlighter/file-highlighter.controller";
-import { FileHighlighterService } from "./file-highlighter/services/file-highlighter.service";
-import { FormalSyntaxHighlighterController } from "./formal-syntax-highlighter/formal-syntax-highlighter.controller";
-import { HCodeValuesController } from "./hcode-values/hcode-values.controller";
-import { MlClassifierController } from "./ml-classifier/ml-classifier.controller";
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { FormalSyntaxHighlighterController } from './formal-syntax-highlighter/formal-syntax-highlighter.controller';
+import { HCodeValuesController } from './hcode-values/hcode-values.controller';
+import { HighlightFileController } from './highlight-file/highlight-file.controller';
+import { HighlightTextController } from './highlight-text/highlight-text.controller';
+import { MlClassifierController } from './ml-classifier/ml-classifier.controller';
+import { HighlightService } from './services/highlight/highlight.service';
+import { HCodeValuesService } from './services/hcode-values/hcode-values.service';
 
 @Module({
   imports: [HttpModule],
@@ -15,9 +17,10 @@ import { MlClassifierController } from "./ml-classifier/ml-classifier.controller
     AppController,
     MlClassifierController,
     FormalSyntaxHighlighterController,
-    FileHighlighterController,
     HCodeValuesController,
+    HighlightTextController,
+    HighlightFileController,
   ],
-  providers: [AppService, FileHighlighterService],
+  providers: [AppService, HighlightService, HCodeValuesService],
 })
-export class AppModule {}
+export class AppModule { }

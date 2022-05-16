@@ -1,32 +1,30 @@
-import { HttpService } from "@nestjs/axios";
-import { HttpStatus } from "@nestjs/common";
-import { Test, TestingModule } from "@nestjs/testing";
-import { of } from "rxjs";
+import { HttpModule, HttpService } from '@nestjs/axios';
+import { HttpStatus } from '@nestjs/common';
+import { Test, TestingModule } from '@nestjs/testing';
+import { of } from 'rxjs';
 
-import { FileHighlighterController } from "./file-highlighter.controller";
-import { FileHighlighterService } from "./services/file-highlighter.service";
+import { HighlightService } from '../services/highlight/highlight.service';
+import { HighlightTextController } from './highlight-text.controller';
 
-describe("FileHighlighterController", () => {
-  let controller: FileHighlighterController;
+describe('HighlightTextController', () => {
+  let controller: HighlightTextController;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [FileHighlighterController],
+      imports: [HttpModule],
+      controllers: [HighlightTextController],
       providers: [
-        FileHighlighterService,
+        HighlightService,
         {
           provide: HttpService,
-          useValue: { get: () => of({ data: [] }), put: () => of() },
-        },
-      ],
+          useValue: { post: () => of({ data: [] }), put: () => of() },
+        },]
     }).compile();
 
-    controller = module.get<FileHighlighterController>(
-      FileHighlighterController
-    );
+    controller = module.get<HighlightTextController>(HighlightTextController);
   });
 
-  it("should be defined", () => {
+  it('should be defined', () => {
     expect(controller).toBeDefined();
   });
 
