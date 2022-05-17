@@ -65,7 +65,7 @@ def create_app():
         if mode == "dark":
             return f'span style="color: {dark[packet["hCodeValue"]]["hexcode"]}">{text[int(packet["startIndex"]):int(packet["endIndex"])]}</span>'
 
-    @app.route("/color-text", methods=["GET"])
+    @app.route("/color-text", methods=["POST"])
     @app.errorhandler(werkzeug.exceptions.BadRequest)
     def colorize():
         try:

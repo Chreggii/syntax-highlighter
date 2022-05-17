@@ -2,14 +2,14 @@
 
 ## Endpoints
 
-### `GET /color-text`
+### `POST /color-text`
 
 #### Parameters
 
-| Parameter | Required | Type                                  | default |
-| --------- | -------- | ------------------------------------- | ------- |
-| `mode`    | ✅        | string:`["dracula", "dark", "classic"]` | -       |
-| `content`    | ✅        | JSON:`[{"hCodeValue": 0,"startIndex": 0 "endIndex": , "tokenId": 42}]` | -       |
+| Parameter | Required | Type                                                                   | default |
+| --------- | -------- | ---------------------------------------------------------------------- | ------- |
+| `mode`    | ✅        | string:`["dracula", "dark", "classic"]`                                | -       |
+| `content` | ✅        | JSON:`[{"hCodeValue": 0,"startIndex": 0 "endIndex": , "tokenId": 42}]` | -       |
 
 #### Responses
 
@@ -42,14 +42,14 @@ Requests might be missing a required parameter or is badly encoded.
 }
 ```
 
-### `GET /color-text-html`
+### `POST /color-text-html`
 
 #### Parameters
 
-| Parameter | Required | Type                                  | default |
-| --------- | -------- | ------------------------------------- | ------- |
-| `mode`    | ✅       | string:`["dracula", "dark", "classic"]` | -       |
-| `content` | ✅       | JSON:`{"hCodes":[{"hCodeValue": 0,"startIndex": 0 "endIndex": , "tokenId": 42}], "text":"This is a test"}` | -       |
+| Parameter | Required | Type                                                                                                       | default |
+| --------- | -------- | ---------------------------------------------------------------------------------------------------------- | ------- |
+| `mode`    | ✅        | string:`["dracula", "dark", "classic"]`                                                                    | -       |
+| `content` | ✅        | JSON:`{"hCodes":[{"hCodeValue": 0,"startIndex": 0 "endIndex": , "tokenId": 42}], "text":"This is a test"}` | -       |
 
 #### Responses
 

@@ -1,8 +1,9 @@
 import { HttpModule, HttpService } from '@nestjs/axios';
 import { HttpStatus } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
+import { MlFormattingResponse } from '../models/ml-formatting-response.model';
 import { HighlightService } from '../services/highlight/highlight.service';
 import { HighlightTextController } from './highlight-text.controller';
 
@@ -17,7 +18,7 @@ describe('HighlightTextController', () => {
         HighlightService,
         {
           provide: HttpService,
-          useValue: { post: () => of({ data: [] }), put: () => of() },
+          useValue: { post: (url: string) => getMockResponse(url), put: () => of() },
         },]
     }).compile();
 
@@ -32,9 +33,9 @@ describe('HighlightTextController', () => {
     controller
       .highlightText({ sourceText: `printf('test')`, language: "python" })
       .subscribe((response) => {
-        expect(response["source-code"]).toBe(`printf('test')`);
-        expect(response["formal-formatting"]).toStrictEqual([]);
-        expect(response["ml-formatting"]).toStrictEqual([]);
+        expect(response.sourceCode).toBe(`printf('test')`);
+        expect(response.formalFormatting).toStrictEqual(testFormatting);
+        expect(response.mlFormatting).toStrictEqual(testFormatting);
       });
   });
 
@@ -56,3 +57,27 @@ describe('HighlightTextController', () => {
     }
   });
 });
+
+const getMockResponse = (url: string): Observable<{ data: any }> => {
+  if (url === 'http://formalSyntaxHighlighter:8080/highlight-string') {
+    return of({ data: [] })
+  }
+  else if (url === 'http://mlclassifier:3000/ml-highlight') {
+    return of({
+      data: {
+        hCodeValues: [0, 1, 2, 3, 4, 5, 6],
+        lexingData: [
+          { startIndex: 0, endIndex: 1, tokenId: 1 },
+          { startIndex: 1, endIndex: 2, tokenId: 3 },
+        ]
+      } as MlFormattingResponse
+    })
+  }
+  else if (url === 'http://hCode_colorizer:3030/color-text?mode=classic') {
+    return of({
+      data: testFormatting
+    })
+  }
+}
+
+const testFormatting = [{ hexcode: '#000000', startIndex: 0, endIndex: 1 }, { hexcode: '#7f0055', startIndex: 2, endIndex: 4 }];
