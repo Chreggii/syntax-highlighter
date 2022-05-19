@@ -4,19 +4,29 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class HighlightService {
-  // TODO Alain: implement here the coloring
-
   private highlightedText?: string;
 
-  setHighlightText(sourceCode: string): void {
-    this.highlightedText = sourceCode.replace(
-      'import',
-      this.getColoredElement('import', 'red')
-    );
+  highlightText(sourceCode: string, lexingArray: { hexcode: string, startIndex: number, endIndex: number }[]): void {
+    this.highlightedText = this.replaceText(sourceCode, lexingArray);
   }
 
   getHighlightText(): string | undefined {
     return this.highlightedText;
+  }
+
+  private replaceText(sourceCode: string, lexingArray: { hexcode: string, startIndex: number, endIndex: number }[]): string {
+    let highlightedText = '';
+    let cursor = 0;
+    lexingArray.forEach(item => {
+      if (cursor <= item.startIndex) {
+        if (item.startIndex !== cursor) {
+          highlightedText = highlightedText + sourceCode.substring(cursor, item.startIndex)
+        }
+        highlightedText = highlightedText + this.getColoredElement(sourceCode.substring(item.startIndex, item.endIndex + 1), item.hexcode);
+        cursor = item.endIndex + 1;
+      }
+    })
+    return highlightedText;
   }
 
   private getColoredElement(key: string, color: string): string {

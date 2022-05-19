@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
-import { getBaseUrl } from '../../functions/url-resolver.function';
-import { FormBuilder } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { Component } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+
+import { getBaseUrl } from '../../functions/url-resolver.function';
 import { HighlightService } from '../../services/highlighter/highlight.service';
 
 @Component({
@@ -19,7 +20,7 @@ export class CodeUploaderComponent {
     private formBuilder: FormBuilder,
     private http: HttpClient,
     private highlightService: HighlightService
-  ) {}
+  ) { }
 
   onFileSelected(event: any): void {
     const file: File = event.target?.files?.[0];
@@ -32,8 +33,10 @@ export class CodeUploaderComponent {
         .post<any>(`${getBaseUrl()}/highlight-file`, formData)
         .subscribe((response) => {
           console.log(response);
-          this.highlightService.setHighlightText(
-            response['source-code']
+          this.highlightService.highlightText(
+            response.sourceCode,
+            // TODO Nicolas: Decide which model we should use
+            response.formalFormatting
           );
         });
     }
@@ -48,8 +51,10 @@ export class CodeUploaderComponent {
       .post<any>(`${getBaseUrl()}/highlight-text`, data)
       .subscribe((response) => {
         console.log(response);
-        this.highlightService.setHighlightText(
-          response['source-code']
+        this.highlightService.highlightText(
+          response.sourceCode,
+          // TODO Nicolas: Decide which model we should use
+          response.formalFormatting
         );
       });
   }

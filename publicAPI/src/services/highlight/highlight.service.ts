@@ -1,16 +1,21 @@
 import { HttpService } from '@nestjs/axios';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import * as fs from 'fs';
-import { forkJoin, map } from 'rxjs';
+import { forkJoin, map, Observable, switchMap } from 'rxjs';
 
+import { HighlightRowData } from '../../models/highlight-row-data.model';
+import { HighlightedTextResponse } from '../../models/highlighted-text.model';
 import { SupportedLanguages } from '../../models/language.type';
+import { MlFormattingResponse } from '../../models/ml-formatting-response.model';
 
 @Injectable()
 export class HighlightService {
   constructor(private httpService: HttpService) { }
 
-  highlight(sourceText: string, language: string) {
+  highlight(sourceText: string, language: string): Observable<HighlightedTextResponse> {
     const languages = ["python", "java", "kotlin"];
+    // TODO Eleonora: Pass mode to the method. Remove hardcoded
+    const mode = 'classic'
 
     if (languages.includes(language)) {
       const body = { text: sourceText, type: language };
@@ -24,19 +29,24 @@ export class HighlightService {
         .subscribe();
 
       return forkJoin({
-        formalFormatting: this.httpService.post(
+        formalFormatting: this.httpService.post<HighlightRowData[]>(
           `http://formalSyntaxHighlighter:8080/highlight-string`,
           body
         ),
-        mlFormatting: this.httpService.post(
+        mlFormatting: this.httpService.post<MlFormattingResponse>(
           `http://mlclassifier:3000/ml-highlight`,
           body
         ),
       }).pipe(
+        switchMap(({ formalFormatting, mlFormatting }) =>
+          forkJoin({
+            formalFormatting: this.httpService.post('http://hCode_colorizer:3030/color-text?mode=' + mode, formalFormatting.data),
+            mlFormatting: this.httpService.post('http://hCode_colorizer:3030/color-text?mode=' + mode, this.mapMLFormattingResponse(mlFormatting.data))
+          })),
         map(({ formalFormatting, mlFormatting }) => ({
-          "source-code": sourceText,
-          "formal-formatting": formalFormatting.data,
-          "ml-formatting": mlFormatting.data,
+          sourceCode: sourceText,
+          formalFormatting: formalFormatting.data,
+          mlFormatting: mlFormatting.data,
         }))
       );
     } else {
@@ -69,5 +79,9 @@ export class HighlightService {
 
   deleteFile(filePath: string): void {
     fs.unlinkSync(filePath);
+  }
+
+  private mapMLFormattingResponse(mlResponse: MlFormattingResponse): HighlightRowData[] {
+    return mlResponse.lexingData.map((data, index) => ({ ...data, hCodeValue: mlResponse.hCodeValues[index] }));
   }
 }

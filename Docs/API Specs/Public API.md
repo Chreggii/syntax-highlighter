@@ -8,10 +8,10 @@
 
 #### Parameters
 
-| Parameter     | Required | Type                                  | default | Description                                                                                                                                                                                                                                             |
-| ------------- | -------- | ------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `source-text` | ✅        | string                                | -       | The source code that is to be highlighted. This source-code must be URL-encoded.                                                                                                                                                                        |
-| `language`    | ✅        | string:`["python", "kotlin", "java"]` | -       | The programming language that the code is written in. If no programming language is defined, an educated guess will be made and redirected to the endpoint with the guess. It is strongly recommended you set the language instead of letting it guess. |
+| Parameter    | Required | Type                                  | default | Description                                                                                                                                                                                                                                             |
+| ------------ | -------- | ------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `sourceText` | ✅        | string                                | -       | The source code that is to be highlighted. This source-code must be URL-encoded.                                                                                                                                                                        |
+| `language`   | ✅        | string:`["python", "kotlin", "java"]` | -       | The programming language that the code is written in. If no programming language is defined, an educated guess will be made and redirected to the endpoint with the guess. It is strongly recommended you set the language instead of letting it guess. |
 
 #### Responses
 
@@ -23,18 +23,18 @@ Returns the highlighted code
 
 ```json
 {
-  "source-code": "print('Hello, world!')",
-  "formal-formatting": [
-    {"startIndex": 0, "endIndex": 4, "tokenId": 42}, 
-    {"startIndex": 5, "endIndex": 5, "tokenId": 54}, 
-    {"startIndex": 6, "endIndex": 20, "tokenId": 3},
-    {"startIndex": 21, "endIndex": 21, "tokenId": 55}
+  "sourceCode": "print('Hello, world!')",
+  "formalFormatting": [
+    {"startIndex": 0, "endIndex": 4, "hexcode": "#1f7199"}, 
+    {"startIndex": 5, "endIndex": 5, "hexcode": "#ffcd01"}, 
+    {"startIndex": 6, "endIndex": 20, "hexcode": "#ffcd01"},
+    {"startIndex": 21, "endIndex": 21, "hexcode": "#880000"}
   ],
-  "ml-formatting": [
-    [0, 4, 42], 
-    [5, 5, 54], 
-    [6, 20, 3],
-    [21, 21, 55]
+  "mlFormatting": [
+    {"startIndex": 0, "endIndex": 4, "hexcode": "#1f7199"}, 
+    {"startIndex": 5, "endIndex": 5, "hexcode": "#ffcd01"}, 
+    {"startIndex": 6, "endIndex": 20, "hexcode": "#ffcd01"},
+    {"startIndex": 21, "endIndex": 21, "hexcode": "#880000"}
   ]
 }
 ```
@@ -155,9 +155,9 @@ Endpoint for a specific hCodeValue including a suggested color.
 
 #### Parameters
 
-| Parameter  | Required | Type                                   | default | Description                            |
-|------------| -------- |----------------------------------------| ------- |----------------------------------------|
-| `mode`     | ✅        | string:`["dark", "dracula", "classic"]` | -       | Mode for returning colors accordingly. |
+| Parameter | Required | Type                                    | default | Description                            |
+| --------- | -------- | --------------------------------------- | ------- | -------------------------------------- |
+| `mode`    | ✅        | string:`["dark", "dracula", "classic"]` | -       | Mode for returning colors accordingly. |
 
 
 
