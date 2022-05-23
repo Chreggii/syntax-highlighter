@@ -13,9 +13,8 @@ import { Mode } from '../../models/mode.type';
 export class HighlightService {
   constructor(private httpService: HttpService) { }
 
-  highlight(sourceText: string, language: string, mode: string): Observable<HighlightedTextResponse> {
+  highlight(sourceText: string, language: string, mode: string = "classic"): Observable<HighlightedTextResponse> {
     const languages = ["python", "java", "kotlin"];
-    // TODO Eleonora: Pass mode to the method. Remove hardcoded
 
     const modes = ['dark', 'dracula', 'classic']
 
