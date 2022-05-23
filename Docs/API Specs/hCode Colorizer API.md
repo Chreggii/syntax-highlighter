@@ -59,11 +59,11 @@ Returns the colors corresponding to the hCode values.
 
 **Example response:**
 
-```json
-[
-    "span style=\"color: #ffffff\">t</span>", "span style=\"color: #ffffff\">i</span>",
+```html
+{
+    "<span><span style=\"color: #ffffff\">test</span><span style=\"color: #000000\">object</span></span>",
     ...
-]
+}
 ```
 
 ##### 400 Bad Request
