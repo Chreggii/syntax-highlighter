@@ -30,14 +30,15 @@ export class CodeUploaderComponent {
       formData.append('file', file);
 
       this.http
-        .post<any>(`${getBaseUrl()}/highlight-file`, formData)
+        .post<any>(`${getBaseUrl()}/highlight-file-html`, formData)
         .subscribe((response) => {
           console.log(response);
-          this.highlightService.highlightText(
-            response.sourceCode,
-            // TODO Nicolas: Decide which model we should use
-            response.formalFormatting
-          );
+          this.highlightService.setHighlightText(response.formalFormatting)
+          // this.highlightService.highlightText(
+          //   response.sourceCode,
+          //   // TODO Nicolas: Decide which model we should use
+          //   response.formalFormatting
+          // );
         });
     }
   }
@@ -51,11 +52,12 @@ export class CodeUploaderComponent {
       .post<any>(`${getBaseUrl()}/highlight-text`, data)
       .subscribe((response) => {
         console.log(response);
-        this.highlightService.highlightText(
-          response.sourceCode,
-          // TODO Nicolas: Decide which model we should use
-          response.formalFormatting
-        );
+        this.highlightService.setHighlightText(response.formalFormatting)
+        // this.highlightService.highlightText(
+        //   response.sourceCode,
+        //   // TODO Nicolas: Decide which model we should use
+        //   response.formalFormatting
+        // );
       });
   }
 }

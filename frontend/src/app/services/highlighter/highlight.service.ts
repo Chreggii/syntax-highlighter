@@ -10,6 +10,10 @@ export class HighlightService {
     this.highlightedText = this.replaceText(sourceCode, lexingArray);
   }
 
+  setHighlightText(code: string) {
+    this.highlightedText = code;
+  }
+
   getHighlightText(): string | undefined {
     return this.highlightedText;
   }
