@@ -31,7 +31,7 @@ describe('HighlightTextController', () => {
 
   it("should return result when language is supported", async () => {
     controller
-      .highlightText({ sourceText: `printf('test')`, language: "python" })
+      .highlightText({ sourceText: `printf('test')`, language: "python", mode: "classic" })
       .subscribe((response) => {
         expect(response.sourceCode).toBe(`printf('test')`);
         expect(response.formalFormatting).toStrictEqual(testFormatting);
@@ -42,7 +42,7 @@ describe('HighlightTextController', () => {
   it("should return error when language not supported", async () => {
     try {
       controller
-        .highlightText({ sourceText: `printf('test')`, language: "test" })
+        .highlightText({ sourceText: `printf('test')`, language: "test", mode: "classic" })
         .subscribe();
     } catch (error) {
       expect(error.status).toBe(HttpStatus.BAD_REQUEST);
@@ -50,7 +50,7 @@ describe('HighlightTextController', () => {
 
     try {
       controller
-        .highlightText({ sourceText: `printf('test')`, language: "" })
+        .highlightText({ sourceText: `printf('test')`, language: "", mode: "classic" })
         .subscribe();
     } catch (error) {
       expect(error.status).toBe(HttpStatus.BAD_REQUEST);

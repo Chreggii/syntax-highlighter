@@ -13,14 +13,26 @@ export class HighlightFileController {
 
   @Post()
   @UseInterceptors(FileInterceptor("file", { dest: "uploads" }))
-  uploadFile(@UploadedFile() file: Express.Multer.File): Observable<HighlightedTextResponse> {
+  uploadFile(@UploadedFile() file: Express.Multer.File, mode: string): Observable<HighlightedTextResponse> {
     const language = this.highlightService.getLanguage(file.originalname);
     const sourceText = this.highlightService.getFileContent(file.path);
+    const modes = ["classic", "dark", "dracula"];
 
     this.highlightService.deleteFile(file.path);
 
     if (language) {
-      return this.highlightService.highlight(sourceText, language);
+      if (modes.includes(mode)){
+        return this.highlightService.highlight(sourceText, language, mode);
+      }
+      else {
+        throw new HttpException(
+          {
+            status: HttpStatus.BAD_REQUEST,
+            error: "Mode not supported!",
+          },
+          HttpStatus.BAD_REQUEST
+        );
+      }
     } else {
       throw new HttpException(
         {

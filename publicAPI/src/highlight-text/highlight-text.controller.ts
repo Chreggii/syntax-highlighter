@@ -12,8 +12,8 @@ export class HighlightTextController {
 
   @Post()
   highlightText(
-    @Body() body: { sourceText: string; language: string }
+    @Body() body: { sourceText: string; language: string, mode: string }
   ): Observable<HighlightedTextResponse> {
-    return this.highlightService.highlight(body.sourceText, body.language);
+    return this.highlightService.highlight(body.sourceText, body.language, body.mode);
   }
 }

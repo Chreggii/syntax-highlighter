@@ -7,48 +7,62 @@ import { HighlightRowData } from '../../models/highlight-row-data.model';
 import { HighlightedTextResponse } from '../../models/highlighted-text.model';
 import { SupportedLanguages } from '../../models/language.type';
 import { MlFormattingResponse } from '../../models/ml-formatting-response.model';
+import { Mode } from '../../models/mode.type';
 
 @Injectable()
 export class HighlightService {
   constructor(private httpService: HttpService) { }
 
-  highlight(sourceText: string, language: string): Observable<HighlightedTextResponse> {
+  highlight(sourceText: string, language: string, mode: string): Observable<HighlightedTextResponse> {
     const languages = ["python", "java", "kotlin"];
     // TODO Eleonora: Pass mode to the method. Remove hardcoded
-    const mode = 'classic'
+
+    const modes = ['dark', 'dracula', 'classic']
 
     if (languages.includes(language)) {
-      const body = { text: sourceText, type: language };
+      if (modes.includes(mode)){
+        const body = { text: sourceText, type: language };
 
-      // Fire & Forget
-      this.httpService
-        .put(`http://mlclassifier:3000/ml-train`, {
-          text: sourceText,
-          type: language,
-        })
-        .subscribe();
+        // Fire & Forget
+        this.httpService
+          .put(`http://mlclassifier:3000/ml-train`, {
+            text: sourceText,
+            type: language,
+          })
+          .subscribe();
 
-      return forkJoin({
-        formalFormatting: this.httpService.post<HighlightRowData[]>(
-          `http://formalSyntaxHighlighter:8080/highlight-string`,
-          body
-        ),
-        mlFormatting: this.httpService.post<MlFormattingResponse>(
-          `http://mlclassifier:3000/ml-highlight`,
-          body
-        ),
-      }).pipe(
-        switchMap(({ formalFormatting, mlFormatting }) =>
-          forkJoin({
-            formalFormatting: this.httpService.post('http://hCode_colorizer:3030/color-text?mode=' + mode, formalFormatting.data),
-            mlFormatting: this.httpService.post('http://hCode_colorizer:3030/color-text?mode=' + mode, this.mapMLFormattingResponse(mlFormatting.data))
-          })),
-        map(({ formalFormatting, mlFormatting }) => ({
-          sourceCode: sourceText,
-          formalFormatting: formalFormatting.data,
-          mlFormatting: mlFormatting.data,
-        }))
-      );
+        return forkJoin({
+          formalFormatting: this.httpService.post<HighlightRowData[]>(
+            `http://formalSyntaxHighlighter:8080/highlight-string`,
+            body
+          ),
+          mlFormatting: this.httpService.post<MlFormattingResponse>(
+            `http://mlclassifier:3000/ml-highlight`,
+            body
+          ),
+        }).pipe(
+          switchMap(({ formalFormatting, mlFormatting }) =>
+            forkJoin({
+              formalFormatting: this.httpService.post('http://hCode_colorizer:3030/color-text?mode=' + mode, formalFormatting.data),
+              mlFormatting: this.httpService.post('http://hCode_colorizer:3030/color-text?mode=' + mode, this.mapMLFormattingResponse(mlFormatting.data))
+            })),
+          map(({ formalFormatting, mlFormatting }) => ({
+            sourceCode: sourceText,
+            formalFormatting: formalFormatting.data,
+            mlFormatting: mlFormatting.data,
+          }))
+        );
+      } else {
+        throw new HttpException(
+          {
+            status: HttpStatus.BAD_REQUEST,
+            error:
+              "The mode is not supported! Please choose classic, dracula or dark",
+          },
+          HttpStatus.BAD_REQUEST
+        );
+      }
+
     } else {
       throw new HttpException(
         {
