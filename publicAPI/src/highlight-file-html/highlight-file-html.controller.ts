@@ -9,18 +9,18 @@ import {
 import { FileInterceptor } from "@nestjs/platform-express";
 import { Observable } from "rxjs";
 
-import { HighlightedTextResponse } from "../models/highlighted-text.model";
+import { HighlightedTextHTMLResponse } from "../models/highlighted-text-html.model";
 import { HighlightService } from "../services/highlight/highlight.service";
 
-@Controller("highlight-file")
-export class HighlightFileController {
+@Controller("highlight-file-html")
+export class HighlightFileHtmlController {
   constructor(private highlightService: HighlightService) {}
 
   @Post()
   @UseInterceptors(FileInterceptor("file", { dest: "uploads" }))
   uploadFile(
     @UploadedFile() file: Express.Multer.File
-  ): Observable<HighlightedTextResponse> {
+  ): Observable<HighlightedTextHTMLResponse> {
     const language = this.highlightService.getLanguage(file.originalname);
     const sourceText = this.highlightService.getFileContent(file.path);
 
@@ -29,8 +29,9 @@ export class HighlightFileController {
     if (language) {
       return this.highlightService.highlight(
         sourceText,
-        language
-      ) as Observable<HighlightedTextResponse>;
+        language,
+        true
+      ) as Observable<HighlightedTextHTMLResponse>;
     } else {
       throw new HttpException(
         {

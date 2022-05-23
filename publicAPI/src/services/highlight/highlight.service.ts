@@ -1,25 +1,29 @@
-import { HttpService } from '@nestjs/axios';
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import * as fs from 'fs';
-import { forkJoin, map, Observable, switchMap } from 'rxjs';
+import { HttpService } from "@nestjs/axios";
+import { HttpException, HttpStatus, Injectable } from "@nestjs/common";
+import * as fs from "fs";
+import { forkJoin, map, Observable, switchMap } from "rxjs";
 
-import { HighlightRowData } from '../../models/highlight-row-data.model';
-import { HighlightedTextResponse } from '../../models/highlighted-text.model';
-import { SupportedLanguages } from '../../models/language.type';
-import { MlFormattingResponse } from '../../models/ml-formatting-response.model';
+import { HighlightRowData } from "../../models/highlight-row-data.model";
+import { HighlightedTextHTMLResponse } from "../../models/highlighted-text-html.model";
+import { HighlightedTextResponse } from "../../models/highlighted-text.model";
+import { SupportedLanguages } from "../../models/language.type";
+import { MlFormattingResponse } from "../../models/ml-formatting-response.model";
 
 @Injectable()
 export class HighlightService {
-  constructor(private httpService: HttpService) { }
+  constructor(private httpService: HttpService) {}
 
-  highlight(sourceText: string, language: string): Observable<HighlightedTextResponse> {
+  highlight(
+    sourceText: string,
+    language: string,
+    htmlResponse = false
+  ): Observable<HighlightedTextResponse | HighlightedTextHTMLResponse> {
     const languages = ["python", "java", "kotlin"];
     // TODO Eleonora: Pass mode to the method. Remove hardcoded
-    const mode = 'classic'
+    const mode = "classic";
 
     if (languages.includes(language)) {
       const body = { text: sourceText, type: language };
-
       // Fire & Forget
       this.httpService
         .put(`http://mlclassifier:3000/ml-train`, {
@@ -39,10 +43,16 @@ export class HighlightService {
         ),
       }).pipe(
         switchMap(({ formalFormatting, mlFormatting }) =>
-          forkJoin({
-            formalFormatting: this.httpService.post('http://hCode_colorizer:3030/color-text?mode=' + mode, formalFormatting.data),
-            mlFormatting: this.httpService.post('http://hCode_colorizer:3030/color-text?mode=' + mode, this.mapMLFormattingResponse(mlFormatting.data))
-          })),
+          forkJoin(
+            this.getColorizerRequest(
+              htmlResponse,
+              mode,
+              formalFormatting,
+              body.text,
+              mlFormatting
+            )
+          )
+        ),
         map(({ formalFormatting, mlFormatting }) => ({
           sourceCode: sourceText,
           formalFormatting: formalFormatting.data,
@@ -81,7 +91,42 @@ export class HighlightService {
     fs.unlinkSync(filePath);
   }
 
-  private mapMLFormattingResponse(mlResponse: MlFormattingResponse): HighlightRowData[] {
-    return mlResponse.lexingData.map((data, index) => ({ ...data, hCodeValue: mlResponse.hCodeValues[index] }));
+  private getColorizerRequest(
+    htmlResponse: boolean,
+    mode: string,
+    formalFormatting: any,
+    text: string,
+    mlFormatting: any
+  ) {
+    return {
+      formalFormatting: this.httpService.post(
+        `http://hCode_colorizer:3030/color-text${
+          htmlResponse ? "-html" : ""
+        }?mode=${mode}`,
+        htmlResponse
+          ? { hCodes: formalFormatting.data, text }
+          : formalFormatting.data
+      ),
+      mlFormatting: this.httpService.post(
+        `http://hCode_colorizer:3030/color-text${
+          htmlResponse ? "-html" : ""
+        }?mode=${mode}`,
+        htmlResponse
+          ? {
+              hCodes: this.mapMLFormattingResponse(mlFormatting.data),
+              text,
+            }
+          : this.mapMLFormattingResponse(mlFormatting.data)
+      ),
+    };
+  }
+
+  private mapMLFormattingResponse(
+    mlResponse: MlFormattingResponse
+  ): HighlightRowData[] {
+    return mlResponse.lexingData.map((data, index) => ({
+      ...data,
+      hCodeValue: mlResponse.hCodeValues[index],
+    }));
   }
 }

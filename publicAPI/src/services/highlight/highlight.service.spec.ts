@@ -1,9 +1,9 @@
-import { HttpModule } from '@nestjs/axios';
-import { Test, TestingModule } from '@nestjs/testing';
+import { HttpModule } from "@nestjs/axios";
+import { Test, TestingModule } from "@nestjs/testing";
 
-import { HighlightService } from './highlight.service';
+import { HighlightService } from "./highlight.service";
 
-describe('HighlightService', () => {
+describe("HighlightService", () => {
   let service: HighlightService;
 
   beforeEach(async () => {

@@ -1,10 +1,10 @@
-import { HttpModule } from '@nestjs/axios';
-import { Test, TestingModule } from '@nestjs/testing';
+import { HttpModule } from "@nestjs/axios";
+import { Test, TestingModule } from "@nestjs/testing";
 
-import { HighlightService } from '../services/highlight/highlight.service';
-import { HighlightFileController } from './highlight-file.controller';
+import { HighlightService } from "../services/highlight/highlight.service";
+import { HighlightFileController } from "./highlight-file.controller";
 
-describe('HighlightFileController', () => {
+describe("HighlightFileController", () => {
   let controller: HighlightFileController;
 
   beforeEach(async () => {
@@ -17,7 +17,7 @@ describe('HighlightFileController', () => {
     controller = module.get<HighlightFileController>(HighlightFileController);
   });
 
-  it('should be defined', () => {
+  it("should be defined", () => {
     expect(controller).toBeDefined();
   });
 });
