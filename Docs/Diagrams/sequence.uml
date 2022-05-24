@@ -12,21 +12,21 @@ participant "hCode Color Classifier" as CC
 front -> PAPI: request with source code
 
 PAPI -> SH: request with source code
-PAPI <- SH: highligthed code (formal Syntax Highlighter)
+PAPI <- SH: highlighted code (formal Syntax Highlighter)
 
 PAPI -> ML: request with source code
-SH <- ML: request lexing data with source code
-SH -> ML: lexed data
+SH <- ML: request with source code
+SH -> ML: lexing of source code data
 PAPI <- ML: highlighted code (ML model)
 
 PAPI -> CC: request colors and values of hCodes
 PAPI <- CC: values of hCodes and corresponding colors
 
-front <- PAPI: response requested highlighted code
+front <- PAPI: response highlighted code
 
 group training (async)
 PAPI -> ML: request with highlighted source code (fire and forget)
-SH <- ML: request highling data with source code
+SH <- ML: request highlighted data with source code
 SH -> ML: highlighted data
 ML -> ML: training
 end
