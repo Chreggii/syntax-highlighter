@@ -22,7 +22,7 @@ PAPI <- ML: highlighted code (ML model)
 PAPI -> CC: request colors and values of hCodes
 PAPI <- CC: values of hCodes and corresponding colors
 
-front <- PAPI: response requested highlighted code
+front <- PAPI: response highlighted code
 
 group training (async)
 PAPI -> ML: request with highlighted source code (fire and forget)
