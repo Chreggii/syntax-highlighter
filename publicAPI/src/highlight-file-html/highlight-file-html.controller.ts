@@ -1,20 +1,13 @@
-import {
-  Controller,
-  HttpException,
-  HttpStatus,
-  Post,
-  UploadedFile,
-  UseInterceptors,
-} from "@nestjs/common";
-import { FileInterceptor } from "@nestjs/platform-express";
-import { Observable } from "rxjs";
+import { Controller, HttpException, HttpStatus, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { Observable } from 'rxjs';
 
-import { HighlightedTextHTMLResponse } from "../models/highlighted-text-html.model";
-import { HighlightService } from "../services/highlight/highlight.service";
+import { HighlightedTextHTMLResponse } from '../models/highlighted-text-html.model';
+import { HighlightService } from '../services/highlight/highlight.service';
 
 @Controller("highlight-file-html")
 export class HighlightFileHtmlController {
-  constructor(private highlightService: HighlightService) {}
+  constructor(private highlightService: HighlightService) { }
 
   @Post()
   @UseInterceptors(FileInterceptor("file", { dest: "uploads" }))
@@ -31,7 +24,8 @@ export class HighlightFileHtmlController {
       return this.highlightService.highlight(
         sourceText,
         language,
-        mode
+        mode,
+        true
       ) as Observable<HighlightedTextHTMLResponse>;
     } else {
       throw new HttpException(
