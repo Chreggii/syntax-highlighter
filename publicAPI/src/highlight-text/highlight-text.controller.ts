@@ -14,7 +14,8 @@ export class HighlightTextController {
   ): Observable<HighlightedTextResponse> {
     return this.highlightService.highlight(
       body.sourceText,
-      body.language
+      body.language,
+      body.mode
     ) as Observable<HighlightedTextResponse>;
   }
 }

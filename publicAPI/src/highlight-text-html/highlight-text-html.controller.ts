@@ -10,12 +10,12 @@ export class HighlightTextHtmlController {
 
   @Post()
   highlightText(
-    @Body() body: { sourceText: string; language: string }
+    @Body() body: { sourceText: string; language: string; mode?: string }
   ): Observable<HighlightedTextHTMLResponse> {
     return this.highlightService.highlight(
       body.sourceText,
       body.language,
-      true
+      body.mode
     ) as Observable<HighlightedTextHTMLResponse>;
   }
 }

@@ -21,7 +21,7 @@ export class HighlightService {
     htmlResponse = false
   ): Observable<HighlightedTextResponse | HighlightedTextHTMLResponse> {
     const languages = ["python", "java", "kotlin"];
-    // TODO Eleonora: Pass mode to the method. Remove hardcoded
+
     const modes = ['dark', 'dracula', 'classic'];
 
     if (languages.includes(language)) {
