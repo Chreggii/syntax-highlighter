@@ -86,7 +86,7 @@ def create_app():
         except Exception:
             return 'Not correct format!', 400
 
-    @app.route("/color-text-html", methods=["GET"])
+    @app.route("/color-text-html", methods=["POST"])
     @app.errorhandler(werkzeug.exceptions.BadRequest)
     def colorize_html():
         mode = request.args.get("mode")

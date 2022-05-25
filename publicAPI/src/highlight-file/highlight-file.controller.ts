@@ -5,23 +5,25 @@ import { Observable } from 'rxjs';
 import { HighlightedTextResponse } from '../models/highlighted-text.model';
 import { HighlightService } from '../services/highlight/highlight.service';
 
-@Controller('highlight-file')
+@Controller("highlight-file")
 export class HighlightFileController {
-  constructor(
-    private highlightService: HighlightService,
-  ) { }
+  constructor(private highlightService: HighlightService) { }
 
   @Post()
   @UseInterceptors(FileInterceptor("file", { dest: "uploads" }))
-  uploadFile(@UploadedFile() file: Express.Multer.File, mode?: string): Observable<HighlightedTextResponse> {
+  uploadFile(
+    @UploadedFile() file: Express.Multer.File
+  ): Observable<HighlightedTextResponse> {
     const language = this.highlightService.getLanguage(file.originalname);
     const sourceText = this.highlightService.getFileContent(file.path);
 
     this.highlightService.deleteFile(file.path);
 
     if (language) {
-      return this.highlightService.highlight(sourceText, language, mode);
-    
+      return this.highlightService.highlight(
+        sourceText,
+        language
+      ) as Observable<HighlightedTextResponse>;
     } else {
       throw new HttpException(
         {
