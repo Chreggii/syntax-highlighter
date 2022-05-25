@@ -149,7 +149,7 @@ export class HighlightService {
       mlFormatting: this.httpService.post(
         `http://hCode_colorizer:3030/color-text${htmlResponse ? "-html" : ""
         }?mode=${mode}`,
-        true
+        htmlResponse
           ? {
             hCodes: this.mapMLFormattingResponse(mlFormatting.data),
             text,
