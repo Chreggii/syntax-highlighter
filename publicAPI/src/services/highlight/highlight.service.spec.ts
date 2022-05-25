@@ -49,7 +49,7 @@ describe("HighlightService", () => {
   });
 
   it("should return correct html response", () => {
-    service.highlight('print("test")', 'python', true).subscribe(response => {
+    service.highlight('print("test")', 'python', htmlResponse=true).subscribe(response => {
       expect(response).toStrictEqual({
         "sourceCode": "print(\"test\")",
         "formalFormatting": "<span style=\"color:red\">Test<span>",
