@@ -8,7 +8,6 @@ import { HighlightedTextHTMLResponse } from '../../models/highlighted-text-html.
 import { HighlightedTextResponse } from '../../models/highlighted-text.model';
 import { SupportedLanguages } from '../../models/language.type';
 import { MlFormattingResponse } from '../../models/ml-formatting-response.model';
-import { Mode } from '../../models/mode.type';
 
 @Injectable()
 export class HighlightService {
