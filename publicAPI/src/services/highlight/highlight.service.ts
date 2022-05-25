@@ -16,7 +16,7 @@ export class HighlightService {
   highlight(
     sourceText: string,
     language: string,
-    mode: string = "classic",
+    mode = "classic",
     htmlResponse = false
   ): Observable<HighlightedTextResponse | HighlightedTextHTMLResponse> {
     const languages = ["python", "java", "kotlin"];
