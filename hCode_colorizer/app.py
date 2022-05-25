@@ -59,11 +59,11 @@ def create_app():
 
     def colorizer_html(packet, mode, text):
         if mode == "classic":
-            return f'span style="color: {classic[packet["hCodeValue"]]["hexcode"]}">{text[int(packet["startIndex"]):int(packet["endIndex"])]}</span>'
+            return f'<span style="color: {classic[packet["hCodeValue"]]["hexcode"]}">{text[int(packet["startIndex"]):int(packet["endIndex"])]}</span>'
         if mode == "dracula":
-            return f'span style="color: {dracula[packet["hCodeValue"]]["hexcode"]}">{text[int(packet["startIndex"]):int(packet["endIndex"])]}</span>'
+            return f'<span style="color: {dracula[packet["hCodeValue"]]["hexcode"]}">{text[int(packet["startIndex"]):int(packet["endIndex"])]}</span>'
         if mode == "dark":
-            return f'span style="color: {dark[packet["hCodeValue"]]["hexcode"]}">{text[int(packet["startIndex"]):int(packet["endIndex"])]}</span>'
+            return f'<span style="color: {dark[packet["hCodeValue"]]["hexcode"]}">{text[int(packet["startIndex"]):int(packet["endIndex"])]}</span>'
 
     @app.route("/color-text", methods=["POST"])
     @app.errorhandler(werkzeug.exceptions.BadRequest)
@@ -99,6 +99,7 @@ def create_app():
         if type(content) == list:
             return 'Not correct format!', 400
         result = list(map(lambda p: colorizer_html(p, mode, content["text"]), content["hCodes"]))
+        result = "<span>" + ''.join(result) + "</span>"
         return json.dumps(result)
 
     return app
