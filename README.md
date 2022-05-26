@@ -1,4 +1,6 @@
-# syntax-highlighter
+# Syntax Highlighter
+
+[![Current release version](https://shields.io/github/v/release/Chreggii/syntax-highlighter?display_name=tag&style=for-the-badge)](https://github.com/Chreggii/syntax-highlighter/releases)
 
 ## How to start
 
