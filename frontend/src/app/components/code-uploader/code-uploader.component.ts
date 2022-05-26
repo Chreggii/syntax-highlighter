@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import {Component, Input} from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 
 import { getBaseUrl } from '../../functions/url-resolver.function';
@@ -17,13 +17,13 @@ export class CodeUploaderComponent {
   });
 
   @Input()
-  public useMLFormatter: boolean = false
+  public useMLFormatter = false;
 
   constructor(
     private formBuilder: FormBuilder,
     private http: HttpClient,
     private highlightService: HighlightService
-  ) { }
+  ) {}
 
   onFileSelected(event: any): void {
     const file: File = event.target?.files?.[0];
@@ -37,10 +37,16 @@ export class CodeUploaderComponent {
         .subscribe((response) => {
           console.log(response);
           if (!this.useMLFormatter) {
-            this.highlightService.highlightTextFormal(response.sourceCode, response.formalFormatting);
+            this.highlightService.highlightTextFormal(
+              response.sourceCode,
+              response.formalFormatting
+            );
           }
           if (this.useMLFormatter) {
-            this.highlightService.highlightTextML(response.sourceCode, response.mlFormatting);
+            this.highlightService.highlightTextML(
+              response.sourceCode,
+              response.mlFormatting
+            );
           }
         });
     }
@@ -56,10 +62,16 @@ export class CodeUploaderComponent {
       .subscribe((response) => {
         console.log(response);
         if (!this.useMLFormatter) {
-          this.highlightService.highlightTextFormal(response.sourceCode, response.formalFormatting);
+          this.highlightService.highlightTextFormal(
+            response.sourceCode,
+            response.formalFormatting
+          );
         }
         if (this.useMLFormatter) {
-          this.highlightService.highlightTextML(response.sourceCode, response.mlFormatting);
+          this.highlightService.highlightTextML(
+            response.sourceCode,
+            response.mlFormatting
+          );
         }
       });
   }

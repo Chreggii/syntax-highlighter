@@ -7,11 +7,17 @@ export class HighlightService {
   private highlightedTextFormal?: string;
   private highlightedTextML?: string;
 
-  highlightTextFormal(sourceCode: string, lexingArray: { hexcode: string, startIndex: number, endIndex: number }[]): void {
+  highlightTextFormal(
+    sourceCode: string,
+    lexingArray: { hexcode: string; startIndex: number; endIndex: number }[]
+  ): void {
     this.highlightedTextFormal = this.replaceText(sourceCode, lexingArray);
   }
 
-  highlightTextML(sourceCode: string, lexingArray: { hexcode: string, startIndex: number, endIndex: number }[]): void {
+  highlightTextML(
+    sourceCode: string,
+    lexingArray: { hexcode: string; startIndex: number; endIndex: number }[]
+  ): void {
     this.highlightedTextML = this.replaceText(sourceCode, lexingArray);
   }
 
@@ -23,18 +29,27 @@ export class HighlightService {
     return this.highlightedTextML;
   }
 
-  private replaceText(sourceCode: string, lexingArray: { hexcode: string, startIndex: number, endIndex: number }[]): string {
+  private replaceText(
+    sourceCode: string,
+    lexingArray: { hexcode: string; startIndex: number; endIndex: number }[]
+  ): string {
     let highlightedText = '';
     let cursor = 0;
-    lexingArray.forEach(item => {
+    lexingArray.forEach((item) => {
       if (cursor <= item.startIndex) {
         if (item.startIndex !== cursor) {
-          highlightedText = highlightedText + sourceCode.substring(cursor, item.startIndex)
+          highlightedText =
+            highlightedText + sourceCode.substring(cursor, item.startIndex);
         }
-        highlightedText = highlightedText + this.getColoredElement(sourceCode.substring(item.startIndex, item.endIndex + 1), item.hexcode);
+        highlightedText =
+          highlightedText +
+          this.getColoredElement(
+            sourceCode.substring(item.startIndex, item.endIndex + 1),
+            item.hexcode
+          );
         cursor = item.endIndex + 1;
       }
-    })
+    });
     return highlightedText;
   }
 
