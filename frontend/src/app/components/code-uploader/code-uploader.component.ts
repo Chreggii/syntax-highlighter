@@ -42,7 +42,7 @@ export class CodeUploaderComponent {
     }
   }
 
-  sendRequest(): void {
+  sendRequest(formattingType: string): void {
     const data = {
       sourceText: this.form.get('sourceText')?.value,
       language: this.form.get('language')?.value,
@@ -51,11 +51,27 @@ export class CodeUploaderComponent {
       .post<any>(`${getBaseUrl()}/highlight-text`, data)
       .subscribe((response) => {
         console.log(response);
+        if (formattingType === 'formalFormatting') {
+          this.highlightService.highlightText(response.sourceCode, response.formalFormatting);
+        }
+        if (formattingType === 'mlFormatting') {
+          this.highlightService.highlightText(response.sourceCode, response.mlFormatting);
+        }
+        if (formattingType !== 'formalFormatting' && formattingType !== 'mlFormatting'){
+          throw {
+            name: 'Invalid Formatting Type',
+            message: 'Please enter a valid formatting type. Valid types are mlFormatting and formalFormatting',
+            toString: function() {
+              return this.name + ': ' + this.message
+            }
+          }
+        }
+        /*
         this.highlightService.highlightText(
           response.sourceCode,
           // TODO Nicolas: Decide which model we should use
           response.formalFormatting
-        );
+        );*/
       });
   }
 }

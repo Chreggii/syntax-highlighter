@@ -25,6 +25,9 @@
   </div>
 
   <h2>When you are done, submit the request</h2>
-  <button mat-raised-button color="primary" (click)="sendRequest()"> Submit</button>
+  <button mat-raised-button color="primary" (click)="sendRequest('mlFormatting')"> Submit ML</button>
+  <button mat-raised-button color="primary" (click)="sendRequest('formalFormatting')"> Submit FL</button>
+  <button mat-raised-button color="primary" (click)="sendRequest('invalid')"> Submit invalid</button>
+
   <br>
 </body>
