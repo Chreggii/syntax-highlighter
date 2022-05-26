@@ -1,44 +1,54 @@
-# Implementing Newton Raphson method in Python
-# Author: Syed Haseeb Shah (github.com/QuantumNovice)
-# The Newton-Raphson method (also known as Newton's method) is a way to
-# quickly find a good approximation for the root of a real-valued function
-from __future__ import annotations
-
-from decimal import Decimal
-from math import *  # noqa: F401, F403
-
-from sympy import diff
-
-
-def newton_raphson(
-    func: str, a: float | Decimal, precision: float = 10**-10
-) -> float:
-    """Finds root from the point 'a' onwards by Newton-Raphson method
-    >>> newton_raphson("sin(x)", 2)
-    3.1415926536808043
-    >>> newton_raphson("x**2 - 5*x +2", 0.4)
-    0.4384471871911695
-    >>> newton_raphson("x**2 - 5", 0.1)
-    2.23606797749979
-    >>> newton_raphson("log(x)- 1", 2)
-    2.718281828458938
+"""
+    Author: P Shreyas Shetty
+    Implementation of Newton-Raphson method for solving equations of kind
+    f(x) = 0. It is an iterative method where solution is found by the expression
+        x[n+1] = x[n] + f(x[n])/f'(x[n])
+    If no solution exists, then either the solution will not be found when iteration
+    limit is reached or the gradient f'(x[n]) approaches zero. In both cases, exception
+    is raised. If iteration limit is reached, try increasing maxiter.
     """
-    x = a
-    while True:
-        x = Decimal(x) - (Decimal(eval(func)) / Decimal(eval(str(diff(func)))))
-        # This number dictates the accuracy of the answer
-        if abs(eval(func)) < precision:
-            return float(x)
+import math as m
 
 
-# Let's Execute
+def calc_derivative(f, a, h=0.001):
+    """
+    Calculates derivative at point a for function f using finite difference
+    method
+    """
+    return (f(a + h) - f(a - h)) / (2 * h)
+
+
+def newton_raphson(f, x0=0, maxiter=100, step=0.0001, maxerror=1e-6, logsteps=False):
+
+    a = x0  # set the initial guess
+    steps = [a]
+    error = abs(f(a))
+    f1 = lambda x: calc_derivative(f, x, h=step)  # noqa: E731  Derivative of f(x)
+    for _ in range(maxiter):
+        if f1(a) == 0:
+            raise ValueError("No converging solution found")
+        a = a - f(a) / f1(a)  # Calculate the next estimate
+        if logsteps:
+            steps.append(a)
+        if error < maxerror:
+            break
+    else:
+        raise ValueError("Iteration limit reached, no converging solution found")
+    if logsteps:
+        # If logstep is true, then log intermediate steps
+        return a, error, steps
+    return a, error
+
+
 if __name__ == "__main__":
-    # Find root of trigonometric function
-    # Find value of pi
-    print(f"The root of sin(x) = 0 is {newton_raphson('sin(x)', 2)}")
-    # Find root of polynomial
-    print(f"The root of x**2 - 5*x + 2 = 0 is {newton_raphson('x**2 - 5*x + 2', 0.4)}")
-    # Find Square Root of 5
-    print(f"The root of log(x) - 1 = 0 is {newton_raphson('log(x) - 1', 2)}")
-    # Exponential Roots
-    print(f"The root of exp(x) - 1 = 0 is {newton_raphson('exp(x) - 1', 0)}")
+    from matplotlib import pyplot as plt
+
+    f = lambda x: m.tanh(x) ** 2 - m.exp(3 * x)  # noqa: E731
+    solution, error, steps = newton_raphson(
+        f, x0=10, maxiter=1000, step=1e-6, logsteps=True
+    )
+    plt.plot([abs(f(x)) for x in steps])
+    plt.xlabel("step")
+    plt.ylabel("error")
+    plt.show()
+    print(f"solution = {{{solution:f}}}, error = {{{error:f}}}")

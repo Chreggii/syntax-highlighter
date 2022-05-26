@@ -1,55 +1,63 @@
-from typing import Callable
+"""
+Given a function on floating number f(x) and two floating numbers ‘a’ and ‘b’ such that
+f(a) * f(b) < 0 and f(x) is continuous in [a, b].
+Here f(x) represents algebraic or transcendental equation.
+Find root of function in interval [a, b] (Or find a value of x such that f(x) is 0)
+
+https://en.wikipedia.org/wiki/Bisection_method
+"""
 
 
-def bisection(function: Callable[[float], float], a: float, b: float) -> float:
+def equation(x: float) -> float:
     """
-    finds where function becomes 0 in [a,b] using bolzano
-    >>> bisection(lambda x: x ** 3 - 1, -5, 5)
-    1.0000000149011612
-    >>> bisection(lambda x: x ** 3 - 1, 2, 1000)
+    >>> equation(5)
+    -15
+    >>> equation(0)
+    10
+    >>> equation(-5)
+    -15
+    >>> equation(0.1)
+    9.99
+    >>> equation(-0.1)
+    9.99
+    """
+    return 10 - x * x
+
+
+def bisection(a: float, b: float) -> float:
+    """
+    >>> bisection(-2, 5)
+    3.1611328125
+    >>> bisection(0, 6)
+    3.158203125
+    >>> bisection(2, 3)
     Traceback (most recent call last):
     ...
-    ValueError: could not find root in given interval.
-    >>> bisection(lambda x: x ** 2 - 4 * x + 3, 0, 2)
-    1.0
-    >>> bisection(lambda x: x ** 2 - 4 * x + 3, 2, 4)
-    3.0
-    >>> bisection(lambda x: x ** 2 - 4 * x + 3, 4, 1000)
-    Traceback (most recent call last):
-    ...
-    ValueError: could not find root in given interval.
+    ValueError: Wrong space!
     """
-    start: float = a
-    end: float = b
-    if function(a) == 0:  # one of the a or b is a root for the function
-        return a
-    elif function(b) == 0:
-        return b
-    elif (
-        function(a) * function(b) > 0
-    ):  # if none of these are root and they are both positive or negative,
-        # then this algorithm can't find the root
-        raise ValueError("could not find root in given interval.")
-    else:
-        mid: float = start + (end - start) / 2.0
-        while abs(start - mid) > 10**-7:  # until precisely equals to 10^-7
-            if function(mid) == 0:
-                return mid
-            elif function(mid) * function(start) < 0:
-                end = mid
-            else:
-                start = mid
-            mid = start + (end - start) / 2.0
-        return mid
+    # Bolzano theory in order to find if there is a root between a and b
+    if equation(a) * equation(b) >= 0:
+        raise ValueError("Wrong space!")
 
-
-def f(x: float) -> float:
-    return x**3 - 2 * x - 5
+    c = a
+    while (b - a) >= 0.01:
+        # Find middle point
+        c = (a + b) / 2
+        # Check if middle point is root
+        if equation(c) == 0.0:
+            break
+        # Decide the side to repeat the steps
+        if equation(c) * equation(a) < 0:
+            b = c
+        else:
+            a = c
+    return c
 
 
 if __name__ == "__main__":
-    print(bisection(f, 1, 1000))
-
     import doctest
 
     doctest.testmod()
+
+    print(bisection(-2, 5))
+    print(bisection(0, 6))
