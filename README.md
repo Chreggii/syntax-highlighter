@@ -19,7 +19,3 @@ Clone with the `--config core.autocrlf=false`:
 ```bash
 git clone --config core.autocrlf=false git@github.com:Chreggii/syntax-highlighter.git
 ```
-
-
-## Coverage
-[![codecov](https://codecov.io/gh/Chreggii/syntax-highlighter/branch/dev/graph/badge.svg)](https://codecov.io/gh/Chreggii/syntax-highlighter)
