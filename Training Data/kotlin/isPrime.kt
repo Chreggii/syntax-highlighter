@@ -1,3 +1,21 @@
 package dynamicProgramming
 
-fun Int.isPrime() = this > 1 && (2..(this / 2)).all { this % it != 0 }
+import org.junit.Test
+
+internal class isPrimeTest {
+
+    @Test
+    fun testPrime1(){
+        assert(2.isPrime()==true)
+    }
+
+    @Test
+    fun testPrime2(){
+        assert(53.isPrime()==true)
+    }
+
+    @Test
+    fun testPrime3(){
+        assert(4.isPrime()==false)
+    }
+}
