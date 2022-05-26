@@ -4,14 +4,23 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class HighlightService {
-  private highlightedText?: string;
+  private highlightedTextFormal?: string;
+  private highlightedTextML?: string;
 
-  highlightText(sourceCode: string, lexingArray: { hexcode: string, startIndex: number, endIndex: number }[]): void {
-    this.highlightedText = this.replaceText(sourceCode, lexingArray);
+  highlightTextFormal(sourceCode: string, lexingArray: { hexcode: string, startIndex: number, endIndex: number }[]): void {
+    this.highlightedTextFormal = this.replaceText(sourceCode, lexingArray);
   }
 
-  getHighlightText(): string | undefined {
-    return this.highlightedText;
+  highlightTextML(sourceCode: string, lexingArray: { hexcode: string, startIndex: number, endIndex: number }[]): void {
+    this.highlightedTextML = this.replaceText(sourceCode, lexingArray);
+  }
+
+  getHighlightTextFormal(): string | undefined {
+    return this.highlightedTextFormal;
+  }
+
+  getHighlightTextML(): string | undefined {
+    return this.highlightedTextML;
   }
 
   private replaceText(sourceCode: string, lexingArray: { hexcode: string, startIndex: number, endIndex: number }[]): string {

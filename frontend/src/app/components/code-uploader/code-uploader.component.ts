@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 
 import { getBaseUrl } from '../../functions/url-resolver.function';
@@ -15,6 +15,9 @@ export class CodeUploaderComponent {
     sourceText: undefined,
     language: undefined,
   });
+
+  @Input()
+  public useMLFormatter: boolean = false
 
   constructor(
     private formBuilder: FormBuilder,
@@ -33,16 +36,17 @@ export class CodeUploaderComponent {
         .post<any>(`${getBaseUrl()}/highlight-file`, formData)
         .subscribe((response) => {
           console.log(response);
-          this.highlightService.highlightText(
-            response.sourceCode,
-            // TODO Nicolas: Decide which model we should use
-            response.formalFormatting
-          );
+          if (!this.useMLFormatter) {
+            this.highlightService.highlightTextFormal(response.sourceCode, response.formalFormatting);
+          }
+          if (this.useMLFormatter) {
+            this.highlightService.highlightTextML(response.sourceCode, response.mlFormatting);
+          }
         });
     }
   }
 
-  sendRequest(formattingType: string): void {
+  sendRequest(): void {
     const data = {
       sourceText: this.form.get('sourceText')?.value,
       language: this.form.get('language')?.value,
@@ -51,27 +55,12 @@ export class CodeUploaderComponent {
       .post<any>(`${getBaseUrl()}/highlight-text`, data)
       .subscribe((response) => {
         console.log(response);
-        if (formattingType === 'formalFormatting') {
-          this.highlightService.highlightText(response.sourceCode, response.formalFormatting);
+        if (!this.useMLFormatter) {
+          this.highlightService.highlightTextFormal(response.sourceCode, response.formalFormatting);
         }
-        if (formattingType === 'mlFormatting') {
-          this.highlightService.highlightText(response.sourceCode, response.mlFormatting);
+        if (this.useMLFormatter) {
+          this.highlightService.highlightTextML(response.sourceCode, response.mlFormatting);
         }
-        if (formattingType !== 'formalFormatting' && formattingType !== 'mlFormatting'){
-          throw {
-            name: 'Invalid Formatting Type',
-            message: 'Please enter a valid formatting type. Valid types are mlFormatting and formalFormatting',
-            toString: function() {
-              return this.name + ': ' + this.message
-            }
-          }
-        }
-        /*
-        this.highlightService.highlightText(
-          response.sourceCode,
-          // TODO Nicolas: Decide which model we should use
-          response.formalFormatting
-        );*/
       });
   }
 }
