@@ -1,6 +1,6 @@
 # Syntax Highlighter
 
-[![Current release version](https://shields.io/github/v/release/Chreggii/syntax-highlighter?display_name=tag&style=for-the-badge)](https://github.com/Chreggii/syntax-highlighter/releases)
+[![Current release version](https://shields.io/github/v/release/Chreggii/syntax-highlighter?display_name=tag&style=for-the-badge)](https://github.com/Chreggii/syntax-highlighter/releases) [![Github Issues](https://img.shields.io/github/issues/Chreggii/syntax-highlighter?style=for-the-badge)](https://github.com/Chreggii/syntax-highlighter/issues)![GitHub closed issues](https://img.shields.io/github/issues-closed/Chreggii/syntax-highlighter?style=for-the-badge)![GitHub pull requests](https://img.shields.io/github/issues-pr/Chreggii/syntax-highlighter?style=for-the-badge)![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/Chreggii/syntax-highlighter?style=for-the-badge)![GitHub milestones](https://img.shields.io/github/milestones/closed/Chreggii/syntax-highlighter?style=for-the-badge)[![GitHub Starts](https://img.shields.io/github/stars/Chreggii/syntax-highlighter?style=for-the-badge)](https://github.com/Chreggii/syntax-highlighter/stargazers)![GitHub contributors](https://img.shields.io/github/contributors/Chreggii/syntax-highlighter?style=for-the-badge)
 
 ## How to start
 
