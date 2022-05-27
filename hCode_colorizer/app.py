@@ -1,7 +1,8 @@
 import json
 
-from flask import Flask, Response, request, app
+from flask import Flask, request
 import os, werkzeug
+
 
 def create_app():
     app = Flask(__name__)
@@ -48,22 +49,40 @@ def create_app():
         {"name": "ANNOTATION_DECLARATOR", "hCodeValue": 11, "hexcode": "#1f7199"}  # yes
     ]
 
+    def colorizer_html(hCodes, text, mode):
+        def color_helper(hCodeValue, mode, text):
+            if mode == "classic":
+                return f'<span style="color: {classic[hCodeValue]["hexcode"]}">{text}</span>'
+            if mode == "dracula":
+                return f'<span style="color: {dracula[hCodeValue]["hexcode"]}">{text}</span>'
+            if mode == "dark":
+                return f'<span style="color: {dark[hCodeValue]["hexcode"]}">{text}</span>'
+
+        span_list = []
+        for idx, string in enumerate(text):
+            if string == "\n":
+                continue
+            if string == "\r":
+                span_list.append(color_helper(0, mode, text[idx:idx + 2]))
+                continue
+            hcode = 0
+            for i in hCodes:
+                if i["startIndex"] <= idx and idx <= i['endIndex']:
+                    hcode = i["hCodeValue"]
+            span_list.append(color_helper(hcode, mode, text[idx]))
+
+        return span_list
+
     def colorizer(packet, mode):
         if mode == "classic":
-            return {"hexcode": classic[packet['hCodeValue']]['hexcode'], "startIndex": packet["startIndex"], "endIndex": packet["endIndex"]}
+            return {"hexcode": classic[packet['hCodeValue']]['hexcode'], "startIndex": packet["startIndex"],
+                    "endIndex": packet["endIndex"]}
         if mode == "dracula":
-            return {"hexcode": dracula[packet['hCodeValue']]['hexcode'], "startIndex": packet["startIndex"], "endIndex": packet["endIndex"]}
+            return {"hexcode": dracula[packet['hCodeValue']]['hexcode'], "startIndex": packet["startIndex"],
+                    "endIndex": packet["endIndex"]}
         if mode == "dark":
             return {"hexcode": dark[packet['hCodeValue']]['hexcode'], "startIndex": packet["startIndex"],
                     "endIndex": packet["endIndex"]}
-
-    def colorizer_html(packet, mode, text):
-        if mode == "classic":
-            return f'<span style="color: {classic[packet["hCodeValue"]]["hexcode"]}">{text[int(packet["startIndex"]):int(packet["endIndex"])]}</span>'
-        if mode == "dracula":
-            return f'<span style="color: {dracula[packet["hCodeValue"]]["hexcode"]}">{text[int(packet["startIndex"]):int(packet["endIndex"])]}</span>'
-        if mode == "dark":
-            return f'<span style="color: {dark[packet["hCodeValue"]]["hexcode"]}">{text[int(packet["startIndex"]):int(packet["endIndex"])]}</span>'
 
     @app.route("/color-text", methods=["POST"])
     @app.errorhandler(werkzeug.exceptions.BadRequest)
@@ -98,8 +117,11 @@ def create_app():
             return 'Not correct format!', 400
         if type(content) == list:
             return 'Not correct format!', 400
-        result = list(map(lambda p: colorizer_html(p, mode, content["text"]), content["hCodes"]))
-        result = "<span>" + ''.join(result) + "</span>"
+
+        span_list = colorizer_html(content["hCodes"], content['text'], mode)
+
+
+        result = "<span>" + ''.join(span_list) +  "</span>"
         return json.dumps(result)
 
     return app
