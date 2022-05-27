@@ -4,28 +4,52 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class HighlightService {
-  private highlightedText?: string;
+  private highlightedTextFormal?: string;
+  private highlightedTextML?: string;
 
-  highlightText(sourceCode: string, lexingArray: { hexcode: string, startIndex: number, endIndex: number }[]): void {
-    this.highlightedText = this.replaceText(sourceCode, lexingArray);
+  highlightTextFormal(
+    sourceCode: string,
+    lexingArray: { hexcode: string; startIndex: number; endIndex: number }[]
+  ): void {
+    this.highlightedTextFormal = this.replaceText(sourceCode, lexingArray);
   }
 
-  getHighlightText(): string | undefined {
-    return this.highlightedText;
+  highlightTextML(
+    sourceCode: string,
+    lexingArray: { hexcode: string; startIndex: number; endIndex: number }[]
+  ): void {
+    this.highlightedTextML = this.replaceText(sourceCode, lexingArray);
   }
 
-  private replaceText(sourceCode: string, lexingArray: { hexcode: string, startIndex: number, endIndex: number }[]): string {
+  getHighlightTextFormal(): string | undefined {
+    return this.highlightedTextFormal;
+  }
+
+  getHighlightTextML(): string | undefined {
+    return this.highlightedTextML;
+  }
+
+  private replaceText(
+    sourceCode: string,
+    lexingArray: { hexcode: string; startIndex: number; endIndex: number }[]
+  ): string {
     let highlightedText = '';
     let cursor = 0;
-    lexingArray.forEach(item => {
+    lexingArray.forEach((item) => {
       if (cursor <= item.startIndex) {
         if (item.startIndex !== cursor) {
-          highlightedText = highlightedText + sourceCode.substring(cursor, item.startIndex)
+          highlightedText =
+            highlightedText + sourceCode.substring(cursor, item.startIndex);
         }
-        highlightedText = highlightedText + this.getColoredElement(sourceCode.substring(item.startIndex, item.endIndex + 1), item.hexcode);
+        highlightedText =
+          highlightedText +
+          this.getColoredElement(
+            sourceCode.substring(item.startIndex, item.endIndex + 1),
+            item.hexcode
+          );
         cursor = item.endIndex + 1;
       }
-    })
+    });
     return highlightedText;
   }
 

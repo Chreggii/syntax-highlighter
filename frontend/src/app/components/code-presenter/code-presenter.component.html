@@ -1,8 +1,14 @@
 <body class="code-presenter-box">
-  <h1> Result</h1>
-  <div class="code-wrapper" *ngIf="highlightService.getHighlightText()">
+  <h1 *ngIf="!useMLFormatter"> Result fo the Formal Syntax Highlighter</h1>
+  <h1 *ngIf="useMLFormatter"> Result fo the Machine Learning Syntax Highlighter</h1>
+  <div class="code-wrapper" *ngIf="highlightService.getHighlightTextFormal() && !useMLFormatter">
     <pre>
-      <code [innerHTML]="highlightService.getHighlightText() | safe: 'html'"></code>
+      <code [innerHTML]="highlightService.getHighlightTextFormal() | safe: 'html'"></code>
+    </pre>
+  </div>
+  <div class="code-wrapper" *ngIf="highlightService.getHighlightTextML() && useMLFormatter">
+    <pre>
+      <code [innerHTML]="highlightService.getHighlightTextML() | safe: 'html'"></code>
     </pre>
   </div>
 </body>

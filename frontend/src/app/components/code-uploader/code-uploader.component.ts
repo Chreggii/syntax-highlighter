@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 
 import { getBaseUrl } from '../../functions/url-resolver.function';
@@ -16,11 +16,14 @@ export class CodeUploaderComponent {
     language: undefined,
   });
 
+  @Input()
+  public useMLFormatter = false;
+
   constructor(
     private formBuilder: FormBuilder,
     private http: HttpClient,
     private highlightService: HighlightService
-  ) { }
+  ) {}
 
   onFileSelected(event: any): void {
     const file: File = event.target?.files?.[0];
@@ -33,11 +36,18 @@ export class CodeUploaderComponent {
         .post<any>(`${getBaseUrl()}/highlight-file`, formData)
         .subscribe((response) => {
           console.log(response);
-          this.highlightService.highlightText(
-            response.sourceCode,
-            // TODO Nicolas: Decide which model we should use
-            response.formalFormatting
-          );
+          if (!this.useMLFormatter) {
+            this.highlightService.highlightTextFormal(
+              response.sourceCode,
+              response.formalFormatting
+            );
+          }
+          if (this.useMLFormatter) {
+            this.highlightService.highlightTextML(
+              response.sourceCode,
+              response.mlFormatting
+            );
+          }
         });
     }
   }
@@ -51,11 +61,18 @@ export class CodeUploaderComponent {
       .post<any>(`${getBaseUrl()}/highlight-text`, data)
       .subscribe((response) => {
         console.log(response);
-        this.highlightService.highlightText(
-          response.sourceCode,
-          // TODO Nicolas: Decide which model we should use
-          response.formalFormatting
-        );
+        if (!this.useMLFormatter) {
+          this.highlightService.highlightTextFormal(
+            response.sourceCode,
+            response.formalFormatting
+          );
+        }
+        if (this.useMLFormatter) {
+          this.highlightService.highlightTextML(
+            response.sourceCode,
+            response.mlFormatting
+          );
+        }
       });
   }
 }

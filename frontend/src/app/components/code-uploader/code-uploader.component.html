@@ -1,5 +1,6 @@
 <body class="code-uploader-box">
-  <h1>Upload your code</h1>
+  <h1 *ngIf="!useMLFormatter">Upload your code to the Formal Syntax Highlighter</h1>
+  <h1 *ngIf="useMLFormatter">Upload your code to the Machine Learning Syntax Highlighter</h1>
   <div class="source-code-paster">
     <h2>Paste your code into the text field below:</h2>
     <form [formGroup]="form">
@@ -26,5 +27,6 @@
 
   <h2>When you are done, submit the request</h2>
   <button mat-raised-button color="primary" (click)="sendRequest()"> Submit</button>
+
   <br>
 </body>

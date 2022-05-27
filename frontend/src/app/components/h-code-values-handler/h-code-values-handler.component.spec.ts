@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HCodeValuesHandlerComponent } from './h-code-values-handler.component';
+import {HttpClient, HttpHandler} from "@angular/common/http";
+import {FormBuilder} from "@angular/forms";
 
 describe('HCodeValuesHandlerComponent', () => {
   let component: HCodeValuesHandlerComponent;
@@ -9,6 +11,7 @@ describe('HCodeValuesHandlerComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [HCodeValuesHandlerComponent],
+      providers: [HttpClient, HttpHandler, FormBuilder]
     }).compileComponents();
   });
 
@@ -18,9 +21,8 @@ describe('HCodeValuesHandlerComponent', () => {
     fixture.detectChanges();
   });
 
-  /* TODO Fix THIS TEST!!!
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-   */
+
 });
