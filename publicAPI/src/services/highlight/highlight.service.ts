@@ -16,76 +16,88 @@ export class HighlightService {
   highlight(
     sourceText: string,
     language: string,
+    mode = "classic",
     htmlResponse = false
   ): Observable<HighlightedTextResponse | HighlightedTextHTMLResponse> {
     const languages = ["python", "java", "kotlin"];
-    // TODO Eleonora: Pass mode to the method. Remove hardcoded
-    const mode = "classic";
+
+    const modes = ['dark', 'dracula', 'classic'];
 
     if (languages.includes(language)) {
-      const body = { text: sourceText, type: language };
-      // Fire & Forget
-      this.httpService
-        .put(`http://mlclassifier:3000/ml-train`, {
-          text: sourceText,
-          type: language,
-        })
-        .pipe(
-          catchError((error) =>
-            throwError(
-              this.getException(error, "http://mlclassifier:3000/ml-train")
+      if (modes.includes(mode)){
+        const body = { text: sourceText, type: language };
+        // Fire & Forget
+        this.httpService
+          .put(`http://mlclassifier:3000/ml-train`, {
+            text: sourceText,
+            type: language,
+          })
+          .pipe(
+            catchError((error) =>
+              throwError(
+                this.getException(error, "http://mlclassifier:3000/ml-train")
+              )
             )
           )
-        )
-        .subscribe();
+          .subscribe();
 
-      return forkJoin({
-        formalFormatting: this.httpService
-          .post<HighlightRowData[]>(
-            `http://formalSyntaxHighlighter:8080/highlight-string`,
-            body
-          )
-          .pipe(
-            catchError((error) =>
-              throwError(
-                this.getException(
-                  error,
-                  "http://formalSyntaxHighlighter:8080/highlight-string"
+        return forkJoin({
+          formalFormatting: this.httpService
+            .post<HighlightRowData[]>(
+              `http://formalSyntaxHighlighter:8080/highlight-string`,
+              body
+            )
+            .pipe(
+              catchError((error) =>
+                throwError(
+                  this.getException(
+                    error,
+                    "http://formalSyntaxHighlighter:8080/highlight-string"
+                  )
                 )
               )
+            ),
+          mlFormatting: this.httpService
+            .post<MlFormattingResponse>(
+              `http://mlclassifier:3000/ml-highlight`,
+              body
             )
-          ),
-        mlFormatting: this.httpService
-          .post<MlFormattingResponse>(
-            `http://mlclassifier:3000/ml-highlight`,
-            body
-          )
-          .pipe(
-            catchError((error) =>
-              throwError(
-                this.getException(
-                  error,
-                  "http://mlclassifier:3000/ml-highlight"
+            .pipe(
+              catchError((error) =>
+                throwError(
+                  this.getException(
+                    error,
+                    "http://mlclassifier:3000/ml-highlight"
+                  )
                 )
               )
+            ),
+        }).pipe(
+          switchMap(({ formalFormatting, mlFormatting }) =>
+            this.getColorizerRequest(
+              htmlResponse,
+              mode,
+              formalFormatting,
+              body.text,
+              mlFormatting
             )
           ),
-      }).pipe(
-        switchMap(({ formalFormatting, mlFormatting }) =>
-          this.getColorizerRequest(
-            htmlResponse,
-            mode,
-            formalFormatting,
-            body.text,
-            mlFormatting
-          )
-        ),
-        map(({ formalFormatting, mlFormatting }) => ({
-          sourceCode: sourceText,
-          formalFormatting: formalFormatting.data,
-          mlFormatting: mlFormatting.data,
-        }))
-      );
+          map(({ formalFormatting, mlFormatting }) => ({
+            sourceCode: sourceText,
+            formalFormatting: formalFormatting.data,
+            mlFormatting: mlFormatting.data,
+          }))
+        );
+      } else {
+        throw new HttpException(
+          {
+            status: HttpStatus.BAD_REQUEST,
+            error:
+              "The mode is not supported! Please choose classic, dracula or dark",
+          },
+          HttpStatus.BAD_REQUEST
+        );
+      }
     } else {
       throw new HttpException(
         {
