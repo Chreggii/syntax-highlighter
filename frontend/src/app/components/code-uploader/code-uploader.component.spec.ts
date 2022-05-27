@@ -36,7 +36,7 @@ describe('CodeUploaderComponent', () => {
   it('should send request with empty fields', () => {
     const fixture = TestBed.createComponent(CodeUploaderComponent);
     const app = fixture.componentInstance;
-    app.sendRequest();
+    app.sendTextRequest();
     const req = httpMock.expectOne(`${getBaseUrl()}/highlight-text`);
     expect(req.request.method).toBe('POST');
   });
