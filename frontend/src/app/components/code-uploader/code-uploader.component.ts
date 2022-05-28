@@ -31,34 +31,40 @@ export class CodeUploaderComponent {
     private highlightService: HighlightService,
   ) {}
 
-  uploadFile(event: any): void {
-    const file: File = event.target?.files?.[0];
-    if (file) {
-      this.fileFormData = new FormData();
-      this.fileFormData.append('file', file);
-    }
+  getFormData(): FormData {
+    return this.fileFormData
   }
 
-  sendFileRequest(): void {
-    this.fileFormData.set('mode', this.formFile.get('mode')?.value)
+  uploadFile(event: any): FormData {
+    const file: File = event.target?.files?.[0];
+    this.fileFormData = new FormData();
+    if (file) {
+      this.fileFormData.set('file', file);
+    }
+    return this.fileFormData;
+  }
 
-    this.http
-      .post<any>(`${getBaseUrl()}/highlight-file`, this.fileFormData)
-      .subscribe((response) => {
-        console.log(response);
-        if (!this.useMLFormatter) {
-          this.highlightService.highlightTextFormal(
-            response.sourceCode,
-            response.formalFormatting
-          );
-        }
-        if (this.useMLFormatter) {
-          this.highlightService.highlightTextML(
-            response.sourceCode,
-            response.mlFormatting
-          );
-        }
-      });
+  sendFileRequest(formData: FormData, mode: string): void {
+    formData.set('mode', mode)
+    if(formData.has('file') && formData.has('mode')) {
+      this.http
+        .post<any>(`${getBaseUrl()}/highlight-file`, this.fileFormData)
+        .subscribe((response) => {
+          console.log(response);
+          if (!this.useMLFormatter) {
+            this.highlightService.highlightTextFormal(
+              response.sourceCode,
+              response.formalFormatting
+            );
+          }
+          if (this.useMLFormatter) {
+            this.highlightService.highlightTextML(
+              response.sourceCode,
+              response.mlFormatting
+            );
+          }
+        });
+    }
   }
 
   sendTextRequest(): void {
