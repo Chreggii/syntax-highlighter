@@ -9,7 +9,6 @@ import { AppComponent } from './app.component';
 import { CodePresenterComponent } from './components/code-presenter/code-presenter.component';
 import { SafePipe } from './pipes/safe.pipe';
 import { CodeUploaderComponent } from './components/code-uploader/code-uploader.component';
-import { HCodeValuesHandlerComponent } from './components/h-code-values-handler/h-code-values-handler.component';
 import { TopNavigationBarComponent } from './components/top-navigation-bar/top-navigation-bar.component';
 import { PageHomeComponent } from './components/page-home/page-home.component';
 import { PageFormalModelComponent } from './components/page-formal-model/page-formal-model.component';
@@ -30,7 +29,6 @@ import {MatIconModule} from "@angular/material/icon";
     CodePresenterComponent,
     SafePipe,
     CodeUploaderComponent,
-    HCodeValuesHandlerComponent,
     TopNavigationBarComponent,
     PageHomeComponent,
     PageFormalModelComponent,
