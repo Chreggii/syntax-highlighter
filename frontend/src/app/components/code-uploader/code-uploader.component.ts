@@ -21,8 +21,6 @@ export class CodeUploaderComponent {
     mode: undefined
   });
 
-
-
   @Input()
   public useMLFormatter = false;
   private fileFormData = new FormData();
@@ -33,35 +31,6 @@ export class CodeUploaderComponent {
     private highlightService: HighlightService,
   ) {}
 
-  /*
-  onFileSelected(event: any): void {
-    const file: File = event.target?.files?.[0];
-
-    if (file) {
-      const formData = new FormData();
-      formData.append('file', file);
-      formData.append('mode', this.form.get('mode')?.value);
-
-      this.http
-        .post<any>(`${getBaseUrl()}/highlight-file`, formData)
-        .subscribe((response) => {
-          console.log(response);
-          if (!this.useMLFormatter) {
-            this.highlightService.highlightTextFormal(
-              response.sourceCode,
-              response.formalFormatting
-            );
-          }
-          if (this.useMLFormatter) {
-            this.highlightService.highlightTextML(
-              response.sourceCode,
-              response.mlFormatting
-            );
-          }
-        });
-    }
-  } */
-
   uploadFile(event: any): void {
     const file: File = event.target?.files?.[0];
     if (file) {
@@ -71,13 +40,10 @@ export class CodeUploaderComponent {
   }
 
   sendFileRequest(): void {
-    const fileData = {
-      formData: this.fileFormData,
-      mode: this.formFile.get('mode')?.value
-    }
-    console.log(fileData)
+    this.fileFormData.set('mode', this.formFile.get('mode')?.value)
+
     this.http
-      .post<any>(`${getBaseUrl()}/highlight-file`, this.fileFormData, )
+      .post<any>(`${getBaseUrl()}/highlight-file`, this.fileFormData)
       .subscribe((response) => {
         console.log(response);
         if (!this.useMLFormatter) {
