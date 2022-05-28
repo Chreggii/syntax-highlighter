@@ -13,7 +13,7 @@ export class HighlightFileHtmlController {
   @UseInterceptors(FileInterceptor("file", { dest: "uploads" }))
   uploadFile(
     @UploadedFile() file: Express.Multer.File,
-    @Body() body?: { mode?: string }
+    @Body() body: { mode?: string }
   ): Observable<HighlightedTextHTMLResponse> {
     const language = this.highlightService.getLanguage(file.originalname);
     const sourceText = this.highlightService.getFileContent(file.path);
