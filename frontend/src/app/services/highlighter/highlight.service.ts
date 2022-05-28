@@ -9,23 +9,23 @@ export class HighlightService {
 
   highlightTextFormal(
     sourceCode: string,
-    lexingArray: { hexcode: string; startIndex: number; endIndex: number }[],
+    lexingArray: { hexcode: string; startIndex: number; endIndex: number }[]
   ): void {
     this.highlightedTextFormal = this.replaceText(sourceCode, lexingArray);
   }
 
   highlightTextML(
     sourceCode: string,
-    lexingArray: { hexcode: string; startIndex: number; endIndex: number }[],
+    lexingArray: { hexcode: string; startIndex: number; endIndex: number }[]
   ): void {
     this.highlightedTextML = this.replaceText(sourceCode, lexingArray);
   }
 
-  highlightHtmlFormal(htmlString: string){
+  highlightHtmlFormal(htmlString: string) {
     this.highlightedTextFormal = htmlString;
   }
 
-  highlightHtmlML(htmlString: string){
+  highlightHtmlML(htmlString: string) {
     this.highlightedTextML = htmlString;
   }
 

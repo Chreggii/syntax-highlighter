@@ -15,13 +15,12 @@ export class CodeUploaderComponent {
     sourceText: undefined,
     language: undefined,
     mode: undefined,
-    returnHtml: undefined
+    returnHtml: undefined,
   });
 
   readonly formFile = this.formBuilder.group({
     mode: undefined,
-    returnHtml: undefined
-
+    returnHtml: undefined,
   });
 
   @Input()
@@ -33,11 +32,11 @@ export class CodeUploaderComponent {
   constructor(
     private formBuilder: FormBuilder,
     private http: HttpClient,
-    private highlightService: HighlightService,
+    private highlightService: HighlightService
   ) {}
 
   getFormData(): FormData {
-    return this.fileFormData
+    return this.fileFormData;
   }
 
   uploadFile(event: any): FormData {
@@ -53,8 +52,7 @@ export class CodeUploaderComponent {
     if (this.formFile.get('returnHtml')?.value === 'yes') {
       this.fileUseHtml = true;
       return '-html';
-    }
-    else {
+    } else {
       this.fileUseHtml = false;
       return '';
     }
@@ -64,39 +62,43 @@ export class CodeUploaderComponent {
     if (this.formText.get('returnHtml')?.value === 'yes') {
       this.textUseHtml = true;
       return '-html';
-    }
-    else {
+    } else {
       this.textUseHtml = false;
       return '';
     }
   }
 
   sendFileRequest(formData: FormData, mode: string): void {
-    formData.set('mode', mode)
+    formData.set('mode', mode);
     const htmlExtension = this.getFileUrlString();
 
-    if(formData.has('file') && formData.has('mode')) {
+    if (formData.has('file') && formData.has('mode')) {
       this.http
-        .post<any>(`${getBaseUrl()}/highlight-file` + htmlExtension, this.fileFormData)
+        .post<any>(
+          `${getBaseUrl()}/highlight-file` + htmlExtension,
+          this.fileFormData
+        )
         .subscribe((response) => {
           console.log(response);
           if (!this.useMLFormatter) {
-            if(this.fileUseHtml){
-              this.highlightService.highlightHtmlFormal(response.formalFormatting)
+            if (this.fileUseHtml) {
+              this.highlightService.highlightHtmlFormal(
+                response.formalFormatting
+              );
             } else {
               this.highlightService.highlightTextFormal(
                 response.sourceCode,
-                response.formalFormatting,
+                response.formalFormatting
               );
             }
           }
           if (this.useMLFormatter) {
-            if(this.fileUseHtml){
-              this.highlightService.highlightHtmlML(response.mlFormatting)
+            if (this.fileUseHtml) {
+              this.highlightService.highlightHtmlML(response.mlFormatting);
             } else {
               this.highlightService.highlightTextML(
                 response.sourceCode,
-                response.mlFormatting,
+                response.mlFormatting
               );
             }
           }
@@ -108,7 +110,7 @@ export class CodeUploaderComponent {
     const data = {
       sourceText: this.formText.get('sourceText')?.value,
       language: this.formText.get('language')?.value,
-      mode: this.formText.get('mode')?.value
+      mode: this.formText.get('mode')?.value,
     };
     const htmlExtension = this.getTextUrlString();
 
@@ -118,22 +120,24 @@ export class CodeUploaderComponent {
         console.log(response);
 
         if (!this.useMLFormatter) {
-          if(this.textUseHtml){
-              this.highlightService.highlightHtmlFormal(response.formalFormatting)
+          if (this.textUseHtml) {
+            this.highlightService.highlightHtmlFormal(
+              response.formalFormatting
+            );
           } else {
             this.highlightService.highlightTextFormal(
               response.sourceCode,
-              response.formalFormatting,
+              response.formalFormatting
             );
           }
         }
         if (this.useMLFormatter) {
-          if(this.textUseHtml){
-            this.highlightService.highlightHtmlML(response.mlFormatting)
+          if (this.textUseHtml) {
+            this.highlightService.highlightHtmlML(response.mlFormatting);
           } else {
             this.highlightService.highlightTextML(
               response.sourceCode,
-              response.mlFormatting,
+              response.mlFormatting
             );
           }
         }

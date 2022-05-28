@@ -5,5 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './page-ml-model.component.html',
   styleUrls: ['./page-ml-model.component.scss'],
 })
-export class PageMlModelComponent {
-}
+export class PageMlModelComponent {}
