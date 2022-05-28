@@ -1,4 +1,4 @@
-import { Controller, HttpException, HttpStatus, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Controller, HttpException, HttpStatus, Post, UploadedFile, UseInterceptors, Body } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Observable } from 'rxjs';
 
@@ -13,7 +13,7 @@ export class HighlightFileController {
   @UseInterceptors(FileInterceptor("file", { dest: "uploads" }))
   uploadFile(
     @UploadedFile() file: Express.Multer.File,
-    mode?: string
+    @Body() body?: { mode?: string }
   ): Observable<HighlightedTextResponse> {
     const language = this.highlightService.getLanguage(file.originalname);
     const sourceText = this.highlightService.getFileContent(file.path);
@@ -24,7 +24,7 @@ export class HighlightFileController {
       return this.highlightService.highlight(
         sourceText,
         language,
-        mode
+        body?.mode
       ) as Observable<HighlightedTextResponse>;
     } else {
       throw new HttpException(
