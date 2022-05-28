@@ -24,7 +24,7 @@ export class HighlightFileHtmlController {
       return this.highlightService.highlight(
         sourceText,
         language,
-        body.mode,
+        body?.mode,
         true
       ) as Observable<HighlightedTextHTMLResponse>;
     } else {
