@@ -64,7 +64,7 @@ describe('Service: Highlight', () => {
         { hexcode: '#000000', startIndex: 15, endIndex: 14 },
       ];
       service.highlightTextML(sourceCode, lexArray);
-      expect(service.getHighlightTextFormal()).toEqual(
+      expect(service.getHighlightTextML()).toEqual(
         '<span style="color: #ffcd01;">print</span><span style="color: #000000;">(</span><span style="color: #006400;">\'hello\'</span><span style="color: #000000;">)</span><span style="color: #000000;">;</span><span style="color: #000000;"></span>'
       );
     }
