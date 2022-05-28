@@ -69,6 +69,11 @@ export class CodeUploaderComponent {
   }
 
   sendFileRequest(formData: FormData, mode: string): void {
+    this.formFile.markAllAsTouched();
+    if (!this.formFile.valid) {
+      return;
+    }
+
     formData.set('mode', mode);
     const htmlExtension = this.getFileUrlString();
 
@@ -107,6 +112,11 @@ export class CodeUploaderComponent {
   }
 
   sendTextRequest(): void {
+    this.formText.markAllAsTouched();
+    if (!this.formText.valid) {
+      return;
+    }
+
     const data = {
       sourceText: this.formText.get('sourceText')?.value,
       language: this.formText.get('language')?.value,
