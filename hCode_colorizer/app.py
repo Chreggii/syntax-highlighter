@@ -18,7 +18,7 @@ def create_app():
         {"name": "TYPE_IDENTIFIER", "hCodeValue": 8, "hexcode": "#ffffff"},  # 1
         {"name": "FUNCTION_IDENTIFIER", "hCodeValue": 9, "hexcode": "#ffcd01"},  # 3
         {"name": "FIELD_IDENTIFIER", "hCodeValue": 10, "hexcode": "#ffcd01"},  # 3
-        {"name": "ANNOTATION_DECLARATOR", "hCodeValue": 11, "hexcode": "#ffff00"}
+        {"name": "ANNOTATION_DECLARATOR", "hCodeValue": 11, "hexcode": "#ffff00"},
     ]
     dracula = [
         {"name": "ANY", "hCodeValue": 0, "hexcode": "#ffffff"},  # 1 yes
@@ -32,7 +32,7 @@ def create_app():
         {"name": "TYPE_IDENTIFIER", "hCodeValue": 8, "hexcode": "#ffffff"},  # 1
         {"name": "FUNCTION_IDENTIFIER", "hCodeValue": 9, "hexcode": "#8becfd"},  # 3
         {"name": "FIELD_IDENTIFIER", "hCodeValue": 10, "hexcode": "#8becfd"},  # 3
-        {"name": "ANNOTATION_DECLARATOR", "hCodeValue": 11, "hexcode": "#6272a4"}
+        {"name": "ANNOTATION_DECLARATOR", "hCodeValue": 11, "hexcode": "#6272a4"},
     ]
     classic = [
         {"name": "ANY", "hCodeValue": 0, "hexcode": "#000000"},
@@ -56,18 +56,20 @@ def create_app():
             if mode == "dracula":
                 return f'<span style="color: {dracula[hCodeValue]["hexcode"]}">{text}</span>'
             if mode == "dark":
-                return f'<span style="color: {dark[hCodeValue]["hexcode"]}">{text}</span>'
+                return (
+                    f'<span style="color: {dark[hCodeValue]["hexcode"]}">{text}</span>'
+                )
 
         span_list = []
         for idx, string in enumerate(text):
             if string == "\n":
                 continue
             if string == "\r":
-                span_list.append(color_helper(0, mode, text[idx:idx + 2]))
+                span_list.append(color_helper(0, mode, text[idx : idx + 2]))
                 continue
             hcode = 0
             for i in hCodes:
-                if i["startIndex"] <= idx and idx <= i['endIndex']:
+                if i["startIndex"] <= idx and idx <= i["endIndex"]:
                     hcode = i["hCodeValue"]
             span_list.append(color_helper(hcode, mode, text[idx]))
 
@@ -75,14 +77,23 @@ def create_app():
 
     def colorizer(packet, mode):
         if mode == "classic":
-            return {"hexcode": classic[packet['hCodeValue']]['hexcode'], "startIndex": packet["startIndex"],
-                    "endIndex": packet["endIndex"]}
+            return {
+                "hexcode": classic[packet["hCodeValue"]]["hexcode"],
+                "startIndex": packet["startIndex"],
+                "endIndex": packet["endIndex"],
+            }
         if mode == "dracula":
-            return {"hexcode": dracula[packet['hCodeValue']]['hexcode'], "startIndex": packet["startIndex"],
-                    "endIndex": packet["endIndex"]}
+            return {
+                "hexcode": dracula[packet["hCodeValue"]]["hexcode"],
+                "startIndex": packet["startIndex"],
+                "endIndex": packet["endIndex"],
+            }
         if mode == "dark":
-            return {"hexcode": dark[packet['hCodeValue']]['hexcode'], "startIndex": packet["startIndex"],
-                    "endIndex": packet["endIndex"]}
+            return {
+                "hexcode": dark[packet["hCodeValue"]]["hexcode"],
+                "startIndex": packet["startIndex"],
+                "endIndex": packet["endIndex"],
+            }
 
     @app.route("/color-text", methods=["POST"])
     @app.errorhandler(werkzeug.exceptions.BadRequest)
@@ -90,38 +101,43 @@ def create_app():
         try:
             mode = request.args.get("mode")
             if mode != "classic" and mode != "dracula" and mode != "dark":
-                return 'Chosen mode does not exist! Please try classic, dark or dracula', 406
+                return (
+                    "Chosen mode does not exist! Please try classic, dark or dracula",
+                    406,
+                )
             try:
                 content = request.json
             except werkzeug.exceptions.BadRequest:
-                return 'Not correct format!', 400
+                return "Not correct format!", 400
             if type(content) != list:
-                return 'Not list format!', 400
+                return "Not list format!", 400
             if not all([isinstance(item, dict) for item in content]):
-                return 'Not correct format!', 400
+                return "Not correct format of hCodes!", 400
 
             result = list(map(lambda p: colorizer(p, mode), content))
             return json.dumps(result)
         except Exception:
-            return 'Not correct format!', 400
+            return "Not correct format!", 400
 
     @app.route("/color-text-html", methods=["POST"])
     @app.errorhandler(werkzeug.exceptions.BadRequest)
     def colorize_html():
         mode = request.args.get("mode")
         if mode != "classic" and mode != "dracula" and mode != "dark":
-            return 'Chosen mode does not exist! Please try classic, dark or dracula', 406
+            return (
+                "Chosen mode does not exist! Please try classic, dark or dracula",
+                406,
+            )
         try:
             content = request.json
         except werkzeug.exceptions.BadRequest:
-            return 'Not correct format!', 400
+            return "Not correct format!", 400
         if type(content) == list:
-            return 'Not correct format!', 400
+            return "Not correct format!", 400
 
-        span_list = colorizer_html(content["hCodes"], content['text'], mode)
+        span_list = colorizer_html(content["hCodes"], content["text"], mode)
 
-
-        result = "<span>" + ''.join(span_list) +  "</span>"
+        result = "<span>" + "".join(span_list) + "</span>"
         return json.dumps(result)
 
     return app
