@@ -9,6 +9,7 @@ import { HighlightService } from '../../services/highlighter/highlight.service';
 export class CodePresenterComponent {
   @Input()
   public useMLFormatter = false;
+  public darkModeActivated = false;
 
   constructor(public highlightService: HighlightService) {}
 }
