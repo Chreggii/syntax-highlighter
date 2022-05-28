@@ -9,7 +9,7 @@
           <textarea class="source-code-input-field" matInput placeholder="Paste your source code here..." formControlName="sourceText"></textarea>
         </mat-form-field>
       </div>
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="fill" class="drop-down-menu">
         <mat-label>Language</mat-label>
         <select matNativeControl required formControlName="language">
           <option value="python">Python</option>
@@ -17,12 +17,19 @@
           <option value="kotlin">Kotlin</option>
         </select>
       </mat-form-field>
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="fill" class="drop-down-menu">
         <mat-label>Coloring Mode</mat-label>
         <select matNativeControl required formControlName="mode">
           <option value="classic">Classic</option>
           <option value="dark">Dark</option>
           <option value="dracula">Dracula</option>
+        </select>
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="drop-down-menu">
+        <mat-label>Return Mode</mat-label>
+        <select matNativeControl required formControlName="returnHtml">
+          <option value="no">Return Standard</option>
+          <option value="yes">Return Html</option>
         </select>
       </mat-form-field>
     </form>
@@ -32,12 +39,20 @@
     <h2>Alternatively you can also upload a file from your computer</h2>
     <form [formGroup]="formFile">
       <input type="file" accept=".java,.py,.kt,.kts,.ktm,.txt" (change)="uploadFile($event)">
-      <mat-form-field appearance="fill">
+      <div></div>
+      <mat-form-field appearance="fill" class="drop-down-menu">
         <mat-label>Coloring Mode</mat-label>
         <select matNativeControl required formControlName="mode">
           <option value="classic">Classic</option>
           <option value="dark">Dark</option>
           <option value="dracula">Dracula</option>
+        </select>
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="drop-down-menu">
+        <mat-label>Return Mode</mat-label>
+        <select matNativeControl required formControlName="returnHtml">
+          <option value="no">Return Standard</option>
+          <option value="yes">Return Html</option>
         </select>
       </mat-form-field>
     </form>
