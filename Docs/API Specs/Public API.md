@@ -6,7 +6,7 @@
 
 ### `POST /highlight-text`
 
-#### Parameters
+#### Body
 
 | Parameter    | Required | Type                                    | default   | Description                                                                                                                                                                                                                                             |
 | ------------ | -------- | --------------------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -58,7 +58,7 @@ Requests might be missing a required parameter or is badly encoded.
 
 ### `POST /highlight-text-html`
 
-#### Parameters
+#### Body
 
 | Parameter    | Required | Type                                    | default   | Description                                                                                                                                                                                                                                             |
 | ------------ | -------- | --------------------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -99,12 +99,11 @@ Requests might be missing a required parameter or is badly encoded.
 ```
 
 ### `POST /highlight-file`
-#### Parameters
+#### Body
 
-| Parameter | Required | Type                                    | default   | Description                                                                                                                       |
-| --------- | -------- | --------------------------------------- | --------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| `file`    | ✅        | Express.Multer.File                     | -         | The file which should be highlighted.                                                                                             |
-| `mode`    |          | string:`['dark', 'dracula', 'classic']` | `classic` | The mode in which the highlighted colors should be displayed. This parameter is optional and by default `classic` will be chosen. |
+| Parameter  | Required | Type                                                    | default | Description                                                               |
+| ---------- | -------- | ------------------------------------------------------- | ------- | ------------------------------------------------------------------------- |
+| `formData` | ✅        | `{file: File, mode?: 'dark' \| 'dracula' \| 'classic'}` | -       | The form data which contains the file and the mode. The mode is optional. |
 
 #### Responses
 **Example response (Headers):**
@@ -144,12 +143,11 @@ Requests might be missing a required parameter or is badly encoded.
 ```
 
 ### `POST /highlight-file-html`
-#### Parameters
+#### Body
 
-| Parameter | Required | Type                                    | default   | Description                                                                                                                       |
-| --------- | -------- | --------------------------------------- | --------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| `file`    | ✅        | Express.Multer.File                     | -         | The file which should be highlighted.                                                                                             |
-| `mode`    |          | string:`['dark', 'dracula', 'classic']` | `classic` | The mode in which the highlighted colors should be displayed. This parameter is optional and by default `classic` will be chosen. |
+| Parameter  | Required | Type                                                    | default | Description                                                               |
+| ---------- | -------- | ------------------------------------------------------- | ------- | ------------------------------------------------------------------------- |
+| `formData` | ✅        | `{file: File, mode?: 'dark' \| 'dracula' \| 'classic'}` | -       | The form data which contains the file and the mode. The mode is optional. |
 
 #### Responses
 
