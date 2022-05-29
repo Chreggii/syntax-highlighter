@@ -69,4 +69,26 @@ describe('Service: Highlight', () => {
       );
     }
   ));
+
+  it('should correctly store the html text formal', inject(
+    [HighlightService],
+    (service: HighlightService) => {
+      const sourceCode = '<span style="color: #ffcd01;">print</span><span style="color: #000000;">(</span><span style="color: #006400;">\'hello\'</span><span style="color: #000000;">)</span><span style="color: #000000;">;</span><span style="color: #000000;"></span>';
+      service.highlightHtmlFormal(sourceCode);
+      expect(service.getHighlightTextFormal()).toEqual(
+        '<span style="color: #ffcd01;">print</span><span style="color: #000000;">(</span><span style="color: #006400;">\'hello\'</span><span style="color: #000000;">)</span><span style="color: #000000;">;</span><span style="color: #000000;"></span>'
+      );
+    }
+  ));
+
+  it('should correctly store the html text ml', inject(
+    [HighlightService],
+    (service: HighlightService) => {
+      const sourceCode = '<span style="color: #ffcd01;">print</span><span style="color: #000000;">(</span><span style="color: #006400;">\'hello\'</span><span style="color: #000000;">)</span><span style="color: #000000;">;</span><span style="color: #000000;"></span>';
+      service.highlightHtmlML(sourceCode);
+      expect(service.getHighlightTextML()).toEqual(
+        '<span style="color: #ffcd01;">print</span><span style="color: #000000;">(</span><span style="color: #006400;">\'hello\'</span><span style="color: #000000;">)</span><span style="color: #000000;">;</span><span style="color: #000000;"></span>'
+      );
+    }
+  ));
 });
