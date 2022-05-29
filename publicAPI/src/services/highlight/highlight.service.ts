@@ -13,6 +13,13 @@ import { MlFormattingResponse } from '../../models/ml-formatting-response.model'
 export class HighlightService {
   constructor(private httpService: HttpService) { }
 
+  /** Highlights a passed source text
+   * @param sourceText - The source text which should be highlighted
+   * @param language - The language of the source text
+   * @param mode - The desired color mode of the highlighting
+   * @param htmlResponse - A boolean which defines if the result should be return as HTML code
+   * @returns - Returns the result from the ML Classifier, Formal Syntax Highlighter and the passed source code.
+   */
   highlight(
     sourceText: string,
     language: string,
@@ -21,12 +28,12 @@ export class HighlightService {
   ): Observable<HighlightedTextResponse | HighlightedTextHTMLResponse> {
     const languages = ["python", "java", "kotlin"];
 
-    const modes = ['dark', 'dracula', 'classic'];
+    const modes = ["dark", "dracula", "classic"];
 
     if (languages.includes(language)) {
-      if (modes.includes(mode)){
+      if (modes.includes(mode)) {
         const body = { text: sourceText, type: language };
-        // Fire & Forget
+        // Fire & Forget - Triggers modal learning
         this.httpService
           .put(`http://mlclassifier:3000/ml-train`, {
             text: sourceText,
@@ -89,6 +96,7 @@ export class HighlightService {
           }))
         );
       } else {
+        // Throw exception in case wrong mode is passed
         throw new HttpException(
           {
             status: HttpStatus.BAD_REQUEST,
@@ -99,6 +107,7 @@ export class HighlightService {
         );
       }
     } else {
+      // Throw exception in case language is not supported
       throw new HttpException(
         {
           status: HttpStatus.BAD_REQUEST,
@@ -110,6 +119,10 @@ export class HighlightService {
     }
   }
 
+  /** Get language of file
+   * @param filename - The file name
+   * @returns - Return the program language of the file. If the file is not supported, undefined will be returned.
+   */
   getLanguage(filename: string): SupportedLanguages | undefined {
     const extension = filename.split(".")[1];
     return [
@@ -122,10 +135,17 @@ export class HighlightService {
     ].find((obj) => obj.extension.includes(extension))?.language;
   }
 
+  /** Reads the content of a file
+   * @param filePath - The path of the file
+   * @returns - Returns the content of the file.
+   */
   getFileContent(filePath: string): string {
     return fs.readFileSync(filePath, "utf-8");
   }
 
+  /** Deletes a file
+   * @param filePath - The path of the file
+   */
   deleteFile(filePath: string): void {
     fs.unlinkSync(filePath);
   }

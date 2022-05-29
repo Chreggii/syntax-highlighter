@@ -5,6 +5,7 @@ plugins {
     id 'com.adarshr.test-logger' version '3.2.0'
     id 'jacoco'
     id "com.diffplug.spotless" version "6.6.1"
+    id "org.sonarqube" version "3.3"
 }
 
 group = 'ch.uzh.ase'
@@ -51,3 +52,10 @@ spotless {
     }
 }
 
+sonarqube {
+    properties {
+        property "sonar.projectKey", "chreggii_syntax-highlighter_formal_syntax_highlighter"
+        property "sonar.organization", "chreggii"
+        property "sonar.host.url", "https://sonarcloud.io"
+    }
+}
