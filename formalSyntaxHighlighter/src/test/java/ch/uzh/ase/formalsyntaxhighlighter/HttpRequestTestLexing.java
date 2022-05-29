@@ -8,6 +8,9 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 
+/**
+ * Test the lexting part
+ */
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class HttpRequestTestLexing {
   @LocalServerPort private int port;
@@ -25,6 +28,10 @@ public class HttpRequestTestLexing {
     public String text;
   }
 
+  /**
+   * Test lexing for python hello world
+   * @throws Exception 
+   */
   @Test
   public void pythonLexingHelloWorld() throws Exception {
     LexBody body = new LexBody("print(\"Hello world!\")", "python");
@@ -37,6 +44,9 @@ public class HttpRequestTestLexing {
         JSONCompareMode.LENIENT);
   }
 
+  /**
+   * @throws Exception  Test lexing for java hello world
+   */
   @Test
   public void javaLexingHelloWorld() throws Exception {
     LexBody body = new LexBody("System.out.println(\"Hello World!\")", "java");
@@ -49,6 +59,10 @@ public class HttpRequestTestLexing {
         JSONCompareMode.LENIENT);
   }
 
+  /**
+   * Test lexing for kotlin hello world
+   * @throws Exception
+   */
   @Test
   public void kotlinLexingHelloWorld() throws Exception {
     LexBody body = new LexBody("println(\"Hello, World!\")", "kotlin");
@@ -61,6 +75,10 @@ public class HttpRequestTestLexing {
         JSONCompareMode.LENIENT);
   }
 
+  /**
+   * Test lexing for invalid type giving error response
+   * @throws Exception
+   */
   @Test
   public void invalidTypeLexingHelloWorld() throws Exception {
     LexBody body = new LexBody("println(\"Hello, World!\")", "abc");
