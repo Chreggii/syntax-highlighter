@@ -37,6 +37,53 @@ public class FormalSyntaxHighlighterApplication {
   public static final String H_CODE_VALUE = "hCodeValue";
 
   /**
+   * A helper function to get the proper resolver
+   *
+   * @param type the type provided in the request
+   * @return the resolver
+   * @throws InputMismatchException if type is invalid
+   */
+  private Resolver getResolver(String type) throws InputMismatchException {
+    Resolver resolver;
+
+    if (Objects.equals(type, "python")) {
+      resolver = new Python3Resolver();
+    } else if (Objects.equals(type, "kotlin")) {
+      resolver = new KotlinResolver();
+    } else if (Objects.equals(type, "java")) {
+      resolver = new JavaResolver();
+    } else {
+      throw new InputMismatchException(type + " is not a valid type ([python, kotlin, java])");
+    }
+    return resolver;
+  }
+
+  /**
+   * Helper function to return bad request 400
+   *
+   * @param reason the reason for the bad request
+   * @return a Response enity of the bad request as a json
+   */
+  private ResponseEntity badRequest(String reason) {
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+        .body(
+            new HashMap<>() {
+
+              {
+                put(
+                    "error",
+                    new HashMap<>() {
+                      {
+                        put("code", 400);
+                        put("type", "Bad request");
+                        put("reason", reason);
+                      }
+                    });
+              }
+            });
+  }
+
+  /**
    * Info endpoint to check if the application is running (and so there is something on /)
    *
    * @return A Simple info endpoint
@@ -66,30 +113,12 @@ public class FormalSyntaxHighlighterApplication {
     String type = body.type;
     String text = body.text;
 
-    if (Objects.equals(type, "python")) {
-      resolver = new Python3Resolver();
-    } else if (Objects.equals(type, "kotlin")) {
-      resolver = new KotlinResolver();
-    } else if (Objects.equals(type, "java")) {
-      resolver = new JavaResolver();
-    } else { // Invalid type
-      return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-          .body(
-              new HashMap<>() {
-
-                {
-                  put(
-                      "error",
-                      new HashMap<>() {
-                        {
-                          put("code", 400);
-                          put("type", "Bad request");
-                          put("reason", type + " is not a valid type ([python, kotlin, java])");
-                        }
-                      });
-                }
-              });
+    try {
+      resolver = getResolver(type);
+    } catch (InputMismatchException e) {
+      return badRequest(e.getMessage());
     }
+
     Object[] lToks = resolver.lex(text);
 
     List<Map<String, Integer>> outputData = new ArrayList<>() {};
@@ -137,31 +166,12 @@ public class FormalSyntaxHighlighterApplication {
     String type = body.type;
     String text = body.text;
 
-    if (Objects.equals(type, "python")) {
-      resolver = new Python3Resolver();
-    } else if (Objects.equals(type, "kotlin")) {
-      resolver = new KotlinResolver();
-    } else if (Objects.equals(type, "java")) {
-      resolver = new JavaResolver();
-    } else { // Invalid type
-      return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-          .body(
-              new HashMap<>() {
-
-                {
-                  put(
-                      "error",
-                      new HashMap<>() {
-
-                        {
-                          put("code", 400);
-                          put("type", "Bad request");
-                          put("reason", type + " is not a valid type ([python, kotlin, java])");
-                        }
-                      });
-                }
-              });
+    try {
+      resolver = getResolver(type);
+    } catch (InputMismatchException e) {
+      return badRequest(e.getMessage());
     }
+
     Object[] hToks = resolver.highlight(text);
 
     List<Map<String, Integer>> outputData = new ArrayList<>() {};
