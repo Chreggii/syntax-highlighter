@@ -1,6 +1,6 @@
-import { Observable, of } from 'rxjs';
+import { Observable, of } from "rxjs";
 
-import { MlFormattingResponse } from '../../src/models/ml-formatting-response.model';
+import { MlFormattingResponse } from "../../src/models/ml-formatting-response.model";
 
 export const mockHttpService = {
   post: (url: string) => getMockResponse(url),
@@ -12,7 +12,7 @@ export const testFormatting = [
   { hexcode: "#7f0055", startIndex: 2, endIndex: 4 },
 ];
 
-export const htmlResponse = `<span style="color:red">Test<span>`
+export const htmlResponse = `<span style="color:red">Test<span>`;
 
 const getMockResponse = (url: string): Observable<{ data: any }> => {
   if (url === "http://formalSyntaxHighlighter:8080/highlight-string") {
@@ -31,7 +31,9 @@ const getMockResponse = (url: string): Observable<{ data: any }> => {
     return of({
       data: testFormatting,
     });
-  } else if (url === "http://hCode_colorizer:3030/color-text-html?mode=classic") {
+  } else if (
+    url === "http://hCode_colorizer:3030/color-text-html?mode=classic"
+  ) {
     return of({ data: htmlResponse });
   }
 };

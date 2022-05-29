@@ -1,10 +1,13 @@
-import { HttpModule, HttpService } from '@nestjs/axios';
-import { HttpStatus } from '@nestjs/common';
-import { Test, TestingModule } from '@nestjs/testing';
+import { HttpModule, HttpService } from "@nestjs/axios";
+import { HttpStatus } from "@nestjs/common";
+import { Test, TestingModule } from "@nestjs/testing";
 
-import { htmlResponse, mockHttpService } from '../../test/helpers/mock-http-service';
-import { HighlightService } from '../services/highlight/highlight.service';
-import { HighlightTextHtmlController } from './highlight-text-html.controller';
+import {
+  htmlResponse,
+  mockHttpService,
+} from "../../test/helpers/mock-http-service";
+import { HighlightService } from "../services/highlight/highlight.service";
+import { HighlightTextHtmlController } from "./highlight-text-html.controller";
 
 describe("HighlightTextHtmlController", () => {
   let controller: HighlightTextHtmlController;
@@ -13,7 +16,10 @@ describe("HighlightTextHtmlController", () => {
     const module: TestingModule = await Test.createTestingModule({
       imports: [HttpModule],
       controllers: [HighlightTextHtmlController],
-      providers: [HighlightService, { provide: HttpService, useValue: mockHttpService, },],
+      providers: [
+        HighlightService,
+        { provide: HttpService, useValue: mockHttpService },
+      ],
     }).compile();
 
     controller = module.get<HighlightTextHtmlController>(

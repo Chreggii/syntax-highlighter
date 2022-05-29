@@ -8,9 +8,13 @@ import { HighlightService } from "../services/highlight/highlight.service";
 export class HighlightTextController {
   constructor(private highlightService: HighlightService) {}
 
+  /** Highlights a sourceText
+   * @param body - The body contains the sourceText, the language of the sourceText and the desired color mode of the highlighting.
+   * @returns - Returns the result from the ML Classifier, Formal Syntax Highlighter and the passed source code.
+   */
   @Post()
   highlightText(
-    @Body() body: { sourceText: string; language: string, mode? : string}
+    @Body() body: { sourceText: string; language: string; mode?: string }
   ): Observable<HighlightedTextResponse> {
     return this.highlightService.highlight(
       body.sourceText,
