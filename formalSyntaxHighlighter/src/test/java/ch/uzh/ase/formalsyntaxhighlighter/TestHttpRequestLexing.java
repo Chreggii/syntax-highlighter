@@ -47,7 +47,7 @@ class TestHttpRequestLexing {
    * @throws Exception Test lexing for java hello world
    */
   @Test
-   void javaLexingHelloWorld() throws Exception {
+  void javaLexingHelloWorld() throws Exception {
     LexBody body = new LexBody("System.out.println(\"Hello World!\")", "java");
     String test =
         "[{\"startIndex\":0,\"endIndex\":5,\"tokenId\":102},{\"startIndex\":6,\"endIndex\":6,\"tokenId\":65},{\"startIndex\":7,\"endIndex\":9,\"tokenId\":102},{\"startIndex\":10,\"endIndex\":10,\"tokenId\":65},{\"startIndex\":11,\"endIndex\":17,\"tokenId\":102},{\"startIndex\":18,\"endIndex\":18,\"tokenId\":57},{\"startIndex\":19,\"endIndex\":32,\"tokenId\":55},{\"startIndex\":33,\"endIndex\":33,\"tokenId\":58}]";
@@ -64,7 +64,7 @@ class TestHttpRequestLexing {
    * @throws Exception
    */
   @Test
-   void kotlinLexingHelloWorld() throws Exception {
+  void kotlinLexingHelloWorld() throws Exception {
     LexBody body = new LexBody("println(\"Hello, World!\")", "kotlin");
     String test =
         "[{\"startIndex\":0,\"endIndex\":6,\"tokenId\":146},{\"startIndex\":7,\"endIndex\":7,\"tokenId\":9},{\"startIndex\":8,\"endIndex\":8,\"tokenId\":149},{\"startIndex\":9,\"endIndex\":21,\"tokenId\":160},{\"startIndex\":22,\"endIndex\":22,\"tokenId\":158},{\"startIndex\":23,\"endIndex\":23,\"tokenId\":10}]";
@@ -81,7 +81,7 @@ class TestHttpRequestLexing {
    * @throws Exception
    */
   @Test
-   void invalidTypeLexingHelloWorld() throws Exception {
+  void invalidTypeLexingHelloWorld() throws Exception {
     LexBody body = new LexBody("println(\"Hello, World!\")", "abc");
     String test =
         "{\"error\":{\"reason\":\"abc is not a valid type ([python, kotlin, java])\",\"code\":400,\"type\":\"Bad request\"}}";
