@@ -241,7 +241,7 @@ public class FormalSyntaxHighlighterApplication {
       "FIELD_IDENTIFIER",
       "ANNOTATION_DECLARATOR"
     };
-    ArrayList<HashMap<String, Object>> responseCodes = new ArrayList();
+    ArrayList<HashMap<String, Object>> responseCodes = new ArrayList<>();
     for (int i = 0; i < codes.length; i++) {
       int finalI = i;
       responseCodes.add(
