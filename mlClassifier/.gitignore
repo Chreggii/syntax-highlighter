@@ -348,6 +348,3 @@ fabric.properties
 # End of https://www.toptal.com/developers/gitignore/api/python,pycharm,flask
 
 .idea/
-
-# Ignore
-*_model_data.pt
