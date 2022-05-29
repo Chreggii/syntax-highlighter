@@ -17,15 +17,15 @@ import resolver.Python3Resolver;
 import resolver.Resolver;
 
 class PostBody {
-    public String getType() {
-        return type;
-    }
+  public String getType() {
+    return type;
+  }
 
-    public String getText() {
-        return text;
-    }
+  public String getText() {
+    return text;
+  }
 
-    /** Global the post body for the API */
+  /** Global the post body for the API */
   private String text;
 
   private String type;
