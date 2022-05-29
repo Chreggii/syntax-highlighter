@@ -28,3 +28,21 @@ To locally run the unit tests, use following step:
 ``` sh
 npm run test
 ```
+
+## Formatting
+
+To format all `*.ts` files run:
+
+``` sh
+npm run format
+```
+
+## Docs
+
+To have a nice overview about the whole public API documentation run:
+
+```bash
+npm start documentation:serve
+```
+
+Open `http://localhost:8080` in your browser.
