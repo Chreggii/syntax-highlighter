@@ -13,3 +13,15 @@ pip install -r requirements.txt
 ```bash
 python split.py
 ```
+
+## 3. Ensure _Public API_ is running
+
+```bash
+docker compose up
+```
+
+## 4. Run `train_from_files.py`
+
+```bash
+python train_from_files.py
+```
