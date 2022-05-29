@@ -73,22 +73,15 @@ public class FormalSyntaxHighlighterApplication {
    * @return a Response enity of the bad request as a json
    */
   private ResponseEntity<Object> badRequest(String reason) {
-    return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-        .body(
-            new HashMap<>() {
+    HashMap<String, Object> errorContents = new HashMap<>();
+    errorContents.put("code", 400);
+    errorContents.put("type", "Bad request");
+    errorContents.put("reason", reason);
 
-              {
-                put(
-                    "error",
-                    new HashMap<>() {
-                      {
-                        put("code", 400);
-                        put("type", "Bad request");
-                        put("reason", reason);
-                      }
-                    });
-              }
-            });
+    HashMap<String, Object> badRequestBody = new HashMap<>();
+    badRequestBody.put("error", errorContents);
+
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(badRequestBody);
   }
 
   /**
