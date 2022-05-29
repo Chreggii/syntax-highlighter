@@ -1,7 +1,7 @@
 @startuml
 skinparam defaultFontName Hevetica Neue
 
-package "Annotation WebService" {
+package "Annotation Web Service" {
   frame "exposed network" {
     [Frontend] as FrontendService
     

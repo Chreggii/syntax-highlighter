@@ -66,7 +66,7 @@ Bad Request if parameters are missing or wrong/no type specified
 
 ### Description
 
-Gets the annotated token sequence including the highlighting code for the input text.
+Gets the annotated token sequence, including the highlighting code for the input text.
 
 ### Parameters
 
