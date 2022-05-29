@@ -6,7 +6,7 @@
 
 ## Usage
 
-To locally run the Public API, use following steps:
+To locally run the Frontend, use following steps:
 
 ``` sh
 # Change into project directory
@@ -28,4 +28,16 @@ To locally run the unit tests, use following step:
 
 ``` sh
 npm run test
+```
+
+## Documentation
+
+The documentation for the frontend can be seen in the **frontend/docs** folder.
+Simply open the index.html file in your browser. 
+The documentation was generated with the help of typedoc: https://typedoc.org
+
+To update the documentation run:
+
+``` sh
+typedoc --entryPointStrategy expand ./src
 ```
