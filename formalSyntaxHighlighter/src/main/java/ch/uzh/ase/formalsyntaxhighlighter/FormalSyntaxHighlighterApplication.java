@@ -73,22 +73,15 @@ public class FormalSyntaxHighlighterApplication {
    * @return a Response enity of the bad request as a json
    */
   private ResponseEntity<Object> badRequest(String reason) {
-    return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-        .body(
-            new HashMap<>() {
+    HashMap<String, Object> errorContents = new HashMap<>();
+    errorContents.put("code", 400);
+    errorContents.put("type", "Bad request");
+    errorContents.put("reason", reason);
 
-              {
-                put(
-                    "error",
-                    new HashMap<>() {
-                      {
-                        put("code", 400);
-                        put("type", "Bad request");
-                        put("reason", reason);
-                      }
-                    });
-              }
-            });
+    HashMap<String, Object> badRequestBody = new HashMap<>();
+    badRequestBody.put("error", errorContents);
+
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(badRequestBody);
   }
 
   /**
@@ -98,13 +91,12 @@ public class FormalSyntaxHighlighterApplication {
    */
   @GetMapping("/")
   public Map<String, Object> main() {
-    return new HashMap<>() {
 
-      {
-        put("service", "Formal Syntax Highlighter");
-        put("status", "okay");
-      }
-    };
+    HashMap<String, Object> status = new HashMap<>();
+    status.put("service", "Formal Syntax Highlighter");
+    status.put("status", "okay");
+
+    return status;
   }
 
   /**
@@ -133,7 +125,7 @@ public class FormalSyntaxHighlighterApplication {
     for (Object lTok : lToks) {
       try {
         // Inflection because we don't have access to lTok through library
-        Class cls = lTok.getClass();
+        Class<? extends Object> cls = lTok.getClass();
 
         Field startIndexField = cls.getDeclaredField(START_INDEX);
         Integer startIndex = (Integer) startIndexField.get(lTok);
@@ -144,16 +136,12 @@ public class FormalSyntaxHighlighterApplication {
         Field tokenIdField = cls.getDeclaredField(TOKEN_ID);
         Integer tokenId = (Integer) tokenIdField.get(lTok);
 
-        outputData.add(
-            new OrderedHashMap<>() {
+        OrderedHashMap<String, Integer> orderedMap = new OrderedHashMap<>();
+        orderedMap.put(START_INDEX, startIndex);
+        orderedMap.put(END_INDEX, endIndex);
+        orderedMap.put(TOKEN_ID, tokenId);
 
-              {
-                // Ordered hashmap so we get the described output format
-                put(START_INDEX, startIndex);
-                put(END_INDEX, endIndex);
-                put(TOKEN_ID, tokenId);
-              }
-            });
+        outputData.add(orderedMap);
       } catch (Exception e) {
         e.printStackTrace();
       }
@@ -186,7 +174,7 @@ public class FormalSyntaxHighlighterApplication {
     for (Object hTok : hToks) {
       try {
         // Inflection because we don't have access to hTok through library
-        Class cls = hTok.getClass();
+        Class<? extends Object> cls = hTok.getClass();
 
         Field hCodeValueField = cls.getField(H_CODE_VALUE);
         Integer hCodeValue = (Integer) hCodeValueField.get(hTok);
@@ -200,17 +188,13 @@ public class FormalSyntaxHighlighterApplication {
         Field tokenIdField = cls.getField(TOKEN_ID);
         Integer tokenId = (Integer) tokenIdField.get(hTok);
 
-        outputData.add(
-            new OrderedHashMap<>() {
+        OrderedHashMap<String, Integer> orderedMap = new OrderedHashMap<>();
+        orderedMap.put(H_CODE_VALUE, hCodeValue);
+        orderedMap.put(START_INDEX, startIndex);
+        orderedMap.put(END_INDEX, endIndex);
+        orderedMap.put(TOKEN_ID, tokenId);
 
-              {
-                // Ordered hashmap so we get the described output format
-                put(H_CODE_VALUE, hCodeValue);
-                put(START_INDEX, startIndex);
-                put(END_INDEX, endIndex);
-                put(TOKEN_ID, tokenId);
-              }
-            });
+        outputData.add(orderedMap);
       } catch (Exception e) {
         e.printStackTrace();
       }
@@ -241,7 +225,7 @@ public class FormalSyntaxHighlighterApplication {
       "FIELD_IDENTIFIER",
       "ANNOTATION_DECLARATOR"
     };
-    ArrayList<HashMap<String, Object>> responseCodes = new ArrayList();
+    ArrayList<HashMap<String, Object>> responseCodes = new ArrayList<>();
     for (int i = 0; i < codes.length; i++) {
       int finalI = i;
       responseCodes.add(
