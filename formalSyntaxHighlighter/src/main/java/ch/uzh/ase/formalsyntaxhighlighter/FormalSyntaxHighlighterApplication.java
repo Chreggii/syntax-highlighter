@@ -64,7 +64,7 @@ public class FormalSyntaxHighlighterApplication {
    * @param reason the reason for the bad request
    * @return a Response enity of the bad request as a json
    */
-  private ResponseEntity badRequest(String reason) {
+  private ResponseEntity<Object> badRequest(String reason) {
     return ResponseEntity.status(HttpStatus.BAD_REQUEST)
         .body(
             new HashMap<>() {
