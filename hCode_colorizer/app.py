@@ -108,36 +108,40 @@ def create_app():
             try:
                 content = request.json
             except werkzeug.exceptions.BadRequest:
-                return "Not correct format!", 400
+                return "Please sent a Json package!", 400
             if type(content) != list:
-                return "Not list format!", 400
+                return "The Json is not in list format!", 400
             if not all([isinstance(item, dict) for item in content]):
-                return "Not correct format of hCodes!", 400
+                return "The list does not contain format of hCodes!", 400
 
             result = list(map(lambda p: colorizer(p, mode), content))
             return json.dumps(result)
         except Exception:
-            return "Not correct format!", 400
+            return "There is something wrong with your Json or mode you have sent! Check format!", 400
 
     @app.route("/color-text-html", methods=["POST"])
     @app.errorhandler(werkzeug.exceptions.BadRequest)
     def colorize_html():
-        mode = request.args.get("mode")
-        if mode != "classic" and mode != "dracula" and mode != "dark":
-            return (
-                "Chosen mode does not exist! Please try classic, dark or dracula",
-                406,
-            )
         try:
-            content = request.json
-        except werkzeug.exceptions.BadRequest:
-            return "Not correct format!", 400
-        if type(content) == list:
-            return "Not correct format!", 400
+            mode = request.args.get("mode")
+            if mode != "classic" and mode != "dracula" and mode != "dark":
+                return (
+                    "Chosen mode does not exist! Please try classic, dark or dracula",
+                    406,
+                )
+            try:
+                content = request.json
+            except werkzeug.exceptions.BadRequest:
+                return "Please sent a Json package!", 400
+            if type(content) == list:
+                print(type(content))
+                return "The Json is in list format! Check your format", 400
 
-        span_list = colorizer_html(content["hCodes"], content["text"], mode)
+            span_list = colorizer_html(content["hCodes"], content["text"], mode)
 
-        result = "<span>" + "".join(span_list) + "</span>"
+            result = "<span>" + "".join(span_list) + "</span>"
+        except Exception:
+            return "There is something wrong with your Json or mode you have sent. Check format!", 400
         return json.dumps(result)
 
     return app

@@ -15,7 +15,7 @@
 
 ##### 200 OK
 
-Returns the colors corresponding to the hCode values.
+Returns the hexcode color corresponding to the hCode values.
 
 **Example response:**
 
@@ -38,6 +38,22 @@ Requests might be missing a required parameter or is badly encoded.
     "code": 400,
     "type": "Bad Request",
     "reasons": "The given reason that triggered the bad request."
+  }
+}
+```
+
+##### 406 Not acceptable
+
+Request has wrong mode as parameter
+
+**Example response:**
+
+```json
+{
+  "error": {
+    "code": 406,
+    "type": "Not acceptable",
+    "reasons": "Chosen mode does not exist! Please try classic, dark or dracula."
   }
 }
 ```
@@ -80,3 +96,20 @@ Requests might be missing a required parameter or is badly encoded.
     "reasons": "The given reason that triggered the bad request."
   }
 }
+```
+
+##### 406 Not acceptable
+
+Request has a wrong mode as parameter
+
+**Example response:**
+
+```json
+{
+  "error": {
+    "code": 406,
+    "type": "Not acceptable",
+    "reasons": "Chosen mode does not exist! Please try classic, dark or dracula."
+  }
+}
+```

@@ -1,13 +1,8 @@
 """
 Tests for the hCode_colorizer
 """
-import json
-
 import pytest
 from app import create_app
-
-
-# Mocking the get Lexing Function
 
 
 @pytest.fixture()
@@ -89,11 +84,45 @@ def test_color_text_html_dark(client):
     # '"<span><span style=\\"color: #A9A9A9\\">t</span><span style=\\"color: #ff8800\\">a</span></span>"'
     assert response.status_code == 200
 
+def test_color_text_html_wrong_content(client):
+    """Tests sending wrong content"""
+    response = client.post(
+        '/color-text-html',
+        query_string=dict(mode='dark'), json={"hCodes": [{
+            "tokenId": 42
+        },
+            {
+                "tokenId": 42
+            }], "text": "ta"
+        }
+    )
+    # '"<span><span style=\\"color: #A9A9A9\\">t</span><span style=\\"color: #ff8800\\">a</span></span>"'
+    assert response.status_code == 400
+
+def test_color_text_html_wrong_mode(client):
+    """Tests any mode"""
+    response = client.post(
+        '/color-text-html',
+        query_string=dict(mode='something'), json={"hCodes": [{
+            "hCodeValue": 4,
+            "startIndex": 0,
+            "endIndex": 0,
+            "tokenId": 42
+        },
+            {
+                "hCodeValue": 5,
+                "startIndex": 1,
+                "endIndex": 1,
+                "tokenId": 42
+            }], "text": "ta"
+        }
+    )
+    assert response.status_code == 406
 
 # Should throw error if invalid mode is chosen
 
 def test_color_text_classic(client):
-    """Test classic mode"""
+    """Tests classic mode"""
     response = client.post(
         '/color-text',
         query_string=dict(mode='classic'), json=[{
@@ -114,7 +143,7 @@ def test_color_text_classic(client):
 
 
 def test_color_text_dark(client):
-    """Test dark mode"""
+    """Tests dark mode"""
     response = client.post(
         '/color-text',
         query_string=dict(mode='dark'), json=[{
@@ -131,12 +160,11 @@ def test_color_text_dark(client):
             }
         ]
     )
-    print(response.text)
     assert response.status_code == 200
 
 
 def test_color_text_dracula(client):
-    """Test dracula mode"""
+    """Tests dracula mode"""
     response = client.post(
         '/color-text',
         query_string=dict(mode='dracula'), json=[{
@@ -157,7 +185,7 @@ def test_color_text_dracula(client):
 
 
 def test_color_text_wrong_mode(client):
-    """Test dracula mode"""
+    """Tests any mode"""
     response = client.post(
         '/color-text',
         query_string=dict(mode='something'), json=[{
@@ -175,3 +203,17 @@ def test_color_text_wrong_mode(client):
         ]
     )
     assert response.status_code == 406
+
+def test_color_text_wrong_content(client):
+    """Tests sending wrong content"""
+    response = client.post(
+        '/color-text',
+        query_string=dict(mode='classic'), json=[{
+            "tokenId": 42
+        },
+            {
+                "tokenId": 42
+            }
+        ]
+    )
+    assert response.status_code == 400
