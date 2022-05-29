@@ -11,7 +11,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 
 /** Test a simple http request mechanism */
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-public class TestHttpRequest {
+class TestHttpRequest {
   @LocalServerPort private int port;
 
   @Autowired private TestRestTemplate restTemplate;
@@ -22,7 +22,7 @@ public class TestHttpRequest {
    * @throws Exception
    */
   @Test
-  public void defaultEndpoint() throws Exception {
+  void defaultEndpoint() throws Exception {
     assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/", String.class))
         .contains("Formal Syntax Highlighter")
         .contains("\"status\":\"okay\"");

@@ -10,7 +10,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 
 /** Test the lexting part */
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-public class TestHttpRequestLexing {
+class TestHttpRequestLexing {
   @LocalServerPort private int port;
 
   @Autowired private TestRestTemplate restTemplate;
@@ -32,7 +32,7 @@ public class TestHttpRequestLexing {
    * @throws Exception
    */
   @Test
-  public void pythonLexingHelloWorld() throws Exception {
+  void pythonLexingHelloWorld() throws Exception {
     LexBody body = new LexBody("print(\"Hello world!\")", "python");
     String test =
         "[{\"startIndex\":0,\"endIndex\":4,\"tokenId\":42},{\"startIndex\":5,\"endIndex\":5,\"tokenId\":54},{\"startIndex\":6,\"endIndex\":19,\"tokenId\":3},{\"startIndex\":20,\"endIndex\":20,\"tokenId\":55}]";
