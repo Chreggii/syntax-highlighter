@@ -17,10 +17,18 @@ import resolver.Python3Resolver;
 import resolver.Resolver;
 
 class PostBody {
-  /** Global the post body for the API */
-  public String text;
+  public String getType() {
+    return type;
+  }
 
-  public String type;
+  public String getText() {
+    return text;
+  }
+
+  /** Global the post body for the API */
+  private String text;
+
+  private String type;
 }
 
 /**
@@ -30,6 +38,58 @@ class PostBody {
 @SpringBootApplication
 @RestController
 public class FormalSyntaxHighlighterApplication {
+
+  public static final String START_INDEX = "startIndex";
+  public static final String END_INDEX = "endIndex";
+  public static final String TOKEN_ID = "tokenId";
+  public static final String H_CODE_VALUE = "hCodeValue";
+
+  /**
+   * A helper function to get the proper resolver
+   *
+   * @param type the type provided in the request
+   * @return the resolver
+   * @throws InputMismatchException if type is invalid
+   */
+  private Resolver getResolver(String type) throws InputMismatchException {
+    Resolver resolver;
+
+    if (Objects.equals(type, "python")) {
+      resolver = new Python3Resolver();
+    } else if (Objects.equals(type, "kotlin")) {
+      resolver = new KotlinResolver();
+    } else if (Objects.equals(type, "java")) {
+      resolver = new JavaResolver();
+    } else {
+      throw new InputMismatchException(type + " is not a valid type ([python, kotlin, java])");
+    }
+    return resolver;
+  }
+
+  /**
+   * Helper function to return bad request 400
+   *
+   * @param reason the reason for the bad request
+   * @return a Response enity of the bad request as a json
+   */
+  private ResponseEntity<Object> badRequest(String reason) {
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+        .body(
+            new HashMap<>() {
+
+              {
+                put(
+                    "error",
+                    new HashMap<>() {
+                      {
+                        put("code", 400);
+                        put("type", "Bad request");
+                        put("reason", reason);
+                      }
+                    });
+              }
+            });
+  }
 
   /**
    * Info endpoint to check if the application is running (and so there is something on /)
@@ -58,33 +118,15 @@ public class FormalSyntaxHighlighterApplication {
   @PostMapping("/lex-string")
   public ResponseEntity<Object> lex(@RequestBody PostBody body) throws NoSuchFieldException {
     Resolver resolver;
-    String type = body.type;
-    String text = body.text;
+    String type = body.getType();
+    String text = body.getText();
 
-    if (Objects.equals(type, "python")) {
-      resolver = new Python3Resolver();
-    } else if (Objects.equals(type, "kotlin")) {
-      resolver = new KotlinResolver();
-    } else if (Objects.equals(type, "java")) {
-      resolver = new JavaResolver();
-    } else { // Invalid type
-      return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-          .body(
-              new HashMap<>() {
-
-                {
-                  put(
-                      "error",
-                      new HashMap<>() {
-                        {
-                          put("code", 400);
-                          put("type", "Bad request");
-                          put("reason", type + " is not a valid type ([python, kotlin, java])");
-                        }
-                      });
-                }
-              });
+    try {
+      resolver = getResolver(type);
+    } catch (InputMismatchException e) {
+      return badRequest(e.getMessage());
     }
+
     Object[] lToks = resolver.lex(text);
 
     List<Map<String, Integer>> outputData = new ArrayList<>() {};
@@ -93,13 +135,13 @@ public class FormalSyntaxHighlighterApplication {
         // Inflection because we don't have access to lTok through library
         Class cls = lTok.getClass();
 
-        Field startIndexField = cls.getDeclaredField("startIndex");
+        Field startIndexField = cls.getDeclaredField(START_INDEX);
         Integer startIndex = (Integer) startIndexField.get(lTok);
 
-        Field endIndexField = cls.getDeclaredField("endIndex");
+        Field endIndexField = cls.getDeclaredField(END_INDEX);
         Integer endIndex = (Integer) endIndexField.get(lTok);
 
-        Field tokenIdField = cls.getDeclaredField("tokenId");
+        Field tokenIdField = cls.getDeclaredField(TOKEN_ID);
         Integer tokenId = (Integer) tokenIdField.get(lTok);
 
         outputData.add(
@@ -107,9 +149,9 @@ public class FormalSyntaxHighlighterApplication {
 
               {
                 // Ordered hashmap so we get the described output format
-                put("startIndex", startIndex);
-                put("endIndex", endIndex);
-                put("tokenId", tokenId);
+                put(START_INDEX, startIndex);
+                put(END_INDEX, endIndex);
+                put(TOKEN_ID, tokenId);
               }
             });
       } catch (Exception e) {
@@ -129,34 +171,15 @@ public class FormalSyntaxHighlighterApplication {
   @PostMapping("/highlight-string")
   public ResponseEntity<Object> highlight(@RequestBody PostBody body) throws NoSuchFieldException {
     Resolver resolver;
-    String type = body.type;
-    String text = body.text;
+    String type = body.getType();
+    String text = body.getText();
 
-    if (Objects.equals(type, "python")) {
-      resolver = new Python3Resolver();
-    } else if (Objects.equals(type, "kotlin")) {
-      resolver = new KotlinResolver();
-    } else if (Objects.equals(type, "java")) {
-      resolver = new JavaResolver();
-    } else { // Invalid type
-      return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-          .body(
-              new HashMap<>() {
-
-                {
-                  put(
-                      "error",
-                      new HashMap<>() {
-
-                        {
-                          put("code", 400);
-                          put("type", "Bad request");
-                          put("reason", type + " is not a valid type ([python, kotlin, java])");
-                        }
-                      });
-                }
-              });
+    try {
+      resolver = getResolver(type);
+    } catch (InputMismatchException e) {
+      return badRequest(e.getMessage());
     }
+
     Object[] hToks = resolver.highlight(text);
 
     List<Map<String, Integer>> outputData = new ArrayList<>() {};
@@ -165,16 +188,16 @@ public class FormalSyntaxHighlighterApplication {
         // Inflection because we don't have access to hTok through library
         Class cls = hTok.getClass();
 
-        Field hCodeValueField = cls.getField("hCodeValue");
+        Field hCodeValueField = cls.getField(H_CODE_VALUE);
         Integer hCodeValue = (Integer) hCodeValueField.get(hTok);
 
-        Field startIndexField = cls.getField("startIndex");
+        Field startIndexField = cls.getField(START_INDEX);
         Integer startIndex = (Integer) startIndexField.get(hTok);
 
-        Field endIndexField = cls.getField("endIndex");
+        Field endIndexField = cls.getField(END_INDEX);
         Integer endIndex = (Integer) endIndexField.get(hTok);
 
-        Field tokenIdField = cls.getField("tokenId");
+        Field tokenIdField = cls.getField(TOKEN_ID);
         Integer tokenId = (Integer) tokenIdField.get(hTok);
 
         outputData.add(
@@ -182,10 +205,10 @@ public class FormalSyntaxHighlighterApplication {
 
               {
                 // Ordered hashmap so we get the described output format
-                put("hCodeValue", hCodeValue);
-                put("startIndex", startIndex);
-                put("endIndex", endIndex);
-                put("tokenId", tokenId);
+                put(H_CODE_VALUE, hCodeValue);
+                put(START_INDEX, startIndex);
+                put(END_INDEX, endIndex);
+                put(TOKEN_ID, tokenId);
               }
             });
       } catch (Exception e) {
@@ -203,131 +226,34 @@ public class FormalSyntaxHighlighterApplication {
   @GetMapping("/highlighting-codes")
   public ResponseEntity<Object> codes() {
     // Not optimal but HCode enum is not available in .jar
-    return ResponseEntity.ok(
-        new ArrayList<>() {
 
-          {
-            //          {"name": "ANY", "hCodeValue": 0},
-            add(
-                new HashMap<String, Object>() {
+    String[] codes = {
+      "ANY",
+      "KEYWORD",
+      "LITERAL",
+      "CHAR_STRING_LITERAL",
+      "COMMENT",
+      "CLASS_DECLARATOR",
+      "FUNCTION_DECLARATOR",
+      "VARIABLE_DECLARATOR",
+      "TYPE_IDENTIFIER",
+      "FUNCTION_IDENTIFIER",
+      "FIELD_IDENTIFIER",
+      "ANNOTATION_DECLARATOR"
+    };
+    ArrayList<HashMap<String, Object>> responseCodes = new ArrayList();
+    for (int i = 0; i < codes.length; i++) {
+      int finalI = i;
+      responseCodes.add(
+          new HashMap<String, Object>() {
 
-                  {
-                    put("name", "ANY");
-                    put("hCodeValue", 0);
-                  }
-                });
-
-            //          {"name": "KEYWORD", "hCodeValue": 1},
-            add(
-                new HashMap<String, Object>() {
-
-                  {
-                    put("name", "KEYWORD");
-                    put("hCodeValue", 1);
-                  }
-                });
-
-            //          {"name": "LITERAL", "hCodeValue": 2},
-            add(
-                new HashMap<String, Object>() {
-
-                  {
-                    put("name", "LITERAL");
-                    put("hCodeValue", 2);
-                  }
-                });
-
-            //          {"name": "CHAR_STRING_LITERAL", "hCodeValue": 3},
-            add(
-                new HashMap<String, Object>() {
-
-                  {
-                    put("name", "CHAR_STRING_LITERAL");
-                    put("hCodeValue", 3);
-                  }
-                });
-
-            //          {"name": "COMMENT", "hCodeValue": 4},
-            add(
-                new HashMap<String, Object>() {
-
-                  {
-                    put("name", "COMMENT");
-                    put("hCodeValue", 4);
-                  }
-                });
-
-            //          {"name": "CLASS_DECLARATOR", "hCodeValue": 5},
-            add(
-                new HashMap<String, Object>() {
-
-                  {
-                    put("name", "CLASS_DECLARATOR");
-                    put("hCodeValue", 5);
-                  }
-                });
-
-            //          {"name": "FUNCTION_DECLARATOR", "hCodeValue": 6},
-            add(
-                new HashMap<String, Object>() {
-
-                  {
-                    put("name", "FUNCTION_DECLARATOR");
-                    put("hCodeValue", 6);
-                  }
-                });
-
-            //          {"name": "VARIABLE_DECLARATOR", "hCodeValue": 7},
-            add(
-                new HashMap<String, Object>() {
-
-                  {
-                    put("name", "VARIABLE_DECLARATOR");
-                    put("hCodeValue", 7);
-                  }
-                });
-
-            //          {"name": "TYPE_IDENTIFIER", "hCodeValue": 8},
-            add(
-                new HashMap<String, Object>() {
-
-                  {
-                    put("name", "TYPE_IDENTIFIER");
-                    put("hCodeValue", 8);
-                  }
-                });
-
-            //          {"name": "FUNCTION_IDENTIFIER", "hCodeValue": 9},
-            add(
-                new HashMap<String, Object>() {
-
-                  {
-                    put("name", "FUNCTION_IDENTIFIER");
-                    put("hCodeValue", 9);
-                  }
-                });
-
-            //          {"name": "FIELD_IDENTIFIER", "hCodeValue": 10},
-            add(
-                new HashMap<String, Object>() {
-
-                  {
-                    put("name", "FIELD_IDENTIFIER");
-                    put("hCodeValue", 10);
-                  }
-                });
-
-            //          {"name": "ANNOTATION_DECLARATOR", "hCodeValue": 11}
-            add(
-                new HashMap<String, Object>() {
-
-                  {
-                    put("name", "ANNOTATION_DECLARATOR");
-                    put("hCodeValue", 11);
-                  }
-                });
-          }
-        });
+            {
+              put("name", codes[finalI]);
+              put(H_CODE_VALUE, finalI);
+            }
+          });
+    }
+    return ResponseEntity.ok(responseCodes);
   }
 
   public static void main(String[] args) {

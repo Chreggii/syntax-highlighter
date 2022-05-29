@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - dev
+      - feature/Sonarqube-Formal_Syntax_Highlighter
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
