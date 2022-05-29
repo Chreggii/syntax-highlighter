@@ -143,7 +143,7 @@ public class FormalSyntaxHighlighterApplication {
 
         outputData.add(orderedMap);
       } catch (Exception e) {
-        System.out.println(e.getMessage());
+
       }
     }
     return ResponseEntity.ok(outputData);
@@ -196,7 +196,7 @@ public class FormalSyntaxHighlighterApplication {
 
         outputData.add(orderedMap);
       } catch (Exception e) {
-        System.out.println(e.getMessage());
+
       }
     }
     return ResponseEntity.ok(outputData);
