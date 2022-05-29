@@ -25,7 +25,9 @@ for subfolder in subfolders:
     current_folder = os.path.join(INPUT_DATA_FOLDER, subfolder)
     files_in_folder = os.listdir(current_folder)
     train_data_files, test_data_files = random_list_split(files_in_folder, 0.8)
-    print(f"{subfolder}: {len(train_data_files)} train files, {len(test_data_files)} test files")
+    print(
+        f"{subfolder}: {len(train_data_files)} train files, {len(test_data_files)} test files"
+    )
     for file in train_data_files:
         source_path = os.path.join(INPUT_DATA_FOLDER, subfolder, file)
         target_path = os.path.join(OUTPUT_TRAINING_DATA_FOLDER, subfolder, file)
