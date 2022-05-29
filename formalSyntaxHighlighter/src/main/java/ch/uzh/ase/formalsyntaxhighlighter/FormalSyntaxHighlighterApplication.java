@@ -17,10 +17,18 @@ import resolver.Python3Resolver;
 import resolver.Resolver;
 
 class PostBody {
-  /** Global the post body for the API */
-  public String text;
+    public String getType() {
+        return type;
+    }
 
-  public String type;
+    public String getText() {
+        return text;
+    }
+
+    /** Global the post body for the API */
+  private String text;
+
+  private String type;
 }
 
 /**
@@ -110,8 +118,8 @@ public class FormalSyntaxHighlighterApplication {
   @PostMapping("/lex-string")
   public ResponseEntity<Object> lex(@RequestBody PostBody body) throws NoSuchFieldException {
     Resolver resolver;
-    String type = body.type;
-    String text = body.text;
+    String type = body.getType();
+    String text = body.getText();
 
     try {
       resolver = getResolver(type);
@@ -163,8 +171,8 @@ public class FormalSyntaxHighlighterApplication {
   @PostMapping("/highlight-string")
   public ResponseEntity<Object> highlight(@RequestBody PostBody body) throws NoSuchFieldException {
     Resolver resolver;
-    String type = body.type;
-    String text = body.text;
+    String type = body.getType();
+    String text = body.getText();
 
     try {
       resolver = getResolver(type);
