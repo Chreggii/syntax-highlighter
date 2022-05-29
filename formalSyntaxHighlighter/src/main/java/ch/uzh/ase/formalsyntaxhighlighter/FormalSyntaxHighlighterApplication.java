@@ -91,13 +91,12 @@ public class FormalSyntaxHighlighterApplication {
    */
   @GetMapping("/")
   public Map<String, Object> main() {
-    return new HashMap<>() {
 
-      {
-        put("service", "Formal Syntax Highlighter");
-        put("status", "okay");
-      }
-    };
+    HashMap<String, Object> status = new HashMap<>();
+    status.put("service", "Formal Syntax Highlighter");
+    status.put("status", "okay");
+
+    return status;
   }
 
   /**
