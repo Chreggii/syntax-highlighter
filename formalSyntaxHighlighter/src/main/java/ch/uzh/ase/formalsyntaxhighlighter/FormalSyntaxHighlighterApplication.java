@@ -228,14 +228,11 @@ public class FormalSyntaxHighlighterApplication {
     ArrayList<HashMap<String, Object>> responseCodes = new ArrayList<>();
     for (int i = 0; i < codes.length; i++) {
       int finalI = i;
-      responseCodes.add(
-          new HashMap<String, Object>() {
+      HashMap<String, Object> codesHashMap = new HashMap<String, Object>();
+      codesHashMap.put("name", codes[finalI]);
+      codesHashMap.put(H_CODE_VALUE, finalI);
 
-            {
-              put("name", codes[finalI]);
-              put(H_CODE_VALUE, finalI);
-            }
-          });
+      responseCodes.add(codesHashMap);
     }
     return ResponseEntity.ok(responseCodes);
   }
