@@ -133,7 +133,7 @@ public class FormalSyntaxHighlighterApplication {
     for (Object lTok : lToks) {
       try {
         // Inflection because we don't have access to lTok through library
-        Class cls = lTok.getClass();
+        Class<? extends Object> cls = lTok.getClass();
 
         Field startIndexField = cls.getDeclaredField(START_INDEX);
         Integer startIndex = (Integer) startIndexField.get(lTok);
