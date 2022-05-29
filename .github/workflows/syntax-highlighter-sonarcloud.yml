@@ -1,4 +1,5 @@
 name: SonarCloud Analysis Formal Syntax Highlighter
+
 on:
   push:
     branches:
@@ -35,5 +36,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-        	cd formalSyntaxHighlighter
-        	./gradlew build sonarqube --info
+          cd formalSyntaxHighlighter
+          ./gradlew build sonarqube --info
