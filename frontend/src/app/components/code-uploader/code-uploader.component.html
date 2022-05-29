@@ -56,7 +56,7 @@
         </select>
       </mat-form-field>
     </form>
-    <button mat-raised-button color="primary" (click)="sendFileRequest(getFormData(), this.formFile.get('mode')?.value)"> Submit</button>
+    <button mat-raised-button color="primary" (click)="sendFileRequest(getFileFormData(), this.formFile.get('mode')?.value)"> Submit</button>
   </div>
   <br>
 </body>

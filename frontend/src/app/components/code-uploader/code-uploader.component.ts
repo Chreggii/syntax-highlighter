@@ -35,10 +35,17 @@ export class CodeUploaderComponent {
     private highlightService: HighlightService
   ) {}
 
-  getFormData(): FormData {
+  /**
+   * Gets the form data corresponding to the File.
+   */
+  getFileFormData(): FormData {
     return this.fileFormData;
   }
 
+  /**
+   * Prepares the file for sending it to the backend.
+   * @param event Watches the input event.
+   */
   uploadFile(event: any): FormData {
     const file: File = event.target?.files?.[0];
     this.fileFormData = new FormData();
@@ -48,6 +55,9 @@ export class CodeUploaderComponent {
     return this.fileFormData;
   }
 
+  /**
+   * Gets the Url for a file request, depending on whether html or normal text shall be requested.
+   */
   getFileUrlString(): string {
     if (this.formFile.get('returnHtml')?.value === 'yes') {
       this.fileUseHtml = true;
@@ -58,6 +68,9 @@ export class CodeUploaderComponent {
     }
   }
 
+  /**
+   * Gets the Url for a text request, depending on whether html or normal text shall be requested.
+   */
   getTextUrlString(): string {
     if (this.formText.get('returnHtml')?.value === 'yes') {
       this.textUseHtml = true;
@@ -68,6 +81,11 @@ export class CodeUploaderComponent {
     }
   }
 
+  /**
+   * Sends the file to the backend to get it colorized. The colorized return will be handled in the Highlight.Service.
+   * @param formData The form data of the File.
+   * @param mode The colorizing mode.
+   */
   sendFileRequest(formData: FormData, mode: string): void {
     this.formFile.markAllAsTouched();
     if (!this.formFile.valid) {
@@ -111,6 +129,9 @@ export class CodeUploaderComponent {
     }
   }
 
+  /**
+   * Sends the text to the backend to get it colorized. The colorized return will be handled in the Highlight.Service.
+   */
   sendTextRequest(): void {
     this.formText.markAllAsTouched();
     if (!this.formText.valid) {
