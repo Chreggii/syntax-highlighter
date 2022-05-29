@@ -136,16 +136,12 @@ public class FormalSyntaxHighlighterApplication {
         Field tokenIdField = cls.getDeclaredField(TOKEN_ID);
         Integer tokenId = (Integer) tokenIdField.get(lTok);
 
-        outputData.add(
-            new OrderedHashMap<>() {
+        OrderedHashMap<String, Integer> orderedMap = new OrderedHashMap<>();
+        orderedMap.put(START_INDEX, startIndex);
+        orderedMap.put(END_INDEX, endIndex);
+        orderedMap.put(TOKEN_ID, tokenId);
 
-              {
-                // Ordered hashmap so we get the described output format
-                put(START_INDEX, startIndex);
-                put(END_INDEX, endIndex);
-                put(TOKEN_ID, tokenId);
-              }
-            });
+        outputData.add(orderedMap);
       } catch (Exception e) {
         e.printStackTrace();
       }
