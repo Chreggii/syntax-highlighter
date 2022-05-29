@@ -11,7 +11,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 
 /** Test the highlighting part */
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-public class HttpRequestTestHighlighting {
+public class TestHttpRequestHighlighting {
   @LocalServerPort private int port;
 
   @Autowired private TestRestTemplate restTemplate;

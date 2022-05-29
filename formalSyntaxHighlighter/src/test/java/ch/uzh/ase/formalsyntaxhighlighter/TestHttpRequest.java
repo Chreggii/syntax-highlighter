@@ -11,7 +11,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 
 /** Test a simple http request mechanism */
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-public class HttpRequestTest {
+public class TestHttpRequest {
   @LocalServerPort private int port;
 
   @Autowired private TestRestTemplate restTemplate;

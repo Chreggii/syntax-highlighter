@@ -10,7 +10,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 
 /** Test the lexting part */
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-public class HttpRequestTestLexing {
+public class TestHttpRequestLexing {
   @LocalServerPort private int port;
 
   @Autowired private TestRestTemplate restTemplate;
