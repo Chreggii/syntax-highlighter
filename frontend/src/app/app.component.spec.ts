@@ -7,7 +7,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { AppComponent } from './app.component';
-import { getBaseUrl } from './functions/url-resolver.function';
 
 describe('AppComponent', () => {
   let httpMock: HttpTestingController;
@@ -23,7 +22,6 @@ describe('AppComponent', () => {
     }).compileComponents();
 
     const injector = getTestBed();
-    httpMock = injector.get(HttpTestingController);
   });
 
   it('should create the app', () => {

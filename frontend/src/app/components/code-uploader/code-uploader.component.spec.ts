@@ -1,4 +1,4 @@
-import { ComponentFixture, getTestBed, TestBed } from '@angular/core/testing';
+import { getTestBed, TestBed } from '@angular/core/testing';
 
 import { CodeUploaderComponent } from './code-uploader.component';
 import {
@@ -9,7 +9,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from '../../app.component';
 import { getBaseUrl } from '../../functions/url-resolver.function';
-import {HighlightService} from "../../services/highlighter/highlight.service";
 
 describe('CodeUploaderComponent', () => {
   let httpMock: HttpTestingController;

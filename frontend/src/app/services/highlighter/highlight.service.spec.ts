@@ -1,6 +1,6 @@
 /* tslint:disable:no-unused-variable */
 
-import { TestBed, async, inject, getTestBed } from '@angular/core/testing';
+import { TestBed, inject, getTestBed } from '@angular/core/testing';
 import { HighlightService } from './highlight.service';
 import { HttpTestingController } from '@angular/common/http/testing';
 import { FormBuilder } from '@angular/forms';
@@ -21,7 +21,6 @@ describe('Service: Highlight', () => {
     }).compileComponents();
 
     const injector = getTestBed();
-    httpMock = injector.get(HttpTestingController);
   });
 
   it('should create', inject(
