@@ -31,25 +31,4 @@ describe('AppComponent', () => {
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
   });
-
-  /*
-  it('should send request with empty fields', () => {
-    const fixture = TestBed.createComponent(CodeUploader);
-    const app = fixture.componentInstance;
-    app.sendRequest();
-    const req = httpMock.expectOne(
-      `${getBaseUrl()}/highlight-text`
-    );
-    expect(req.request.method).toBe('POST');
-  });
-
-  it('should not send request when no file found', () => {
-    const fixture = TestBed.createComponent(CodeUploader);
-    const app = fixture.componentInstance;
-    app.onFileSelected({ target: { files: [] } });
-    httpMock.expectNone(
-      `${getBaseUrl()}/highlight-file`
-    );
-  });
-   */
 });
