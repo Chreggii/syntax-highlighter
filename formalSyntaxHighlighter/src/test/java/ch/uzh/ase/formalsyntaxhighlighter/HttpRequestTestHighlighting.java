@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 
+/** Test the highlighting part */
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class HttpRequestTestHighlighting {
   @LocalServerPort private int port;
@@ -26,6 +27,11 @@ public class HttpRequestTestHighlighting {
     public String text;
   }
 
+  /**
+   * Check the python highlighting of a simple Hello World script
+   *
+   * @throws Exception
+   */
   @Test
   public void pythonHighlightingHelloWorld() throws Exception {
     HighlightBody body = new HighlightBody("print(\"Hello world!\")", "python");
@@ -38,6 +44,11 @@ public class HttpRequestTestHighlighting {
         JSONCompareMode.LENIENT);
   }
 
+  /**
+   * Check the java highlighting of a simple Hello World script
+   *
+   * @throws Exception
+   */
   @Test
   public void javaHighlightingHelloWorld() throws Exception {
     HighlightBody body = new HighlightBody("System.out.println(\"Hello World!\")", "java");
@@ -50,6 +61,11 @@ public class HttpRequestTestHighlighting {
         JSONCompareMode.LENIENT);
   }
 
+  /**
+   * Check the kotlin highlighting of a simple Hello World script
+   *
+   * @throws Exception
+   */
   @Test
   public void kotlinHighlightingHelloWorld() throws Exception {
     HighlightBody body = new HighlightBody("println(\"Hello, World!\")", "kotlin");
@@ -62,6 +78,11 @@ public class HttpRequestTestHighlighting {
         JSONCompareMode.LENIENT);
   }
 
+  /**
+   * Test error on invalid type (abc is not valid).
+   *
+   * @throws Exception
+   */
   @Test
   public void invalidTypeHighlighting() throws Exception {
     HighlightBody body = new HighlightBody("println(\"Hello, World!\")", "abc");
@@ -74,6 +95,11 @@ public class HttpRequestTestHighlighting {
         JSONCompareMode.LENIENT);
   }
 
+  /**
+   * Test the getting of the highlighting codes
+   *
+   * @throws Exception
+   */
   @Test
   public void getHighlightingCodes() throws Exception {
     String helloWorldProgram = "println(\"Hello, World!\")";
