@@ -2,6 +2,7 @@ package ch.uzh.ase.formalsyntaxhighlighter;
 
 import java.lang.reflect.Field;
 import java.util.*;
+import java.util.logging.Logger;
 import org.antlr.v4.misc.OrderedHashMap;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -38,6 +39,8 @@ class PostBody {
 @SpringBootApplication
 @RestController
 public class FormalSyntaxHighlighterApplication {
+
+  Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
   public static final String START_INDEX = "startIndex";
   public static final String END_INDEX = "endIndex";
@@ -143,7 +146,7 @@ public class FormalSyntaxHighlighterApplication {
 
         outputData.add(orderedMap);
       } catch (Exception e) {
-
+        logger.warning(e.getMessage());
       }
     }
     return ResponseEntity.ok(outputData);
@@ -196,7 +199,7 @@ public class FormalSyntaxHighlighterApplication {
 
         outputData.add(orderedMap);
       } catch (Exception e) {
-
+        logger.warning(e.getMessage());
       }
     }
     return ResponseEntity.ok(outputData);
