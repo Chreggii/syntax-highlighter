@@ -186,7 +186,7 @@ public class FormalSyntaxHighlighterApplication {
     for (Object hTok : hToks) {
       try {
         // Inflection because we don't have access to hTok through library
-        Class cls = hTok.getClass();
+        Class<? extends Object> cls = hTok.getClass();
 
         Field hCodeValueField = cls.getField(H_CODE_VALUE);
         Integer hCodeValue = (Integer) hCodeValueField.get(hTok);
