@@ -45,7 +45,7 @@ def create_app():
     @app.route("/ml-highlight", methods=["POST"])
     @app.errorhandler(werkzeug.exceptions.BadRequest)
     def predict():
-        """ Predict the highlighting of a string using the SHModel.
+        """Predict the highlighting of a string using the SHModel.
 
         Given the tokenIds it predicts the highlighting of a text using the SHModel.
 
@@ -96,7 +96,7 @@ def create_app():
 
     @app.route("/ml-train", methods=["PUT"])
     def learn():
-        """ Train the SHModel.
+        """Train the SHModel.
 
         Given the tokenIds and hCodeValues obtained through a request done to
         the formalSyntaxHighlighter, it instantiate the SHModel, it performs
