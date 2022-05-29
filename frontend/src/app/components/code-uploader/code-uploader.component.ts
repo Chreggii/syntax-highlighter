@@ -11,13 +11,23 @@ import { HighlightService } from '../../services/highlighter/highlight.service';
   styleUrls: ['./code-uploader.component.scss'],
 })
 export class CodeUploaderComponent {
-  readonly form = this.formBuilder.group({
+  readonly formText = this.formBuilder.group({
     sourceText: undefined,
     language: undefined,
+    mode: undefined,
+    returnHtml: undefined,
+  });
+
+  readonly formFile = this.formBuilder.group({
+    mode: undefined,
+    returnHtml: undefined,
   });
 
   @Input()
   public useMLFormatter = false;
+  private fileFormData = new FormData();
+  private fileUseHtml = false;
+  private textUseHtml = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -25,53 +35,121 @@ export class CodeUploaderComponent {
     private highlightService: HighlightService
   ) {}
 
-  onFileSelected(event: any): void {
+  getFormData(): FormData {
+    return this.fileFormData;
+  }
+
+  uploadFile(event: any): FormData {
     const file: File = event.target?.files?.[0];
-
+    this.fileFormData = new FormData();
     if (file) {
-      const formData = new FormData();
-      formData.append('file', file);
+      this.fileFormData.set('file', file);
+    }
+    return this.fileFormData;
+  }
 
+  getFileUrlString(): string {
+    if (this.formFile.get('returnHtml')?.value === 'yes') {
+      this.fileUseHtml = true;
+      return '-html';
+    } else {
+      this.fileUseHtml = false;
+      return '';
+    }
+  }
+
+  getTextUrlString(): string {
+    if (this.formText.get('returnHtml')?.value === 'yes') {
+      this.textUseHtml = true;
+      return '-html';
+    } else {
+      this.textUseHtml = false;
+      return '';
+    }
+  }
+
+  sendFileRequest(formData: FormData, mode: string): void {
+    this.formFile.markAllAsTouched();
+    if (!this.formFile.valid) {
+      return;
+    }
+
+    formData.set('mode', mode);
+    const htmlExtension = this.getFileUrlString();
+
+    if (formData.has('file') && formData.has('mode')) {
       this.http
-        .post<any>(`${getBaseUrl()}/highlight-file`, formData)
+        .post<any>(
+          `${getBaseUrl()}/highlight-file` + htmlExtension,
+          this.fileFormData
+        )
         .subscribe((response) => {
           console.log(response);
           if (!this.useMLFormatter) {
-            this.highlightService.highlightTextFormal(
-              response.sourceCode,
-              response.formalFormatting
-            );
+            if (this.fileUseHtml) {
+              this.highlightService.highlightHtmlFormal(
+                response.formalFormatting
+              );
+            } else {
+              this.highlightService.highlightTextFormal(
+                response.sourceCode,
+                response.formalFormatting
+              );
+            }
           }
           if (this.useMLFormatter) {
-            this.highlightService.highlightTextML(
-              response.sourceCode,
-              response.mlFormatting
-            );
+            if (this.fileUseHtml) {
+              this.highlightService.highlightHtmlML(response.mlFormatting);
+            } else {
+              this.highlightService.highlightTextML(
+                response.sourceCode,
+                response.mlFormatting
+              );
+            }
           }
         });
     }
   }
 
-  sendRequest(): void {
+  sendTextRequest(): void {
+    this.formText.markAllAsTouched();
+    if (!this.formText.valid) {
+      return;
+    }
+
     const data = {
-      sourceText: this.form.get('sourceText')?.value,
-      language: this.form.get('language')?.value,
+      sourceText: this.formText.get('sourceText')?.value,
+      language: this.formText.get('language')?.value,
+      mode: this.formText.get('mode')?.value,
     };
+    const htmlExtension = this.getTextUrlString();
+
     this.http
-      .post<any>(`${getBaseUrl()}/highlight-text`, data)
+      .post<any>(`${getBaseUrl()}/highlight-text` + htmlExtension, data)
       .subscribe((response) => {
         console.log(response);
+
         if (!this.useMLFormatter) {
-          this.highlightService.highlightTextFormal(
-            response.sourceCode,
-            response.formalFormatting
-          );
+          if (this.textUseHtml) {
+            this.highlightService.highlightHtmlFormal(
+              response.formalFormatting
+            );
+          } else {
+            this.highlightService.highlightTextFormal(
+              response.sourceCode,
+              response.formalFormatting
+            );
+          }
         }
         if (this.useMLFormatter) {
-          this.highlightService.highlightTextML(
-            response.sourceCode,
-            response.mlFormatting
-          );
+          if (this.textUseHtml) {
+            this.highlightService.highlightHtmlML(response.mlFormatting);
+          } else {
+            this.highlightService.highlightTextML(
+              response.sourceCode,
+              response.mlFormatting
+            );
+          }
         }
       });
   }

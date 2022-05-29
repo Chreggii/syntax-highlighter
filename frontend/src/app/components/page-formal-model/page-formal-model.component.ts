@@ -5,5 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './page-formal-model.component.html',
   styleUrls: ['./page-formal-model.component.scss'],
 })
-export class PageFormalModelComponent {
-}
+export class PageFormalModelComponent {}

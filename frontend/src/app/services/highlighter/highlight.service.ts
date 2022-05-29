@@ -21,6 +21,14 @@ export class HighlightService {
     this.highlightedTextML = this.replaceText(sourceCode, lexingArray);
   }
 
+  highlightHtmlFormal(htmlString: string) {
+    this.highlightedTextFormal = htmlString;
+  }
+
+  highlightHtmlML(htmlString: string) {
+    this.highlightedTextML = htmlString;
+  }
+
   getHighlightTextFormal(): string | undefined {
     return this.highlightedTextFormal;
   }
