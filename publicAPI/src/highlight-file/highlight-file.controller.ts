@@ -1,14 +1,27 @@
-import { Controller, HttpException, HttpStatus, Post, UploadedFile, UseInterceptors, Body } from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
-import { Observable } from 'rxjs';
+import {
+  Body,
+  Controller,
+  HttpException,
+  HttpStatus,
+  Post,
+  UploadedFile,
+  UseInterceptors,
+} from "@nestjs/common";
+import { FileInterceptor } from "@nestjs/platform-express";
+import { Observable } from "rxjs";
 
-import { HighlightedTextResponse } from '../models/highlighted-text.model';
-import { HighlightService } from '../services/highlight/highlight.service';
+import { HighlightedTextResponse } from "../models/highlighted-text.model";
+import { HighlightService } from "../services/highlight/highlight.service";
 
 @Controller("highlight-file")
 export class HighlightFileController {
-  constructor(private highlightService: HighlightService) { }
+  constructor(private highlightService: HighlightService) {}
 
+  /** Highlights a file.
+   * @param file - The file which should be highlighted.
+   * @param body - The body contains the desired color mode of the highlighting.
+   * @returns - Returns the result from the ML Classifier, Formal Syntax Highlighter and the passed source code.
+   */
   @Post()
   @UseInterceptors(FileInterceptor("file", { dest: "uploads" }))
   uploadFile(
