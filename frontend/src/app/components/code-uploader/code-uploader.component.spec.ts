@@ -53,7 +53,7 @@ describe('CodeUploaderComponent', () => {
     const fixture = TestBed.createComponent(CodeUploaderComponent);
     const app = fixture.componentInstance;
     app.formText.get('returnHtml')?.setValue('no');
-    app.formText.get('sourceText')?.setValue('print(\'hello\')');
+    app.formText.get('sourceText')?.setValue("print('hello')");
     app.formText.get('language')?.setValue('python');
     app.formText.get('mode')?.setValue('classic');
     app.sendTextRequest();
@@ -65,7 +65,7 @@ describe('CodeUploaderComponent', () => {
     const fixture = TestBed.createComponent(CodeUploaderComponent);
     const app = fixture.componentInstance;
     app.formText.get('returnHtml')?.setValue('yes');
-    app.formText.get('sourceText')?.setValue('print(\'hello\')');
+    app.formText.get('sourceText')?.setValue("print('hello')");
     app.formText.get('language')?.setValue('python');
     app.formText.get('mode')?.setValue('classic');
     app.sendTextRequest();
