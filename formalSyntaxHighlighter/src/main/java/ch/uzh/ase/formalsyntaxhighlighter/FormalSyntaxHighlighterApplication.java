@@ -25,6 +25,11 @@ class PostBody {
 @RestController
 public class FormalSyntaxHighlighterApplication {
 
+  public static final String START_INDEX = "startIndex";
+  public static final String END_INDEX = "endIndex";
+  public static final String TOKEN_ID = "tokenId";
+  public static final String H_CODE_VALUE = "hCodeValue";
+
   @GetMapping("/")
   public Map<String, Object> main() {
     return new HashMap<>() {
@@ -74,13 +79,13 @@ public class FormalSyntaxHighlighterApplication {
         // Inflection because we don't have access to lTok through library
         Class cls = lTok.getClass();
 
-        Field startIndexField = cls.getDeclaredField("startIndex");
+        Field startIndexField = cls.getDeclaredField(START_INDEX);
         Integer startIndex = (Integer) startIndexField.get(lTok);
 
-        Field endIndexField = cls.getDeclaredField("endIndex");
+        Field endIndexField = cls.getDeclaredField(END_INDEX);
         Integer endIndex = (Integer) endIndexField.get(lTok);
 
-        Field tokenIdField = cls.getDeclaredField("tokenId");
+        Field tokenIdField = cls.getDeclaredField(TOKEN_ID);
         Integer tokenId = (Integer) tokenIdField.get(lTok);
 
         outputData.add(
@@ -88,9 +93,9 @@ public class FormalSyntaxHighlighterApplication {
 
               {
                 // Ordered hashmap so we get the described output format
-                put("startIndex", startIndex);
-                put("endIndex", endIndex);
-                put("tokenId", tokenId);
+                put(START_INDEX, startIndex);
+                put(END_INDEX, endIndex);
+                put(TOKEN_ID, tokenId);
               }
             });
       } catch (Exception e) {
@@ -139,16 +144,16 @@ public class FormalSyntaxHighlighterApplication {
         // Inflection because we don't have access to hTok through library
         Class cls = hTok.getClass();
 
-        Field hCodeValueField = cls.getField("hCodeValue");
+        Field hCodeValueField = cls.getField(H_CODE_VALUE);
         Integer hCodeValue = (Integer) hCodeValueField.get(hTok);
 
-        Field startIndexField = cls.getField("startIndex");
+        Field startIndexField = cls.getField(START_INDEX);
         Integer startIndex = (Integer) startIndexField.get(hTok);
 
-        Field endIndexField = cls.getField("endIndex");
+        Field endIndexField = cls.getField(END_INDEX);
         Integer endIndex = (Integer) endIndexField.get(hTok);
 
-        Field tokenIdField = cls.getField("tokenId");
+        Field tokenIdField = cls.getField(TOKEN_ID);
         Integer tokenId = (Integer) tokenIdField.get(hTok);
 
         outputData.add(
@@ -156,10 +161,10 @@ public class FormalSyntaxHighlighterApplication {
 
               {
                 // Ordered hashmap so we get the described output format
-                put("hCodeValue", hCodeValue);
-                put("startIndex", startIndex);
-                put("endIndex", endIndex);
-                put("tokenId", tokenId);
+                put(H_CODE_VALUE, hCodeValue);
+                put(START_INDEX, startIndex);
+                put(END_INDEX, endIndex);
+                put(TOKEN_ID, tokenId);
               }
             });
       } catch (Exception e) {
@@ -182,7 +187,7 @@ public class FormalSyntaxHighlighterApplication {
 
                   {
                     put("name", "ANY");
-                    put("hCodeValue", 0);
+                    put(H_CODE_VALUE, 0);
                   }
                 });
 
@@ -192,7 +197,7 @@ public class FormalSyntaxHighlighterApplication {
 
                   {
                     put("name", "KEYWORD");
-                    put("hCodeValue", 1);
+                    put(H_CODE_VALUE, 1);
                   }
                 });
 
@@ -202,7 +207,7 @@ public class FormalSyntaxHighlighterApplication {
 
                   {
                     put("name", "LITERAL");
-                    put("hCodeValue", 2);
+                    put(H_CODE_VALUE, 2);
                   }
                 });
 
@@ -212,7 +217,7 @@ public class FormalSyntaxHighlighterApplication {
 
                   {
                     put("name", "CHAR_STRING_LITERAL");
-                    put("hCodeValue", 3);
+                    put(H_CODE_VALUE, 3);
                   }
                 });
 
@@ -222,7 +227,7 @@ public class FormalSyntaxHighlighterApplication {
 
                   {
                     put("name", "COMMENT");
-                    put("hCodeValue", 4);
+                    put(H_CODE_VALUE, 4);
                   }
                 });
 
@@ -232,7 +237,7 @@ public class FormalSyntaxHighlighterApplication {
 
                   {
                     put("name", "CLASS_DECLARATOR");
-                    put("hCodeValue", 5);
+                    put(H_CODE_VALUE, 5);
                   }
                 });
 
@@ -242,7 +247,7 @@ public class FormalSyntaxHighlighterApplication {
 
                   {
                     put("name", "FUNCTION_DECLARATOR");
-                    put("hCodeValue", 6);
+                    put(H_CODE_VALUE, 6);
                   }
                 });
 
@@ -252,7 +257,7 @@ public class FormalSyntaxHighlighterApplication {
 
                   {
                     put("name", "VARIABLE_DECLARATOR");
-                    put("hCodeValue", 7);
+                    put(H_CODE_VALUE, 7);
                   }
                 });
 
@@ -262,7 +267,7 @@ public class FormalSyntaxHighlighterApplication {
 
                   {
                     put("name", "TYPE_IDENTIFIER");
-                    put("hCodeValue", 8);
+                    put(H_CODE_VALUE, 8);
                   }
                 });
 
@@ -272,7 +277,7 @@ public class FormalSyntaxHighlighterApplication {
 
                   {
                     put("name", "FUNCTION_IDENTIFIER");
-                    put("hCodeValue", 9);
+                    put(H_CODE_VALUE, 9);
                   }
                 });
 
@@ -282,7 +287,7 @@ public class FormalSyntaxHighlighterApplication {
 
                   {
                     put("name", "FIELD_IDENTIFIER");
-                    put("hCodeValue", 10);
+                    put(H_CODE_VALUE, 10);
                   }
                 });
 
@@ -292,7 +297,7 @@ public class FormalSyntaxHighlighterApplication {
 
                   {
                     put("name", "ANNOTATION_DECLARATOR");
-                    put("hCodeValue", 11);
+                    put(H_CODE_VALUE, 11);
                   }
                 });
           }
