@@ -36,7 +36,6 @@ public class FormalSyntaxHighlighterApplication {
   public static final String TOKEN_ID = "tokenId";
   public static final String H_CODE_VALUE = "hCodeValue";
 
-
   /**
    * Info endpoint to check if the application is running (and so there is something on /)
    *
