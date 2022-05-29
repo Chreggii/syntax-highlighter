@@ -226,131 +226,34 @@ public class FormalSyntaxHighlighterApplication {
   @GetMapping("/highlighting-codes")
   public ResponseEntity<Object> codes() {
     // Not optimal but HCode enum is not available in .jar
-    return ResponseEntity.ok(
-        new ArrayList<>() {
 
-          {
-            //          {"name": "ANY", "hCodeValue": 0},
-            add(
-                new HashMap<String, Object>() {
+    String[] codes = {
+      "ANY",
+      "KEYWORD",
+      "LITERAL",
+      "CHAR_STRING_LITERAL",
+      "COMMENT",
+      "CLASS_DECLARATOR",
+      "FUNCTION_DECLARATOR",
+      "VARIABLE_DECLARATOR",
+      "TYPE_IDENTIFIER",
+      "FUNCTION_IDENTIFIER",
+      "FIELD_IDENTIFIER",
+      "ANNOTATION_DECLARATOR"
+    };
+    ArrayList<HashMap<String, Object>> response_codes = new ArrayList();
+    for (int i = 0; i < codes.length; i++) {
+      int finalI = i;
+      response_codes.add(
+          new HashMap<String, Object>() {
 
-                  {
-                    put("name", "ANY");
-                    put(H_CODE_VALUE, 0);
-                  }
-                });
-
-            //          {"name": "KEYWORD", "hCodeValue": 1},
-            add(
-                new HashMap<String, Object>() {
-
-                  {
-                    put("name", "KEYWORD");
-                    put(H_CODE_VALUE, 1);
-                  }
-                });
-
-            //          {"name": "LITERAL", "hCodeValue": 2},
-            add(
-                new HashMap<String, Object>() {
-
-                  {
-                    put("name", "LITERAL");
-                    put(H_CODE_VALUE, 2);
-                  }
-                });
-
-            //          {"name": "CHAR_STRING_LITERAL", "hCodeValue": 3},
-            add(
-                new HashMap<String, Object>() {
-
-                  {
-                    put("name", "CHAR_STRING_LITERAL");
-                    put(H_CODE_VALUE, 3);
-                  }
-                });
-
-            //          {"name": "COMMENT", "hCodeValue": 4},
-            add(
-                new HashMap<String, Object>() {
-
-                  {
-                    put("name", "COMMENT");
-                    put(H_CODE_VALUE, 4);
-                  }
-                });
-
-            //          {"name": "CLASS_DECLARATOR", "hCodeValue": 5},
-            add(
-                new HashMap<String, Object>() {
-
-                  {
-                    put("name", "CLASS_DECLARATOR");
-                    put(H_CODE_VALUE, 5);
-                  }
-                });
-
-            //          {"name": "FUNCTION_DECLARATOR", "hCodeValue": 6},
-            add(
-                new HashMap<String, Object>() {
-
-                  {
-                    put("name", "FUNCTION_DECLARATOR");
-                    put(H_CODE_VALUE, 6);
-                  }
-                });
-
-            //          {"name": "VARIABLE_DECLARATOR", "hCodeValue": 7},
-            add(
-                new HashMap<String, Object>() {
-
-                  {
-                    put("name", "VARIABLE_DECLARATOR");
-                    put(H_CODE_VALUE, 7);
-                  }
-                });
-
-            //          {"name": "TYPE_IDENTIFIER", "hCodeValue": 8},
-            add(
-                new HashMap<String, Object>() {
-
-                  {
-                    put("name", "TYPE_IDENTIFIER");
-                    put(H_CODE_VALUE, 8);
-                  }
-                });
-
-            //          {"name": "FUNCTION_IDENTIFIER", "hCodeValue": 9},
-            add(
-                new HashMap<String, Object>() {
-
-                  {
-                    put("name", "FUNCTION_IDENTIFIER");
-                    put(H_CODE_VALUE, 9);
-                  }
-                });
-
-            //          {"name": "FIELD_IDENTIFIER", "hCodeValue": 10},
-            add(
-                new HashMap<String, Object>() {
-
-                  {
-                    put("name", "FIELD_IDENTIFIER");
-                    put(H_CODE_VALUE, 10);
-                  }
-                });
-
-            //          {"name": "ANNOTATION_DECLARATOR", "hCodeValue": 11}
-            add(
-                new HashMap<String, Object>() {
-
-                  {
-                    put("name", "ANNOTATION_DECLARATOR");
-                    put(H_CODE_VALUE, 11);
-                  }
-                });
-          }
-        });
+            {
+              put("name", codes[finalI]);
+              put(H_CODE_VALUE, finalI);
+            }
+          });
+    }
+    return ResponseEntity.ok(response_codes);
   }
 
   public static void main(String[] args) {
