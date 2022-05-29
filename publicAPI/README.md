@@ -19,7 +19,7 @@ npm install
 npm run start
 ```
 
-The server is available at http://localhost:8000/.
+The server is available at http://localhost:3000/.
 
 ## Test
 
