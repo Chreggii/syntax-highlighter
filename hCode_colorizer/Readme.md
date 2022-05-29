@@ -1,29 +1,17 @@
 # hCode Colorizer
-
+The hCode Colorizer is a Python Flask application that acts as a microservice withing the syntax-highlighter project.
+It is responsible to map the incoming hCode values to hexCodes or convert the incoming hCode values and text into html code.
+The colorizer is embedded into the docker-compose file of the syntax-highlighter project. Adjustments have to be taken in the Dockerfile and the requirements files.
+Tests are written in the test_app.py file. API Specifications can be read in the Docs folder.
+It can be run locally as a stand-alone service following the next steps:
 ## Dependencies
-
-This serivce uses `pip-tools` to manage the dependencies. (`pip install pip-tools`)
-
-### Install dependencies
-
+Before starting the application run the following command to install the dependencies:
 ```
 pip install -r requirements.txt
 ```
 
-### Add dependencies
-
-1. Add your dependency, optionally with a version string to `requirements.in`.
-2. Compile dependencies by running `pip-compile`
-3. Install your dependencies by running `pip-sync` (will remove stuff from your current environment if not needed)
-
-### Upgrade dependencies
-
-Dependencies that are not pinned in `requirements.in` can automatically be upgraded using `pip-compile --upgrade`.
-
-## Formatinng
-
-Use black to automatically format `app.py`:
-
-```bash
-black app.py
+## Run Application
+To run the Flask Application run the following command:
+```
+python app.py
 ```
