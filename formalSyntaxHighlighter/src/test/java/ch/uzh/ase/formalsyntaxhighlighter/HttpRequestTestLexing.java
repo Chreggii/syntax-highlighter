@@ -8,9 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 
-/**
- * Test the lexting part
- */
+/** Test the lexting part */
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class HttpRequestTestLexing {
   @LocalServerPort private int port;
@@ -30,7 +28,8 @@ public class HttpRequestTestLexing {
 
   /**
    * Test lexing for python hello world
-   * @throws Exception 
+   *
+   * @throws Exception
    */
   @Test
   public void pythonLexingHelloWorld() throws Exception {
@@ -45,7 +44,7 @@ public class HttpRequestTestLexing {
   }
 
   /**
-   * @throws Exception  Test lexing for java hello world
+   * @throws Exception Test lexing for java hello world
    */
   @Test
   public void javaLexingHelloWorld() throws Exception {
@@ -61,6 +60,7 @@ public class HttpRequestTestLexing {
 
   /**
    * Test lexing for kotlin hello world
+   *
    * @throws Exception
    */
   @Test
@@ -77,6 +77,7 @@ public class HttpRequestTestLexing {
 
   /**
    * Test lexing for invalid type giving error response
+   *
    * @throws Exception
    */
   @Test

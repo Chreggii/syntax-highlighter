@@ -9,9 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 
-/**
- * Test the highlighting part
- */
+/** Test the highlighting part */
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class HttpRequestTestHighlighting {
   @LocalServerPort private int port;
@@ -31,6 +29,7 @@ public class HttpRequestTestHighlighting {
 
   /**
    * Check the python highlighting of a simple Hello World script
+   *
    * @throws Exception
    */
   @Test
@@ -46,7 +45,8 @@ public class HttpRequestTestHighlighting {
   }
 
   /**
-   *  Check the java highlighting of a simple Hello World script
+   * Check the java highlighting of a simple Hello World script
+   *
    * @throws Exception
    */
   @Test
@@ -62,7 +62,8 @@ public class HttpRequestTestHighlighting {
   }
 
   /**
-   *  Check the kotlin highlighting of a simple Hello World script
+   * Check the kotlin highlighting of a simple Hello World script
+   *
    * @throws Exception
    */
   @Test
@@ -79,6 +80,7 @@ public class HttpRequestTestHighlighting {
 
   /**
    * Test error on invalid type (abc is not valid).
+   *
    * @throws Exception
    */
   @Test
@@ -95,6 +97,7 @@ public class HttpRequestTestHighlighting {
 
   /**
    * Test the getting of the highlighting codes
+   *
    * @throws Exception
    */
   @Test

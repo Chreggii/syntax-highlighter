@@ -17,24 +17,25 @@ import resolver.Python3Resolver;
 import resolver.Resolver;
 
 class PostBody {
-    /**
-     * Global the post body for the API
-     */
+  /** Global the post body for the API */
   public String text;
+
   public String type;
 }
 
 /**
- * The Formal Syntax Highlighter Application that uses the provided .jar file and enables enpoints ot be called.
+ * The Formal Syntax Highlighter Application that uses the provided .jar file and enables enpoints
+ * ot be called.
  */
 @SpringBootApplication
 @RestController
 public class FormalSyntaxHighlighterApplication {
 
-    /**
-     * Info endpoint to check if the application is running (and so there is something on /)
-     * @return A Simple info endpoint
-     */
+  /**
+   * Info endpoint to check if the application is running (and so there is something on /)
+   *
+   * @return A Simple info endpoint
+   */
   @GetMapping("/")
   public Map<String, Object> main() {
     return new HashMap<>() {
@@ -46,12 +47,14 @@ public class FormalSyntaxHighlighterApplication {
     };
   }
 
-    /**
-     * Lexing the data means that the source code is analyzed into the destinct pieces
-     * @param body The source code and type as defined in the main.java.ch.uzh.ase.formalsyntaxhighlighter.PostBody class
-     * @return the lexed data as a hashmap
-     * @throws NoSuchFieldException
-     */
+  /**
+   * Lexing the data means that the source code is analyzed into the destinct pieces
+   *
+   * @param body The source code and type as defined in the
+   *     main.java.ch.uzh.ase.formalsyntaxhighlighter.PostBody class
+   * @return the lexed data as a hashmap
+   * @throws NoSuchFieldException
+   */
   @PostMapping("/lex-string")
   public ResponseEntity<Object> lex(@RequestBody PostBody body) throws NoSuchFieldException {
     Resolver resolver;
@@ -116,12 +119,13 @@ public class FormalSyntaxHighlighterApplication {
     return ResponseEntity.ok(outputData);
   }
 
-    /**
-     * Use a formal model to highlight the source code.
-     * @param body Body the same as for the lexing function.
-     * @return the data necessary for the highlighting as produced by the provided .jar file
-     * @throws NoSuchFieldException
-     */
+  /**
+   * Use a formal model to highlight the source code.
+   *
+   * @param body Body the same as for the lexing function.
+   * @return the data necessary for the highlighting as produced by the provided .jar file
+   * @throws NoSuchFieldException
+   */
   @PostMapping("/highlight-string")
   public ResponseEntity<Object> highlight(@RequestBody PostBody body) throws NoSuchFieldException {
     Resolver resolver;
@@ -191,10 +195,11 @@ public class FormalSyntaxHighlighterApplication {
     return ResponseEntity.ok(outputData);
   }
 
-    /**
-     * The different highlighting codes and their meaning.
-     * @return a list of the available codes.
-     */
+  /**
+   * The different highlighting codes and their meaning.
+   *
+   * @return a list of the available codes.
+   */
   @GetMapping("/highlighting-codes")
   public ResponseEntity<Object> codes() {
     // Not optimal but HCode enum is not available in .jar
@@ -324,6 +329,7 @@ public class FormalSyntaxHighlighterApplication {
           }
         });
   }
+
   public static void main(String[] args) {
     SpringApplication.run(FormalSyntaxHighlighterApplication.class, args);
   }

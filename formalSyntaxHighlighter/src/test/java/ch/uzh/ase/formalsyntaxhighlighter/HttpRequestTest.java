@@ -9,9 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 
-/**
- * Test a simple http request mechanism
- */
+/** Test a simple http request mechanism */
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class HttpRequestTest {
   @LocalServerPort private int port;
@@ -20,6 +18,7 @@ public class HttpRequestTest {
 
   /**
    * Test to check the very simple status endpoint
+   *
    * @throws Exception
    */
   @Test
