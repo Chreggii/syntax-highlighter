@@ -1,5 +1,7 @@
 # ML Classifier
-
+The ML Classifier is a Python Flask application that acts as a microservice
+within the syntax-highlighter project. It trains the ML model and makes predictions.
+It can also be run locally as a stand-alone service following the next steps:
 ## Dependencies
 
 This service uses `pip-tools` to manage the dependencies. (`pip install pip-tools`)
@@ -25,10 +27,15 @@ Dependencies that are not pinned in `requirements.in` can automatically be upgra
 Use black to automatically format `app.py`:
 
 ```bash
-
 black app.py
 ```
 
 ## Model storage
 The models are stored in the `.pt` files. These files contain in my knowledge binary data that cannot be merged 
 in a useful way. As a general rule never merge them with git and just decide for the larger file in case of a conflict.
+
+## Run Application
+To run MlClassifier run the following command:
+```
+python app.py
+```

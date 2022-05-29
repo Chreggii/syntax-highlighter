@@ -57,3 +57,13 @@ We use *spotless* to format the code.
 ```bash
 ./gradlew spotlessApply
 ```
+
+## Docs
+
+JavaDoc comments are available .
+
+To generate the nice html docs:
+
+```bash
+javadoc -d doc src\*
+```
