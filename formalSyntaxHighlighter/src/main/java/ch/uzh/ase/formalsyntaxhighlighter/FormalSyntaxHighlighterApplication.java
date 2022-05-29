@@ -241,10 +241,10 @@ public class FormalSyntaxHighlighterApplication {
       "FIELD_IDENTIFIER",
       "ANNOTATION_DECLARATOR"
     };
-    ArrayList<HashMap<String, Object>> response_codes = new ArrayList();
+    ArrayList<HashMap<String, Object>> responseCodes = new ArrayList();
     for (int i = 0; i < codes.length; i++) {
       int finalI = i;
-      response_codes.add(
+      responseCodes.add(
           new HashMap<String, Object>() {
 
             {
@@ -253,7 +253,7 @@ public class FormalSyntaxHighlighterApplication {
             }
           });
     }
-    return ResponseEntity.ok(response_codes);
+    return ResponseEntity.ok(responseCodes);
   }
 
   public static void main(String[] args) {
