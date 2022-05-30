@@ -1,6 +1,6 @@
 import { Observable, of } from 'rxjs';
 
-import {getBaseUrl} from "../../functions/url-resolver.function";
+import { getBaseUrl } from '../../functions/url-resolver.function';
 
 export const mockHttpService = {
   post: (url: string) => getMockResponse(url),
@@ -8,11 +8,11 @@ export const mockHttpService = {
 };
 
 export const testFormatting = [
-  { hexcode: "#000000", startIndex: 0, endIndex: 1 },
-  { hexcode: "#7f0055", startIndex: 2, endIndex: 4 },
+  { hexcode: '#000000', startIndex: 0, endIndex: 1 },
+  { hexcode: '#7f0055', startIndex: 2, endIndex: 4 },
 ];
 
-export const htmlResponse = `<span style="color:red">Test<span>`
+export const htmlResponse = `<span style="color:red">Test<span>`;
 
 const getMockResponse = (url: string): Observable<{ data: any }> => {
   if (url === `${getBaseUrl()}/highlight-text`) {
@@ -34,5 +34,5 @@ const getMockResponse = (url: string): Observable<{ data: any }> => {
   } else if (url === `${getBaseUrl()}/highlight-file-html`) {
     return of({ data: htmlResponse });
   }
-  return new Observable<{data: null}>();
+  return new Observable<{ data: null }>();
 };
