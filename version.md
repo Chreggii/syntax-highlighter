@@ -1,5 +1,13 @@
 # Version
 
+## 1.0.0
+
+Ladies and gentlemen, this is it.
+
+* Integrate & test everything
+* Train model
+* Fix all the broken parts.
+
 ## 0.4.0
 
 Release for milestone 4.
