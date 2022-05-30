@@ -36,6 +36,12 @@ def get_highlight_string(text, lang):
         json={"text": text, "type": lang},
     )
 
+def get_text_and_lang(request):
+    request_data = request.get_json()
+    text = request_data["text"]
+    lang = request_data["type"]
+    return text, lang
+
 
 def create_app():
     """Create the Flask APP with the endpoints"""
@@ -61,9 +67,7 @@ def create_app():
             hCodeValues prediction of the SHModel.
         """
         # define the parameter that we expect
-        request_data = request.get_json()
-        text = request_data["text"]
-        lang = request_data["type"]
+        text, lang = get_text_and_lang(request)
 
         # check type of 'text' and 'lang', return 400 error if is wrong
         if lang not in types:
@@ -112,10 +116,7 @@ def create_app():
         String
             Message showing the loss of the training process.
         """
-        data = request.json
-
-        text = data["text"]
-        lang = data["type"]
+        text, lang = get_text_and_lang(request)
 
         if lang not in types:
             return "The type should be either 'java', 'kotlin', 'python'!", 400
