@@ -1,8 +1,10 @@
 body {
   background-image: url('../assets/networkbackground.png');
   background-position: top;
-  background-repeat: no-repeat;
+  background-repeat: repeat-y;
   min-height: 1900px;
+  min-width: 1300px;
+  margin: 0 auto;
 }
 
 

@@ -1,4 +1,4 @@
-import { ComponentFixture, getTestBed, TestBed } from '@angular/core/testing';
+import { getTestBed, TestBed } from '@angular/core/testing';
 
 import { CodeUploaderComponent } from './code-uploader.component';
 import {
@@ -33,18 +33,43 @@ describe('CodeUploaderComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it('should send request with empty fields', () => {
+  it('should send text request with empty fields', () => {
     const fixture = TestBed.createComponent(CodeUploaderComponent);
     const app = fixture.componentInstance;
-    app.sendRequest();
+    app.sendTextRequest();
     const req = httpMock.expectOne(`${getBaseUrl()}/highlight-text`);
     expect(req.request.method).toBe('POST');
   });
 
-  it('should not send request when no file found', () => {
+  it('should not send file request when no file found', () => {
     const fixture = TestBed.createComponent(CodeUploaderComponent);
     const app = fixture.componentInstance;
-    app.onFileSelected({ target: { files: [] } });
+    const file = app.uploadFile({ target: { files: [] } });
+    app.sendFileRequest(file, 'darcula');
     httpMock.expectNone(`${getBaseUrl()}/highlight-file`);
+  });
+
+  it('should send Text request without html', () => {
+    const fixture = TestBed.createComponent(CodeUploaderComponent);
+    const app = fixture.componentInstance;
+    app.formText.get('returnHtml')?.setValue('no');
+    app.formText.get('sourceText')?.setValue("print('hello')");
+    app.formText.get('language')?.setValue('python');
+    app.formText.get('mode')?.setValue('classic');
+    app.sendTextRequest();
+    const req = httpMock.expectOne(`${getBaseUrl()}/highlight-text`);
+    expect(req.request.method).toBe('POST');
+  });
+
+  it('should send Text request with html', () => {
+    const fixture = TestBed.createComponent(CodeUploaderComponent);
+    const app = fixture.componentInstance;
+    app.formText.get('returnHtml')?.setValue('yes');
+    app.formText.get('sourceText')?.setValue("print('hello')");
+    app.formText.get('language')?.setValue('python');
+    app.formText.get('mode')?.setValue('classic');
+    app.sendTextRequest();
+    const req = httpMock.expectOne(`${getBaseUrl()}/highlight-text-html`);
+    expect(req.request.method).toBe('POST');
   });
 });

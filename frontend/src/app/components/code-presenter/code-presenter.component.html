@@ -1,8 +1,25 @@
 <body class="code-presenter-box">
-  <h1> Result</h1>
-  <div class="code-wrapper" *ngIf="highlightService.getHighlightText()">
-    <pre>
-      <code [innerHTML]="highlightService.getHighlightText() | safe: 'html'"></code>
+  <h1 *ngIf="!useMLFormatter"> Result for the Formal Syntax Highlighter </h1>
+  <h1 *ngIf="useMLFormatter"> Result for the Machine Learning Syntax Highlighter</h1>
+  <mat-slide-toggle [(ngModel)]="darkModeActivated"> Dark Mode </mat-slide-toggle>
+  <div class="code-wrapper" *ngIf="highlightService.getHighlightTextFormal() && !useMLFormatter && !darkModeActivated" [style.background-color]="'$background-color'">
+    <pre [style.background-color]="'$background-color'">
+      <code [innerHTML]="highlightService.getHighlightTextFormal() | safe: 'html'"></code>
+    </pre>
+  </div>
+  <div class="code-wrapper" *ngIf="highlightService.getHighlightTextFormal() && !useMLFormatter && darkModeActivated" [style.background-color]="'black'">
+    <pre [style.background-color]="'black'">
+      <code [innerHTML]="highlightService.getHighlightTextFormal() | safe: 'html'"></code>
+    </pre>
+  </div>
+  <div class="code-wrapper" *ngIf="highlightService.getHighlightTextML() && useMLFormatter && !darkModeActivated" [style.background-color]="'$background-color'">
+    <pre [style.background-color]="'$background-color'">
+      <code [innerHTML]="highlightService.getHighlightTextML() | safe: 'html'"></code>
+    </pre>
+  </div>
+  <div class="code-wrapper" *ngIf="highlightService.getHighlightTextML() && useMLFormatter && darkModeActivated" [style.background-color]="'black'">
+    <pre [style.background-color]="'black'">
+      <code [innerHTML]="highlightService.getHighlightTextML() | safe: 'html'"></code>
     </pre>
   </div>
 </body>

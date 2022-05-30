@@ -1,12 +1,15 @@
-import { HttpModule, HttpService } from '@nestjs/axios';
-import { HttpStatus } from '@nestjs/common';
-import { Test, TestingModule } from '@nestjs/testing';
-import { of } from 'rxjs';
+import { HttpModule, HttpService } from "@nestjs/axios";
+import { HttpStatus } from "@nestjs/common";
+import { Test, TestingModule } from "@nestjs/testing";
 
-import { HighlightService } from '../services/highlight/highlight.service';
-import { HighlightTextController } from './highlight-text.controller';
+import {
+  mockHttpService,
+  testFormatting,
+} from "../../test/helpers/mock-http-service";
+import { HighlightService } from "../services/highlight/highlight.service";
+import { HighlightTextController } from "./highlight-text.controller";
 
-describe('HighlightTextController', () => {
+describe("HighlightTextController", () => {
   let controller: HighlightTextController;
 
   beforeEach(async () => {
@@ -17,31 +20,40 @@ describe('HighlightTextController', () => {
         HighlightService,
         {
           provide: HttpService,
-          useValue: { post: () => of({ data: [] }), put: () => of() },
-        },]
+          useValue: mockHttpService,
+        },
+      ],
     }).compile();
 
     controller = module.get<HighlightTextController>(HighlightTextController);
   });
 
-  it('should be defined', () => {
+  it("should be defined", () => {
     expect(controller).toBeDefined();
   });
 
   it("should return result when language is supported", async () => {
     controller
-      .highlightText({ sourceText: `printf('test')`, language: "python" })
+      .highlightText({
+        sourceText: `printf('test')`,
+        language: "python",
+        mode: "classic",
+      })
       .subscribe((response) => {
-        expect(response["source-code"]).toBe(`printf('test')`);
-        expect(response["formal-formatting"]).toStrictEqual([]);
-        expect(response["ml-formatting"]).toStrictEqual([]);
+        expect(response.sourceCode).toBe(`printf('test')`);
+        expect(response.formalFormatting).toStrictEqual(testFormatting);
+        expect(response.mlFormatting).toStrictEqual(testFormatting);
       });
   });
 
   it("should return error when language not supported", async () => {
     try {
       controller
-        .highlightText({ sourceText: `printf('test')`, language: "test" })
+        .highlightText({
+          sourceText: `printf('test')`,
+          language: "test",
+          mode: "classic",
+        })
         .subscribe();
     } catch (error) {
       expect(error.status).toBe(HttpStatus.BAD_REQUEST);
@@ -49,7 +61,11 @@ describe('HighlightTextController', () => {
 
     try {
       controller
-        .highlightText({ sourceText: `printf('test')`, language: "" })
+        .highlightText({
+          sourceText: `printf('test')`,
+          language: "",
+          mode: "classic",
+        })
         .subscribe();
     } catch (error) {
       expect(error.status).toBe(HttpStatus.BAD_REQUEST);

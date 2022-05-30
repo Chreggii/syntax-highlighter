@@ -5,19 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './page-ml-model.component.html',
   styleUrls: ['./page-ml-model.component.scss'],
 })
-export class PageMlModelComponent {
-  showSourceCodeField = false;
-  showUploadField = false;
-  showHCodes = false;
-  showResults = false;
-
-  useFile(): void {
-    this.showSourceCodeField = false;
-    this.showUploadField = true;
-  }
-
-  useCode(): void {
-    this.showUploadField = false;
-    this.showSourceCodeField = true;
-  }
-}
+export class PageMlModelComponent {}

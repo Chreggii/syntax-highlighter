@@ -1,11 +1,9 @@
-<div>
+<div class="ml-page">
   <div class="mlModel-top-box">
     <h1>The Smart Online Syntax Highlighter</h1>
     <h2>Machine Learning Syntax Highlighter</h2>
   </div>
-  <app-code-uploader></app-code-uploader>
+  <app-code-uploader [useMLFormatter]="true"></app-code-uploader>
+  <div class="ml-filler"></div>
+  <app-code-presenter [useMLFormatter]="true"></app-code-presenter>
 </div>
-<div class="ml-filler"></div>
-<app-h-code-values-handler></app-h-code-values-handler>
-<div class="ml-filler"></div>
-<app-code-presenter></app-code-presenter>

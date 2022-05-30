@@ -22,7 +22,7 @@ BASE_URL = (
 
 
 def get_lexing(text, lang):
-    """Helper method to make testing easier"""
+    """API request to formalSyntaxHighlighter /lex-string"""
     return requests.post(
         BASE_URL + "/lex-string",
         json={"text": text, "type": lang},
@@ -30,11 +30,18 @@ def get_lexing(text, lang):
 
 
 def get_highlight_string(text, lang):
-    """Helper method to make testing easier"""
+    """API request to formalSyntaxHighlighter /highlight-string"""
     return requests.post(
         BASE_URL + "/highlight-string",
         json={"text": text, "type": lang},
     )
+
+
+def get_text_and_lang(request):
+    request_data = request.get_json()
+    text = request_data["text"]
+    lang = request_data["type"]
+    return text, lang
 
 
 def create_app():
@@ -45,10 +52,23 @@ def create_app():
     @app.route("/ml-highlight", methods=["POST"])
     @app.errorhandler(werkzeug.exceptions.BadRequest)
     def predict():
+        """Predict the highlighting of a string using the SHModel.
+
+        Given the tokenIds it predicts the highlighting of a text using the SHModel.
+
+        Attributes
+        -------
+        text : string
+        type : string: ["python", "kotlin", "java"]
+
+        Returns
+        -------
+        Json
+            contains the formalSyntaxHighlighter /lex-string response and the
+            hCodeValues prediction of the SHModel.
+        """
         # define the parameter that we expect
-        request_data = request.get_json()
-        text = request_data["text"]
-        lang = request_data["type"]
+        text, lang = get_text_and_lang(request)
 
         # check type of 'text' and 'lang', return 400 error if is wrong
         if lang not in types:
@@ -81,10 +101,23 @@ def create_app():
 
     @app.route("/ml-train", methods=["PUT"])
     def learn():
-        data = request.json
+        """Train the SHModel.
 
-        text = data["text"]
-        lang = data["type"]
+        Given the tokenIds and hCodeValues obtained through a request done to
+        the formalSyntaxHighlighter, it instantiate the SHModel, it performs
+        the finetuning and it persists the model.
+
+        Attributes
+        -------
+        text : string
+        type : string: ["python", "kotlin", "java"]
+
+        Returns
+        -------
+        String
+            Message showing the loss of the training process.
+        """
+        text, lang = get_text_and_lang(request)
 
         if lang not in types:
             return "The type should be either 'java', 'kotlin', 'python'!", 400

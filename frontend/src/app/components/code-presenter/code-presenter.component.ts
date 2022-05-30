@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import {HighlightService} from "../../services/highlighter/highlight.service";
+import { HighlightService } from '../../services/highlighter/highlight.service';
 
 @Component({
   selector: 'app-code-presenter',
@@ -7,8 +7,9 @@ import {HighlightService} from "../../services/highlighter/highlight.service";
   styleUrls: ['./code-presenter.component.scss'],
 })
 export class CodePresenterComponent {
+  @Input()
+  public useMLFormatter = false;
+  public darkModeActivated = false;
 
-  constructor(public highlightService: HighlightService) {
-  }
-
+  constructor(public highlightService: HighlightService) {}
 }

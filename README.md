@@ -1,4 +1,16 @@
-# syntax-highlighter
+# Syntax Highlighter
+
+[![Current release version](https://shields.io/github/v/release/Chreggii/syntax-highlighter?display_name=tag&style=for-the-badge)](https://github.com/Chreggii/syntax-highlighter/releases) 
+
+[![Github Issues](https://img.shields.io/github/issues/Chreggii/syntax-highlighter?style=for-the-badge)](https://github.com/Chreggii/syntax-highlighter/issues) ![GitHub closed issues](https://img.shields.io/github/issues-closed/Chreggii/syntax-highlighter?style=for-the-badge) 
+
+![GitHub pull requests](https://img.shields.io/github/issues-pr/Chreggii/syntax-highlighter?style=for-the-badge) ![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/Chreggii/syntax-highlighter?style=for-the-badge) 
+
+![GitHub milestones](https://img.shields.io/github/milestones/closed/Chreggii/syntax-highlighter?style=for-the-badge) 
+
+[![GitHub Starts](https://img.shields.io/github/stars/Chreggii/syntax-highlighter?style=for-the-badge)](https://github.com/Chreggii/syntax-highlighter/stargazers) 
+
+![GitHub contributors](https://img.shields.io/github/contributors/Chreggii/syntax-highlighter?style=for-the-badge)
 
 ## How to start
 
@@ -8,14 +20,7 @@ Use the magic of docker-compose
 docker-compose up
 ```
 
-
-## Access PostgreSQL database
-
-adminer runs on port `8080`
-
-- Server is `database`
-- username is `user`
-- password is `password`
+The frontend will be available on `localhost` and the public API on `localhost:3000`.
 
 
 ## How to fix "Operation not permitted" Error during docker build and run
@@ -28,7 +33,3 @@ Clone with the `--config core.autocrlf=false`:
 ```bash
 git clone --config core.autocrlf=false git@github.com:Chreggii/syntax-highlighter.git
 ```
-
-
-## Coverage
-[![codecov](https://codecov.io/gh/Chreggii/syntax-highlighter/branch/dev/graph/badge.svg)](https://codecov.io/gh/Chreggii/syntax-highlighter)
