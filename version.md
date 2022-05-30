@@ -1,5 +1,13 @@
 # Version
 
+## 0.4.0
+
+Release for milestone 4.
+
+- Integrate color API.
+- Code consistency and formattting for Java.
+- Asynchronous training for ML model.
+
 ## 0.3.0
 
 Release for milstone 3.
