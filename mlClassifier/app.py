@@ -36,6 +36,7 @@ def get_highlight_string(text, lang):
         json={"text": text, "type": lang},
     )
 
+
 def get_text_and_lang(request):
     request_data = request.get_json()
     text = request_data["text"]
